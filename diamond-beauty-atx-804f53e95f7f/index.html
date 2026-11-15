@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Diamond Beauty ATX</title><style>body{font-family:system-ui,-apple-system,sans-serif;background:#F3F4F6;color:#1C1F1A;margin:0;padding:32px 20px}
+main{max-width:560px;margin:0 auto}h1{font-size:23px;margin:0 0 6px}p{color:#46503f;margin:0 0 14px}
+a.m{display:block;background:#fff;border:1px solid #DCE3D3;border-radius:12px;padding:15px 16px;color:#1D3550;font-weight:700;text-decoration:none;margin:8px 0;font-size:17px}
+a.m small{display:block;font-weight:500;color:#5d6a55;font-size:13px;margin-top:3px}a.back{color:#1D3550;font-size:14px}</style><script>
+window.REVIEW_CLIENT='diamond-beauty-atx';
+// Personal access for every client page (12 Nov 2026). The link a person gets carries their token once (…?t=<token>&r=<id>&name=<Name>).
+// It is kept on this device, taken out of the address bar (so it is not shared with a copied link or a screenshot) and sent with
+// every request as `t`. The web app decides who the writer is from the token alone. No token → the page is view-only.
+// The token arrives as …?t=<token> (personal link) or …#t=<token> (from the entry page where a client types their code — the part
+// after # is never sent to a server). It is kept per client (window.REVIEW_CLIENT), because several clients' sites can share one
+// web address and one browser: one client's login must never be offered to another client's pages.
+(function () {
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: token lives for this tab */ } } };
+  var KEY = window.REVIEW_CLIENT ? 'review_token:' + window.REVIEW_CLIENT : 'review_token';
+  var q = new URLSearchParams(location.search), t = q.get('t'), hash = location.hash || '';
+  var h = /(^#|&)t=([^&]*)/.exec(hash);
+  if (!t && h) { try { t = decodeURIComponent(h[2]); } catch (e) { t = ''; } }
+  if (h) hash = hash.replace(/(^#|&)t=[^&]*/, '$1').replace(/^#&/, '#').replace(/^#$/, '');
+  if (t) {
+    store.set(KEY, t);
+    q.delete('t');
+    var rest = q.toString();
+    try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + hash); } catch (e) { /* keep going */ }
+  }
+  // a client whose people logged in before logins were kept per client (window.REVIEW_LEGACY_TOKEN) keeps working without a new link
+  window.REVIEW_TOKEN = t || store.get(KEY) || (window.REVIEW_LEGACY_TOKEN && KEY !== 'review_token' ? store.get('review_token') : '') || '';
+  if (!window.REVIEW_TOKEN) {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.REVIEW_NO_BANNER) return;   // the review page shows its own view-only notice
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
+      bar.textContent = 'This page is open for viewing only. To save decisions and comments, open it with your personal link.';
+      document.body.insertBefore(bar, document.body.firstChild);
+    });
+  }
+})();
+</script></head>
+<body><main><h1>Diamond Beauty ATX</h1><p>Pages for the marketing team:</p><a class="m" href="office/">🏢 AI office<small>Who is working on what right now, what is ready and what waits for your decision</small></a>
+<a class="m" href="review/">✅ Content review<small>finished posts by month: approve / revise / reject</small></a>
+<a class="m" href="plan/">📋 Content plan<small>the plan by month, before production starts</small></a>
+<a class="m" href="ideas/">💡 Ideas and briefs<small>references from Instagram and briefs for the AI</small></a>
+<a class="m" href="updates/">🔄 Changes and new information<small>prices, offers, contacts, what is outdated — the system stops using the old information at once</small></a></main><script>document.querySelectorAll('a.m,a.back').forEach(a=>{if(location.search)a.href+=location.search})</script></body></html>

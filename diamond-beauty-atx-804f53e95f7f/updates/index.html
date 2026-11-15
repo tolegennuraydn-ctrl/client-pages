@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Diamond Beauty ATX · Changes and new information</title>
+<style>
+  
+  :root { --g:#274C72; --gd:#1D3550; --line:#DCE3D3; --bg:#F3F4F6; --ink:#1C1F1A; --mut:#5d6a55; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); margin:0; }
+  header { background:var(--gd); color:#fff; padding:18px 20px; }
+  header h1 { margin:0; font-size:21px; } header p { margin:6px 0 0; font-size:14px; opacity:.85; }
+  main { max-width:1100px; margin:0 auto; padding:16px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:820px) { .grid { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .card h2 { margin:0 0 4px; font-size:18px; } .hint { font-size:13px; color:var(--mut); line-height:1.45; margin:0 0 12px; }
+  label { display:block; font-weight:700; font-size:14px; margin:12px 0 5px; }
+  input[type=url], input[type=text], textarea, select { width:100%; font:inherit; font-size:16px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); }
+  textarea { min-height:110px; resize:vertical; }
+  .choice { display:flex; flex-direction:column; gap:8px; }
+  .choice label { display:flex; gap:10px; align-items:flex-start; font-weight:600; margin:0; border:1px solid var(--line); border-radius:10px; padding:10px 12px; cursor:pointer; }
+  .choice input { margin-top:3px; width:18px; height:18px; }
+  .choice small { display:block; font-weight:400; color:var(--mut); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .btn { font:inherit; font-weight:800; border:0; border-radius:10px; padding:11px 18px; cursor:pointer; background:var(--g); color:#fff; }
+  .btn.sec { background:#F1F5FA; color:var(--gd); border:1px solid #B5C7DB; font-weight:700; }
+  .btn.rec { background:#B5452F; } .btn:disabled { opacity:.5; cursor:default; }
+  .files { font-size:13px; color:var(--mut); margin-top:6px; }
+  .msg { font-size:14px; font-weight:700; margin-top:10px; min-height:20px; } .ok { color:var(--g); } .err { color:#B5452F; }
+  .meter { height:6px; width:120px; background:#eee; border-radius:4px; overflow:hidden; } .meter i { display:block; height:100%; width:0; background:var(--g); }
+  h3 { font-size:17px; margin:22px 0 8px; }
+  .item { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; font-size:14px; line-height:1.45; }
+  .item .top { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; color:var(--mut); font-size:13px; }
+  .item .st { margin-top:6px; font-weight:700; } .item a { color:var(--gd); word-break:break-all; }
+  .item pre { white-space:pre-wrap; font:inherit; margin:6px 0 0; }
+  .namebar { background:#FFF6DF; border-bottom:1px solid #EBCB7A; padding:14px 20px; }
+  .namebar form { max-width:720px; margin:0 auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:15px; }
+  .namebar input { flex:1; min-width:180px; font:inherit; font-size:16px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; }
+  .ver { font-size:11px; color:var(--mut); text-align:right; margin-top:20px; }
+</style>
+<script>
+window.REVIEW_CLIENT='diamond-beauty-atx';
+// Personal access for every client page (12 Nov 2026). The link a person gets carries their token once (…?t=<token>&r=<id>&name=<Name>).
+// It is kept on this device, taken out of the address bar (so it is not shared with a copied link or a screenshot) and sent with
+// every request as `t`. The web app decides who the writer is from the token alone. No token → the page is view-only.
+// The token arrives as …?t=<token> (personal link) or …#t=<token> (from the entry page where a client types their code — the part
+// after # is never sent to a server). It is kept per client (window.REVIEW_CLIENT), because several clients' sites can share one
+// web address and one browser: one client's login must never be offered to another client's pages.
+(function () {
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: token lives for this tab */ } } };
+  var KEY = window.REVIEW_CLIENT ? 'review_token:' + window.REVIEW_CLIENT : 'review_token';
+  var q = new URLSearchParams(location.search), t = q.get('t'), hash = location.hash || '';
+  var h = /(^#|&)t=([^&]*)/.exec(hash);
+  if (!t && h) { try { t = decodeURIComponent(h[2]); } catch (e) { t = ''; } }
+  if (h) hash = hash.replace(/(^#|&)t=[^&]*/, '$1').replace(/^#&/, '#').replace(/^#$/, '');
+  if (t) {
+    store.set(KEY, t);
+    q.delete('t');
+    var rest = q.toString();
+    try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + hash); } catch (e) { /* keep going */ }
+  }
+  // a client whose people logged in before logins were kept per client (window.REVIEW_LEGACY_TOKEN) keeps working without a new link
+  window.REVIEW_TOKEN = t || store.get(KEY) || (window.REVIEW_LEGACY_TOKEN && KEY !== 'review_token' ? store.get('review_token') : '') || '';
+  if (!window.REVIEW_TOKEN) {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.REVIEW_NO_BANNER) return;   // the review page shows its own view-only notice
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
+      bar.textContent = 'This page is open for viewing only. To save decisions and comments, open it with your personal link.';
+      document.body.insertBefore(bar, document.body.firstChild);
+    });
+  }
+})();
+</script>
+</head>
+<body>
+<header><h1>Diamond Beauty ATX · Changes and new information</h1>
+<p style="margin:8px 0 0"><a data-home href="../" style="color:#fff;font-weight:700">← Home</a> · <a data-home href="../review/" style="color:#fff;font-weight:700">✅ Content review</a> · <a data-home href="../plan/" style="color:#fff;font-weight:700">📋 Content plan</a> · <a data-home href="../ideas/" style="color:#fff;font-weight:700">💡 Ideas</a></p>
+<p>A price has changed, an offer has ended, there is a new product, a number has changed or something in our materials is outdated — write it here.
+We will stop using the outdated information in all posts at once (including those already scheduled) and from then on write only the new way.</p></header>
+<main>
+<div class="grid">
+  <form class="card" id="fUpd" autocomplete="off">
+    <h2>✏️ What has changed</h2>
+    <label for="uKind">Type of change</label>
+    <select id="uKind">
+      <option>Price</option><option>Offer / promotion (started, ended, changed)</option><option>Product: composition, use, dosage</option>
+      <option>Contacts, links, address, delivery</option><option>Outdated — do not say this any more</option><option>New information</option><option>Other</option>
+    </select>
+    <label for="uOld">Before / what is outdated <span style="font-weight:400;color:#5d6a55">(if any)</span></label>
+    <textarea id="uOld" placeholder=""></textarea>
+    <label for="uNew">What is correct now</label>
+    <textarea id="uNew" placeholder="" required></textarea>
+    <label for="uSince">Effective from</label>
+    <input type="date" id="uSince" style="width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px">
+    <label>Screenshot or photo (optional)</label>
+    <input type="file" id="uFile" accept="image/*" multiple>
+    <label>Voice explanation (optional)</label>
+    <div class="row"><button type="button" class="btn sec" data-rec="u">🎙 Record a voice note</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
+    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Save the change</button></div>
+    <div class="msg" aria-live="polite"></div>
+  </form>
+  <div class="card">
+    <h2>What happens after you save</h2>
+    <p class="hint" style="font-size:14.5px">1. Within an hour (08:00–23:00, Almaty time) we find every place where the old information is used: the knowledge base,
+      texts, captions, videos, the content plan and scheduled posts.<br><br>
+      2. The old information is blocked at once — it will not get into any new material. Scheduled posts with the old information
+      are taken off the schedule until we fix them.<br><br>
+      3. We fix what can be fixed right away (text, the price on a card, a caption) and put the new version on the review page.<br><br>
+      4. Here, under your message, a status will appear: what has been taken into account and what has been fixed. If something is unclear, we will ask right here.</p>
+  </div>
+</div>
+<h3>Your messages about changes</h3>
+<div id="list"><div class="item">Loading…</div></div>
+<div class="ver">version 15.11 18:17 UTC</div>
+</main>
+<script>
+window.UPD_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=diamond-beauty-atx"};
+document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
+(() => {
+  const C = window.UPD_CONFIG, BUCKET = '0000-00';
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  async function call(body) {
+    let last;
+    for (let t = 0; t < 3; t++) {
+      try {
+        const r = await fetch(C.url, { method: 'POST', body: JSON.stringify({ ...body, t: window.REVIEW_TOKEN, month: BUCKET }) });
+        const j = await r.json(); if (!j.ok) throw new Error(j.error || 'error'); return j;
+      } catch (e) { last = e; await new Promise((ok) => setTimeout(ok, 800 * 2 ** t)); }
+    }
+    throw last;
+  }
+  // ---- who: personal link ?r=olga&name=Olga, otherwise asked once
+  const q = new URLSearchParams(location.search);
+  const rid = (q.get('r') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
+  let name = q.get('name') || ls.get('review_name'), uid = rid ? 'r_' + rid : (ls.get('review_uid') || 'r_' + Math.random().toString(36).slice(2, 10));
+  ls.set('review_uid', uid); if (name) ls.set('review_name', name);
+  const ready = name ? Promise.resolve() : new Promise((done) => {
+    const bar = document.createElement('div'); bar.className = 'namebar';
+    bar.innerHTML = '<form><label for="nm" style="margin:0">What is your name?</label><input id="nm" placeholder="For example: Olga" required><button class="btn">Continue</button></form>';
+    document.querySelector('header').after(bar);
+    bar.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = bar.querySelector('input').value.trim(); if (!v) return; name = v; ls.set('review_name', v); bar.remove(); done(); });
+  });
+
+  const now = new Date(Date.now() + -6 * 3600e3);
+  document.getElementById('uSince').value = now.toISOString().slice(0, 10);
+  const fmtDate = (d) => d ? d.slice(8, 10) + '.' + d.slice(5, 7) + '.' + d.slice(0, 4) : '';
+
+  // ---- voice notes (same recorder settings as the review page: mp4 first for iPhone)
+  const voice = { u: null };
+  document.querySelectorAll('[data-rec]').forEach((b) => {
+    let rec = null, stream = null, chunks = [], t0 = 0, raf = 0;
+    const box = b.parentElement, bar = box.querySelector('.meter i'), info = box.querySelector('.recinfo');
+    b.addEventListener('click', async () => {
+      if (rec) { rec.stop(); return; }
+      try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+      catch (e) { info.textContent = 'The microphone is not available — allow access in the browser or write it as text.'; return; }
+      const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+      rec = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 32000 } : undefined); chunks = [];
+      try { const ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(); ac.createMediaStreamSource(stream).connect(an);
+        const buf = new Uint8Array(an.fftSize); const tick = () => { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128));
+          bar.style.width = Math.min(100, m * 1.6) + '%'; raf = requestAnimationFrame(tick); }; tick(); } catch (e) {}
+      rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+      rec.onstop = () => { cancelAnimationFrame(raf); bar.style.width = '0'; stream.getTracks().forEach((t) => t.stop());
+        const blob = new Blob(chunks, { type: (rec.mimeType || type || 'audio/mp4').split(';')[0] }); rec = null;
+        voice[b.dataset.rec] = blob; b.textContent = '🎙 Record again'; b.classList.remove('rec');
+        info.textContent = `Voice note ${Math.round((Date.now() - t0) / 1000)} s — it will be sent with the form`; };
+      rec.start(); t0 = Date.now(); b.textContent = '⏹ Stop'; b.classList.add('rec'); info.textContent = 'Recording…';
+    });
+  });
+
+  const b64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(blob); });
+  async function upload(id, blobs) {
+    const out = []; let n = 0;
+    for (const f of blobs) {
+      if (f.size > 30e6) throw new Error(`The file “${f.name || 'video'}” is larger than 30 MB — trim the recording or send only the link.`);
+      const mime = (f.type || 'application/octet-stream').split(';')[0], kind = mime.startsWith('image/') ? 'image' : 'audio';
+      const fileId = (await call({ op: 'file', piece: id, kind, mime, num: ++n, who: name, data: await b64(f) })).fileId;
+      out.push({ fileId, mime, kind: mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'voice', name: f.name || `voice-note-${n}` });
+    }
+    return out;
+  }
+  document.getElementById('fUpd').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target, msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]');
+    await ready; btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Saving…';
+    const id = 'update-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
+    try {
+      const all = [...document.getElementById('uFile').files]; if (voice.u) all.push(voice.u);
+      const att = await upload(id, all);
+      const doc = { id, uid, who: name, kind: document.getElementById('uKind').value, old: document.getElementById('uOld').value.trim(),
+        new: document.getElementById('uNew').value.trim(), since: document.getElementById('uSince').value, files: att, created: new Date().toISOString() };
+      await call({ op: 'set', path: 'submissions/' + id, data: doc });
+      msg.className = 'msg ok';
+      msg.textContent = `Saved ✓ ${new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} — within an hour we will block the old information and use the new. The status will appear below.`;
+      form.reset(); voice.u = null; document.getElementById('uSince').value = now.toISOString().slice(0, 10);
+      form.querySelectorAll('.recinfo').forEach((x) => { x.textContent = ''; }); form.querySelectorAll('[data-rec]').forEach((x) => { x.textContent = '🎙 Record a voice note'; });
+      load();
+    } catch (err) { msg.className = 'msg err'; msg.textContent = (err && err.message && err.message.length > 20 ? err.message : 'Not saved — check the internet connection and press again. Your text is not lost.'); }
+    btn.disabled = false;
+  });
+
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  async function load() {
+    let docs = [];
+    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">The list did not load — refresh the page.</div>'; return; }
+    const st = {}; docs.filter((d) => d.path.startsWith('submissions/updatestatus-')).forEach((d) => { st[d.data.id] = d.data; });
+    const items = docs.filter((d) => d.path.startsWith('submissions/update-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
+    document.getElementById('list').innerHTML = items.length ? items.map((it) => {
+      const s = st[it.id];
+      return `<div class="item"><div class="top"><span>${esc(it.kind)}${it.since ? ' · from ' + esc(fmtDate(it.since)) : ''}</span>
+        <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
+        ${it.old ? `<pre><b>Before:</b> ${esc(it.old)}</pre>` : ''}<pre><b>Now:</b> ${esc(it.new)}</pre>
+        ${(it.files || []).length ? `<div class="files">Files: ${it.files.length}</div>` : ''}
+        <div class="st">${s ? esc(s.text) + (s.link ? ` · <a href="${esc(s.link)}">open</a>` : '') : '⏳ Received — within an hour we will block the old information and use the new'}</div></div>`;
+    }).join('') : '<div class="item">No messages yet.</div>';
+  }
+  load(); setInterval(load, 60000);
+})();
+</script>
+</body></html>

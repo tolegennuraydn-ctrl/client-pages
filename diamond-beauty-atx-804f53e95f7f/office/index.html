@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI office Diamond Beauty ATX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* One visual world: a bright office in Diamond Beauty ATX greens. Layout: header + KPI strip, office canvas left, agent roster right, pipeline below. */
+  :root {
+    --bg: #F3F4F6;
+    --ink: #1C1F1A;
+    --muted: #5E6A57;
+    --green: #274C72;
+    --green-deep: #1D3550;
+    --lime: #F2B84B;
+    --card: #FFFFFF;
+    --line: #DCE3D3;
+    --amber: #C98A1B;
+    --display: 'Montserrat', 'Segoe UI', sans-serif;
+    --body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); }
+  header { background: var(--green-deep); color: #fff; padding: 18px 24px 16px; }
+  .hwrap { max-width: 1440px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: 26px; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+  h1 .lime { color: var(--lime); }
+  .sub { font-size: 15px; opacity: .85; }
+  .kpis { max-width: 1440px; margin: 14px auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 0 24px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .kpi b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; color: var(--green); font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--muted); }
+  main { max-width: 1440px; margin: 14px auto; padding: 0 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; }
+  .stage { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px; position: relative; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; cursor: pointer; }
+  .controls { display: flex; gap: 8px; align-items: center; padding: 10px 4px 2px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  button { font: 600 13px var(--body); border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+  button:hover { border-color: var(--green); }
+  button:focus-visible, .agent:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  button.on { background: var(--green); color: #fff; border-color: var(--green); }
+  aside { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .panel h2 { font-family: var(--display); font-size: 15px; margin: 0 0 10px; }
+  .roster { display: flex; flex-direction: column; gap: 6px; max-height: 470px; overflow-y: auto; }
+  .agent { display: grid; grid-template-columns: 14px 1fr; gap: 10px; align-items: start; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; background: #F7F9F3; }
+  .agent:hover, .agent.sel { border-color: var(--green); background: #E8EEF5; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; }
+  .agent .n { font-weight: 600; font-size: 14px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .agent .t { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .chip { font: 600 10.5px var(--body); padding: 2px 7px; border-radius: 999px; background: #E3EFD4; color: var(--green); }
+  .chip.soon { background: #F6E7C9; color: #7A5410; }
+  .detail h3 { font-family: var(--display); margin: 0 0 4px; font-size: 18px; }
+  .detail p { margin: 6px 0; font-size: 14px; line-height: 1.5; }
+  .detail dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; margin: 10px 0 0; }
+  .detail dt { color: var(--muted); }
+  .detail dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .flow { max-width: 1440px; margin: 0 auto 30px; padding: 0 24px; }
+  .flow .panel { padding: 16px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13.5px; }
+  .step { background: #F7F9F3; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  .step b { font-family: var(--display); }
+  .arrow { color: var(--lime); font-weight: 800; }
+  .mode { font-weight: 600; color: var(--ink); background: #FFF6DF; border: 1px solid #EBCB7A; border-radius: 8px; padding: 5px 10px; }
+  .mode.replay { background: #E3EFD4; border-color: #B5C7DB; }
+  .ideasbtn { display: inline-block; background: #274C72; color: #fff; text-decoration: none; font-weight: 800; border-radius: 10px; padding: 9px 14px; font-size: 13.5px; margin-bottom: 10px; }
+  .ideas-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+  .idea { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.4; background: #fff; }
+  .idea .t { color: var(--muted); font-size: 12px; } .idea a { color: #1D3550; word-break: break-all; } .idea .s { font-weight: 700; margin-top: 4px; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  .flow h2, .board h2 { font-family: var(--display); font-size: 15px; margin: 0 0 10px; }
+  .muted { color: var(--muted); font-weight: 500; font-family: var(--body); font-size: 13px; }
+  .step.done { background: #E3EFD4; border-color: #B5C7DB; }
+  .step.work { background: #FFF6DF; border-color: #EBCB7A; }
+  .step.soon { opacity: .6; border-style: dashed; }
+  .step small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .board { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .legend i, .pc i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+  .pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; max-height: 360px; overflow-y: auto; }
+  .pc { border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px; font-size: 12.5px; background: #FBFCF9; }
+  .pc b { font-family: var(--display); margin-right: 4px; }
+  .pc .f { color: var(--muted); }
+  .pc .tt { display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .feed { list-style: none; margin: 0; padding: 0; max-height: 400px; overflow-y: auto; font-size: 13px; }
+  .feed li { display: grid; grid-template-columns: 112px 1fr; gap: 8px; padding: 5px 0; border-bottom: 1px solid #EEF1E8; }
+  .feed time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .feed .who { font-weight: 600; margin-right: 4px; }
+  .chip.done { background: #E3EFD4; color: var(--green); }
+  .chip.wait { background: #EEF1F4; color: #4A5560; }
+  @media (max-width: 1100px) { main { grid-template-columns: 1fr; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .board { grid-template-columns: 1fr; } .roster { max-height: none; } }
+  @media (max-width: 520px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } header, main, .kpis, .flow { padding-left: 16px; padding-right: 16px; } }
+</style>
+</head>
+<body><div style="background:#fff;border-bottom:1px solid #DCE3D3;padding:8px 20px;font:14px system-ui,-apple-system,sans-serif"><a id="officeHome" href="../" style="color:#1D3550;font-weight:700;text-decoration:none">← Home</a></div><script>(function(){var a=document.getElementById('officeHome');if(location.search)a.href+=location.search;})();</script>
+<header>
+  <div class="hwrap">
+    <h1><span id="hclient"></span> · <span class="lime">AI marketing department</span></h1>
+    <div class="sub" id="hsub"></div>
+  </div>
+</header>
+<section class="kpis" id="kpis" aria-label="Month summary"></section>
+<main>
+  <div class="stage">
+    <canvas id="office" width="1280" height="780" aria-label="Animated office: the agents work at their desks and hand work to each other"></canvas>
+    <div class="controls">
+      <button id="replay" class="on">▶ Show how the month went</button>
+      <button id="play" aria-pressed="false" hidden>Pause</button>
+      <button id="speed" aria-pressed="false" hidden>Speed ×1</button>
+      <span id="mode" class="mode"></span>
+      <span>Click an agent to see their results.</span>
+    </div>
+  </div>
+  <aside>
+    <div class="panel detail" id="detail" aria-live="polite"></div>
+    <div class="panel">
+      <h2>Team</h2>
+      <div class="roster" id="roster"></div>
+    </div>
+  </aside>
+</main>
+<section class="flow">
+  <div class="panel">
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 10px">How the month goes</h2>
+    <div class="steps" id="steps"></div>
+    <div class="note">Every number on this page is counted from the month’s real files: the plan, finished pieces, checks, the spending log, the client’s feedback. The page is updated after every run. Every fact in the content comes only from the knowledge base; nothing is posted without approval.</div>
+  </div>
+</section>
+<section class="flow ideas">
+  <div class="panel">
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 6px">💡 The client’s ideas and requests <span class="muted">— references from Instagram for next month’s plan · prompts for AI</span></h2>
+    <p class="note" style="margin:0 0 10px">The client adds a link to a Reel or post and writes what to repeat — the Idea scout puts it into next month’s content plan strictly in their words.
+      A request marked “as soon as possible” is taken up at the daily morning check, and the finished version appears on the review page.</p>
+    <a class="ideasbtn" id="ideasForm" target="_blank" rel="noopener">Open the “Ideas and requests” form ↗</a>
+    <div class="ideas-list" id="ideasList"></div>
+  </div>
+</section>
+<section class="flow board">
+  <div class="panel">
+    <h2>This month’s pieces</h2>
+    <div class="legend" id="legend"></div>
+    <div class="pieces" id="pieces"></div>
+  </div>
+  <div class="panel">
+    <h2>Work log <span class="muted">— what the agents really did</span></h2>
+    <ol class="feed" id="feed"></ol>
+  </div>
+</section>
+<script>
+(() => {
+  // ---------- agents: fixed roles/tools here; state, numbers, tasks and hand-offs come from DATA (engine/office/build_office.py) ----------
+  const DATA = {"client": "Diamond Beauty ATX", "month": "2026-11", "month_label": "November 2026", "months": [], "generated": "2026-11-15 18:17", "kpis": [["0", "posts in the plan"], ["0/0", "ready (video edited, design laid out)"], ["0/0", "passed the fact check (QA)"], ["0/0", "reviewed by the client · ✔ 0 · changes 0"], ["0", "changes made from feedback"], ["$0.0", "of the $30 AI budget · as of 15.11 (updated every day)"], ["157", "entries in the knowledge base — there are no other facts"], ["0", "playbook rules from feedback"]], "board": ["0 posts", "0 Reels", "QA 0/0", "$0.0/30"], "ideas": [], "ideas_form": "https://tolegennuraydn-ctrl.github.io/client-pages/diamond-beauty-atx-804f53e95f7f/ideas/?r=olga&name=Olga", "agents": {"community": {"state": "soon", "stats": [["Answered", "0"], ["Sent on to a person to contact", "0"], ["Passed to a person", "0"]], "tasks": ["Waiting for Instagram access"]}, "researcher": {"state": "wait", "stats": [["Research for the plan", "2026-12: on the 18th"], ["Tracks in the music library", "10"]], "tasks": ["Season, holidays, sales events, niche trends — before every plan", "Music library: 10 tracks"]}, "duty": {"state": "work", "stats": [["Latest check", "2026-11-15 08:38"], ["State", "problems: 7"], ["Warnings", "1"], ["Lessons → automatic checks", "24"], ["Approved, waiting to be posted", "0"]], "tasks": ["System check every morning", "24 past mistakes under control", "stock: only 0 approved posts left to publish (one per day) — 0 pieces "]}, "scout": {"state": "wait", "stats": [["Ideas in the bank", "0 new · 0 used"], ["Client's notes applied", "0 of 0"], ["Client's references", "0 (for next month's plan)"], ["“As soon as possible” requests", "0 · in progress 0"], ["Waiting for the owner ⛔", "0"]], "tasks": ["I study the client's references and write prompts strictly from their comments", "I check the client's form once a day"]}, "analyst": {"state": "soon", "stats": [["Report", "every month on the 29th"], ["Data", "after the Instagram API is connected"]], "tasks": ["Waiting for Instagram API access for the statistics"]}, "strategist": {"state": "wait", "stats": [["Plan", "0 posts"], ["Next month's plan", "written on the 18th"], ["Formats", ""]], "tasks": ["Content plan 2026-11: 0 posts"]}, "writer": {"state": "done", "stats": [["Texts ready", "0/0"], ["Languages", ""]], "tasks": ["Texts: 0 of 0"]}, "auditor": {"state": "done", "stats": [["QA", "0/0 PASS"], ["Knowledge base", "157 entries"], ["Changes from the client", "0 · in progress 0"], ["Playbook rules", "0"]], "tasks": ["QA: 0/0 PASS", "Every number comes from the knowledge base"]}, "critic": {"state": "done", "stats": [["Checked", "0/0"], ["Rounds", "up to 2 revisions"]], "tasks": ["Read 0 pieces", "Is it clear to the customer?", "Is there a “why”?"]}, "designer": {"state": "done", "stats": [["Ready", "0/0 (carousels, posts, stories)"], ["AI photos and illustrations", "0"]], "tasks": ["Design: 0 of 0"]}, "voice": {"state": "wait", "stats": [["Lines voiced", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for texts"]}, "video": {"state": "wait", "stats": [["AI clips in Reels", "0"], ["Replaced by a moving still", "0"], ["Frames checked", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for scripts"]}, "presenter": {"state": "wait", "stats": [["Reels with the presenter", "0"], ["Lines that passed the speech check", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for scripts"]}, "editor": {"state": "done", "stats": [["Reels edited", "0/0"], ["Loudness", "—"], ["Technical check (no frozen frames or dead air)", "0/0"], ["Shots in the edit", "0"], ["Pause between lines", "—"]], "tasks": ["Reels: 0 of 0"]}, "sound": {"state": "wait", "stats": [["Sound accents", "0"], ["Music", "inside the video, about 17 dB under the voice"]], "tasks": ["0 sound accents in Reels — matched to what happens on screen", "I choose music for each video and measure loudness (−14 LUFS, music under the voice)"]}, "manager": {"state": "done", "stats": [["On the review page", "0"], ["Client reviewed", "0 (✔ 0 · changes 0)"], ["Tasks from feedback", "0 done · 0 in progress · 0 blocked"]], "tasks": ["Client reviewed 0 of 0", "Tasks fixed: 0", "All feedback received"]}, "publisher": {"state": "soon", "stats": [["Posted", "0/0"], ["Rule", "only after the owner and the client approve"]], "tasks": ["Waiting for approval"]}, "budget": {"state": "work", "stats": [["Spent", "$0.00 of $30"], ["Paid calls", "0"], ["Largest items", ""]], "tasks": ["Spent $0.00 of $30 (as of 15.11)", "Left $30.00", "Stops before the limit is passed"]}}, "flow": [], "stages": [{"name": "Analytics and trends", "state": "soon", "detail": "in development"}, {"name": "Content plan", "state": "wait", "detail": "0 posts"}, {"name": "Texts", "state": "done", "detail": "0/0"}, {"name": "Fact check and critique", "state": "done", "detail": "0/0 PASS"}, {"name": "Design, voice, video, editing", "state": "done", "detail": "0/0 ready"}, {"name": "Approval with the client", "state": "done", "detail": "0/0 reviewed · 0 changes made"}, {"name": "Posting", "state": "soon", "detail": "0/0"}, {"name": "Feedback → playbook rules", "state": "done", "detail": "0 rules"}], "feed": [], "pieces": [], "blocked": []};
+  const A = [
+    { id: 'analyst', name: 'Analyst', color: '#3E7CB1', desk: [110, 150],
+      role: 'Counts the Instagram results: a detailed monthly report, and a “Now” page every morning. Its conclusions are binding for the next content plan.',
+      tools: 'Instagram statistics (official API) · reports on the site' },
+    { id: 'researcher', name: 'Researcher', color: '#5B8C5A', desk: [300, 150],
+      role: 'Before every plan studies the season in the client’s field, holidays, sales events and what works in the niche right now. Adds to the music library.',
+      tools: 'Web search with sources · calendar · music library' },
+    { id: 'strategist', name: 'Strategist', color: '#2F6A2B', desk: [490, 150],
+      role: 'Builds the brief (goals, last month’s numbers, all of the client’s notes and ideas) and writes the content plan: themes, formats, dates, hooks. Every conclusion of the report is tied to specific posts.',
+      tools: 'Brief · automatic plan check' },
+    { id: 'writer', name: 'Copywriter', color: '#7A4FB0', desk: [680, 150],
+      role: 'Writes Reel scripts, carousel texts and captions in the brand’s voice and languages. Hooks are not repeated for two months.',
+      tools: 'Claude · brand voice · playbook' },
+    { id: 'auditor', name: 'Fact auditor', color: '#B5452F', desk: [870, 150],
+      role: 'Checks every number and claim against the client’s knowledge base. Handles the client’s changes: blocks what is outdated, adds what is new, and takes posts with old information off the schedule.',
+      tools: 'QA checklist · knowledge base · “Changes” form' },
+    { id: 'critic', name: 'Critic', color: '#5A5A5A', desk: [1060, 150],
+      role: 'Judges every post independently through the customer’s eyes and checks it against every playbook rule and the client’s earlier notes. Below 8 points or a broken rule means a rewrite.',
+      tools: 'Independent Claude review · playbook' },
+    { id: 'designer', name: 'Designer', color: '#C2557A', desk: [110, 400],
+      role: 'Makes carousels, posts and stories in the brand style: a photo or illustration on every slide, the contact everywhere.',
+      tools: 'HTML/CSS templates · brand font · AI illustrations' },
+    { id: 'voice', name: 'Voice', color: '#D27A2C', desk: [300, 400],
+      role: 'Voices the texts in the brand’s voice and languages; a viewer’s question is spoken by a different voice.',
+      tools: 'Gemini TTS' },
+    { id: 'video', name: 'AI video', color: '#1F8A8A', desk: [490, 400],
+      role: 'Generates short AI clips for the scenes of each script. Checks every frame.',
+      tools: 'Gemini Omni (video) · frame check' },
+    { id: 'presenter', name: 'AI presenter', color: '#3B8F4E', desk: [680, 400],
+      role: 'The presenter avatar speaks their lines on camera. The system checks the speech against the script to the last word.',
+      tools: 'Gemini Omni · speech check' },
+    { id: 'editor', name: 'Editor', color: '#4B5FC1', desk: [870, 400],
+      role: 'Assembles the Reels: captions from the real audio, Instagram safe zones, an animated ending with the call to action.',
+      tools: 'Remotion · ffmpeg' },
+    { id: 'sound', name: 'Sound designer', color: '#8E5BC8', desk: [1060, 400],
+      role: 'Adds sound accents and chooses background music for every video. Loudness is measured: the music is about 17 dB under the voice, and one track is used at most twice a month.',
+      tools: 'Music library · loudness measurement' },
+    { id: 'manager', name: 'Approval manager', color: '#2B6CB0', desk: [110, 640],
+      role: 'Runs approval with the client’s team: the plan and finished pieces are on the review site, each of the client’s notes is a separate task, fixed the same day.',
+      tools: 'Review site · e-mail' },
+    { id: 'publisher', name: 'Publisher', color: '#9A6B2F', desk: [300, 640],
+      role: 'Builds the week’s schedule only from approved pieces, for the client’s platforms.',
+      tools: 'Posting page · scheduling service (being connected)' },
+    { id: 'budget', name: 'Budget control', color: '#6B7A2F', desk: [490, 640],
+      role: 'Counts every paid AI call and stops work before the month’s limit is passed.',
+      tools: 'Spending log' },
+    { id: 'scout', name: 'Idea scout', color: '#C0841A', desk: [680, 640],
+      role: 'Keeps the idea bank: unused facts from the knowledge base, followers’ questions, sequels to the best posts, research finds and the client’s references. Every post has a source for its idea.',
+      tools: 'Idea bank · format library · “Ideas and requests” form' },
+    { id: 'community', name: 'Reply operator', color: '#B0568C', desk: [1060, 640],
+      role: 'Answers comments and messages on Instagram: only from the knowledge base, in the tone of the account’s earlier replies. If the answer is not in the knowledge base, sends the person to a contact. Passes complaints to a person.',
+      tools: 'Instagram API · knowledge base · every reply checked' },
+    { id: 'duty', name: 'Duty officer', color: '#444B6E', desk: [870, 640],
+      role: 'Checks the whole system every morning: code, knowledge base, schedule, site pages, budget, stock of approved posts. Every past mistake has become an automatic check.',
+      tools: 'Health check · lessons log · watchdog on GitHub' },
+  ];
+  const FLOW = DATA.flow;
+  for (const a of A) Object.assign(a, DATA.agents[a.id] || { state: 'wait', stats: [], tasks: ['—'] });
+  for (const a of A) { a.status = a.state; if (!a.tasks.length) a.tasks = ['—']; }
+  const byId = Object.fromEntries(A.map((a) => [a.id, a]));
+
+  // ---------- canvas ----------
+  const cv = document.getElementById('office'), g = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mode = 'idle', playing = true, speed = 1, selected = 'manager', t0 = performance.now(), simT = 0;
+
+  A.forEach((a, i) => {
+    a.x = a.desk[0]; a.y = a.desk[1] + 46; a.state = 'sit'; a.task = 0; a.taskT = 2 + (i % 5) * 0.7;
+    a.path = []; a.carry = null; a.bubble = a.tasks[0]; a.bubbleT = 3 + (i % 4); a.walkPh = 0;
+  });
+
+  // corridors between desk rows: y = 285 and 525; vertical moves on x of the desk
+  function route(a, tx, ty) {
+    const cy = Math.abs(a.y - ty) < 30 ? a.y : (a.y < 400 && ty < 400 ? 285 : a.y > 400 && ty > 400 ? 525 : null);
+    const pts = [];
+    if (cy !== null) { pts.push([a.x, cy], [tx, cy], [tx, ty]); }
+    else { const c1 = a.y < ty ? (a.y < 400 ? 285 : 525) : (a.y > 520 ? 525 : 285); const c2 = c1 === 285 ? 525 : 285;
+      pts.push([a.x, c1], [1230, c1], [1230, c2], [tx, c2], [tx, ty]); }
+    a.path = pts;
+  }
+  let flowI = 0, flowT = 1.5;
+  function nextHandoff() {
+    if (!FLOW.length) return;
+    let tries = 0, from, to, what;
+    if (byId[FLOW[flowI][0]].state !== 'work') return;  // wait until the sender is back at the desk — keeps the real order
+    [from, to, what] = FLOW[flowI]; flowI++; tries++;
+    updateMode();
+    const a = byId[from], b = byId[to];
+    if (a.state !== 'work' || a.status === 'soon') return;
+    a.state = 'go'; a.carry = what; a.target = to; a.bubble = `Carrying: ${what} → ${b.name}`; a.bubbleT = 4;
+    route(a, b.desk[0] + 40, b.desk[1] + 56);
+  }
+
+  function step(dt) {
+    simT += dt;
+    flowT -= dt;
+    if (mode === 'replay') {
+      if (flowI < FLOW.length) { if (flowT <= 0) { nextHandoff(); flowT = 1.4; } }
+      else if (A.every((a) => a.state === 'work')) endReplay();
+    }
+    for (const a of A) {
+      a.bubbleT -= dt;
+      if (a.state === 'work' || a.state === 'sit') {
+        a.taskT -= dt;
+        if (a.taskT <= 0 && a.status !== 'soon') { a.task = (a.task + 1) % a.tasks.length; a.bubble = a.tasks[a.task]; a.bubbleT = 4.2; a.taskT = 5 + (a.desk[0] % 3); }
+      } else if (a.path.length) {
+        const [px, py] = a.path[0]; const dx = px - a.x, dy = py - a.y, d = Math.hypot(dx, dy), v = 120 * dt;
+        a.walkPh += dt * 10;
+        if (d <= v) { a.x = px; a.y = py; a.path.shift(); } else { a.x += dx / d * v; a.y += dy / d * v; }
+      } else if (a.state === 'go') {
+        const b = byId[a.target]; a.state = 'back'; a.bubble = `Done: ${a.carry}`; a.bubbleT = 2.5; b.bubble = `Received: ${a.carry}`; b.bubbleT = 3;
+        a.carry = null; route(a, a.desk[0], a.desk[1] + 46);
+      } else if (a.state === 'back') { a.state = 'work'; a.taskT = 2; }
+    }
+  }
+
+  // ---------- drawing ----------
+  function rr(x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, r); }
+  function drawRoom() {
+    g.fillStyle = '#E9EDE2'; g.fillRect(0, 0, W, H);
+    // floor planks
+    for (let y = 0; y < H; y += 26) { g.fillStyle = (y / 26) % 2 ? '#EEF1E8' : '#E8ECE1'; g.fillRect(0, y, W, 26); }
+    // zone rugs
+    const zones = [[40, 60, 1100, 210, 'Strategy and texts'], [40, 310, 1180, 210, 'Production'], [40, 550, 1180, 210, 'Approval · posting · budget · ideas · control']];
+    for (const [x, y, w, h, label] of zones) { g.fillStyle = 'rgba(39,76,114,.06)'; rr(x, y, w, h, 18); g.fill(); g.fillStyle = '#5E6A57'; g.font = '600 13px "IBM Plex Sans"'; g.fillText(label.toUpperCase(), x + 14, y + 22); }
+    // wall board with live numbers
+    g.fillStyle = '#1D3550'; rr(1160, 70, 100, 190, 10); g.fill();
+    g.fillStyle = '#F2B84B'; g.font = '800 15px Montserrat'; g.fillText('PLAN', 1178, 96);
+    g.fillStyle = '#fff'; g.font = '600 12px "IBM Plex Sans"';
+    DATA.board.forEach((s, i) => g.fillText(s, 1176, 124 + i * 30));
+    // plants & coffee
+    for (const [x, y] of [[1240, 300], [20, 300], [1240, 560], [610, 770]]) { g.fillStyle = '#8B6B4A'; rr(x - 12, y - 4, 24, 20, 4); g.fill(); g.fillStyle = '#3F8A3A'; g.beginPath(); g.arc(x, y - 12, 16, 0, 7); g.fill(); g.fillStyle = '#99C339'; g.beginPath(); g.arc(x + 6, y - 18, 8, 0, 7); g.fill(); }
+    g.fillStyle = '#5A4636'; rr(1190, 690, 56, 60, 8); g.fill(); g.fillStyle = '#fff'; g.font = '600 11px "IBM Plex Sans"'; g.fillText('coffee', 1203, 726);
+  }
+  function drawDesk(a) {
+    g.globalAlpha = a.status === 'soon' ? 0.55 : 1; drawDesk0(a); g.globalAlpha = 1;
+  }
+  function drawDesk0(a) {
+    const [x, y] = a.desk;
+    g.fillStyle = '#C9A877'; rr(x - 70, y - 30, 140, 64, 10); g.fill();            // desk
+    g.fillStyle = '#2B2F2A'; rr(x - 34, y - 26, 68, 38, 5); g.fill();               // monitor
+    const glow = a.state === 'work' ? (0.55 + 0.45 * Math.abs(Math.sin(simT * 3 + x))) : 0.25;
+    g.fillStyle = `rgba(242,184,75,${glow})`; rr(x - 30, y - 22, 60, 30, 3); g.fill();
+    if (a.state === 'work') { g.fillStyle = 'rgba(29,53,80,.8)'; for (let i = 0; i < 3; i++) g.fillRect(x - 24, y - 16 + i * 8, 20 + ((simT * 40 + i * 13 + x) % 26), 3); }
+    g.fillStyle = '#3A3F38'; rr(x - 24, y + 16, 48, 10, 3); g.fill();              // keyboard
+    // name plate
+    g.fillStyle = '#fff'; rr(x - 80, y + 76, 160, 22, 6); g.fill(); g.fillStyle = a.color; g.fillRect(x - 80, y + 76, 6, 22);
+    g.fillStyle = '#1C1F1A'; g.font = '600 12.5px "IBM Plex Sans"'; g.textAlign = 'center'; g.fillText(a.name, x + 3, y + 91); g.textAlign = 'left';
+    if (a.status === 'soon') { g.fillStyle = '#F6E7C9'; rr(x + 30, y - 46, 70, 16, 8); g.fill(); g.fillStyle = '#7A5410'; g.font = '600 10px "IBM Plex Sans"'; g.fillText('in development', x + 36, y - 34); }
+  }
+  function drawAgent(a) {
+    g.globalAlpha = a.status === 'soon' ? 0.45 : 1; drawAgent0(a); g.globalAlpha = 1;
+  }
+  function drawAgent0(a) {
+    const walking = a.state === 'go' || a.state === 'back';
+    const bob = walking ? Math.sin(a.walkPh) * 3 : Math.sin(simT * 2 + a.desk[0]) * 0.8;
+    const x = a.x, y = a.y + bob;
+    g.fillStyle = 'rgba(0,0,0,.12)'; g.beginPath(); g.ellipse(x, a.y + 20, 16, 6, 0, 0, 7); g.fill();
+    g.fillStyle = a.color; rr(x - 13, y - 6, 26, 26, 10); g.fill();                  // body
+    g.fillStyle = '#F1C9A5'; g.beginPath(); g.arc(x, y - 16, 11, 0, 7); g.fill();     // head
+    g.fillStyle = '#3B2A20'; g.beginPath(); g.arc(x, y - 19, 11, Math.PI, 0); g.fill(); // hair
+    if (a.state === 'work') { g.fillStyle = '#F1C9A5'; const k = Math.sin(simT * 16 + a.desk[0]) > 0 ? 2 : -2; g.fillRect(x - 12, y + 2 + k, 6, 5); g.fillRect(x + 6, y + 2 - k, 6, 5); }
+    if (a.carry) { g.fillStyle = '#fff'; rr(x + 10, y - 4, 18, 22, 3); g.fill(); g.strokeStyle = a.color; g.lineWidth = 2; g.stroke(); g.fillStyle = a.color; g.fillRect(x + 13, y + 2, 12, 2); g.fillRect(x + 13, y + 7, 9, 2); }
+    if (selected === a.id) { g.strokeStyle = '#F2B84B'; g.lineWidth = 3; g.beginPath(); g.ellipse(x, a.y + 20, 22, 9, 0, 0, 7); g.stroke(); }
+  }
+  function drawBubble(a) {
+    if (a.bubbleT <= 0 && selected !== a.id) return;
+    const text = a.bubble; g.font = '600 12.5px "IBM Plex Sans"';
+    const w = Math.min(260, g.measureText(text).width + 20), x = Math.min(W - w - 6, Math.max(6, a.x - w / 2)), y = a.y - 66;
+    g.fillStyle = 'rgba(255,255,255,.96)'; rr(x, y, w, 26, 12); g.fill(); g.strokeStyle = a.color; g.lineWidth = 1.5; g.stroke();
+    g.beginPath(); g.moveTo(a.x - 6, y + 26); g.lineTo(a.x, y + 34); g.lineTo(a.x + 6, y + 26); g.fillStyle = 'rgba(255,255,255,.96)'; g.fill();
+    g.fillStyle = '#1C1F1A'; g.save(); g.beginPath(); g.rect(x + 8, y, w - 16, 26); g.clip(); g.fillText(text, x + 10, y + 17); g.restore();
+  }
+  function draw() {
+    drawRoom(); A.forEach(drawDesk);
+    [...A].sort((p, q) => p.y - q.y).forEach(drawAgent);
+    A.forEach(drawBubble);
+  }
+  function loop(now) {
+    const dt = Math.min(0.05, (now - t0) / 1000); t0 = now;
+    if (playing && !reduce) step(dt * speed);
+    draw(); requestAnimationFrame(loop);
+  }
+
+  // ---------- side panel ----------
+  const CHIP = { work: 'stage in progress', done: 'stage done', wait: 'waiting', soon: 'in development' };
+  const STAGE = { writing: ['Being written', '#B9C3AE'], qa: ['Check', '#E0B84A'], production: ['Production', '#E89A3C'], review: ['Waiting for the client’s feedback', '#7FA7D9'],
+    fixing: ['Changes from feedback', '#D9734A'], fixed: ['Changes made', '#5FA05A'], approved: ['Approved by the client', '#2F6A2B'], rejected: ['Rejected', '#B5452F'], published: ['Posted', '#1F4A1D'] };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  document.getElementById('hclient').textContent = DATA.client;
+  document.title = `AI office ${DATA.client} · ${DATA.month_label}`;
+  document.getElementById('hsub').textContent = `${A.length} agents · ${DATA.month_label} · data updated ${DATA.generated}`;
+  const kp = document.getElementById('kpis');
+  for (const [v, l] of DATA.kpis) { const d = el('div', 'kpi'); d.append(el('b', '', v), el('span', '', l)); kp.append(d); }
+  const st = document.getElementById('steps');
+  DATA.stages.forEach((s, i) => { if (i) st.append(el('span', 'arrow', '→')); const d = el('div', 'step ' + s.state); const b = el('b', '', String(i + 1)); d.append(b, ' ' + s.name, el('small', '', (s.state === 'done' ? '✓ ' : s.state === 'work' ? '● ' : '') + s.detail)); st.append(d); });
+  const counts = {}; DATA.pieces.forEach((p) => (counts[p.stage] = (counts[p.stage] || 0) + 1));
+  const lg = document.getElementById('legend');
+  for (const [k, [name, c]] of Object.entries(STAGE)) if (counts[k]) { const s = el('span'); const i = el('i'); i.style.background = c; s.append(i, `${name}: ${counts[k]}`); lg.append(s); }
+  { const f = document.getElementById('ideasForm'); f.href = DATA.ideas_form || '#';
+    const L = document.getElementById('ideasList'), esc = (x) => String(x || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    L.innerHTML = (DATA.ideas || []).length ? DATA.ideas.map((i) => `<div class="idea"><div class="t">${i.kind === 'reference' ? '📎 Reference' : '✨ Request · ' + esc(i.format)} ·
+      ${i.when === 'asap' ? 'as soon as possible' : 'plan ' + esc(i.for_month)} · ${esc(i.who)} · ${esc(i.created)}</div>
+      ${i.kind === 'reference' && i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.link)}</a>` : ''}<div>${esc(i.text)}</div>
+      <div class="s">${esc(i.status)}${i.result ? ` · <a href="${esc(i.result)}" target="_blank" rel="noopener">view</a>` : ''}</div></div>`).join('')
+      : '<div class="note">No ideas or requests yet. They can be sent with the button above — the link is for the client.</div>'; }
+  const pc = document.getElementById('pieces');
+  for (const p of DATA.pieces) { const [name, c] = STAGE[p.stage] || [p.stage, '#999']; const d = el('div', 'pc'); d.title = name; const i = el('i'); i.style.background = c;
+    d.append(i, el('b', '', p.n ? '№' + p.n : ''), el('span', 'f', p.format), el('span', 'tt', p.title)); pc.append(d); }
+  const fd = document.getElementById('feed');
+  for (const e of DATA.feed) { const li = el('li'); const ag = byId[e.agent]; const tx = el('div'); const who = el('span', 'who', ag ? ag.name : e.agent); if (ag) who.style.color = ag.color; tx.append(who, e.text); li.append(el('time', '', e.ts), tx); fd.append(li); }
+  if (!DATA.feed.length) fd.append(el('li', '', 'No actions this month yet.'));
+  const roster = document.getElementById('roster'), detail = document.getElementById('detail');
+  function renderRoster() {
+    roster.innerHTML = '';
+    for (const a of A) {
+      const el = document.createElement('div'); el.className = 'agent' + (a.id === selected ? ' sel' : ''); el.tabIndex = 0; el.setAttribute('role', 'button');
+      el.innerHTML = `<span class="dot" style="background:${a.color}"></span><div><div class="n">${a.name}<span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></div><div class="t"></div></div>`;
+      el.querySelector('.t').textContent = a.state === 'sit' || a.state === 'work' ? a.tasks[a.task] : (a.carry ? `Carrying: ${a.carry}` : 'Walking back to the desk');
+      el.addEventListener('click', () => select(a.id));
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(a.id); } });
+      roster.appendChild(el);
+    }
+  }
+  function renderDetail() {
+    const a = byId[selected];
+    detail.innerHTML = `<h3 style="color:${a.color}">${a.name} <span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></h3><p></p><dl></dl><div class="note" style="margin-top:10px"></div>`;
+    detail.querySelector('.note').textContent = 'Now: ' + a.tasks.join(' · ');
+    detail.querySelector('p').textContent = a.role;
+    const dl = detail.querySelector('dl');
+    for (const [k, v] of [['Tools', a.tools], ...a.stats]) { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); }
+  }
+  function select(id) { selected = id; byId[id].bubbleT = 4; renderDetail(); renderRoster(); }
+  cv.addEventListener('click', (e) => {
+    const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
+    let best = null, bd = 60;
+    for (const a of A) { const d = Math.min(Math.hypot(a.x - x, a.y - y), Math.hypot(a.desk[0] - x, a.desk[1] - y)); if (d < bd) { bd = d; best = a; } }
+    if (best) select(best.id);
+  });
+  const btnReplay = document.getElementById('replay'), btnPlay = document.getElementById('play'), btnSpeed = document.getElementById('speed'), modeEl = document.getElementById('mode');
+  function updateMode() {
+    if (mode === 'idle') { modeEl.className = 'mode'; modeEl.textContent = `The agents are not running now · last run ${DATA.generated}`; }
+    else { modeEl.className = 'mode replay'; modeEl.textContent = `Month replay: handover ${Math.min(flowI, FLOW.length)} of ${FLOW.length}`; }
+  }
+  function startReplay() {
+    mode = 'replay'; flowI = 0; flowT = 0.3; playing = true;
+    A.forEach((a) => { if (a.state === 'sit') { a.state = 'work'; a.taskT = 1; } });
+    btnReplay.hidden = true; btnPlay.hidden = false; btnSpeed.hidden = false; btnPlay.textContent = 'Pause'; btnPlay.classList.add('on'); updateMode();
+  }
+  function endReplay() {
+    mode = 'idle'; A.forEach((a) => { a.state = 'sit'; a.task = 0; a.bubble = a.tasks[0]; a.bubbleT = 4; });
+    btnReplay.hidden = false; btnPlay.hidden = true; btnSpeed.hidden = true; updateMode();
+  }
+  btnReplay.addEventListener('click', startReplay);
+  updateMode();
+  document.getElementById('play').addEventListener('click', (e) => { playing = !playing; e.target.textContent = playing ? 'Pause' : 'Continue'; e.target.classList.toggle('on', playing); e.target.setAttribute('aria-pressed', String(playing)); });
+  document.getElementById('speed').addEventListener('click', (e) => { speed = speed === 1 ? 2 : speed === 2 ? 3 : 1; e.target.textContent = `Speed ×${speed}`; e.target.setAttribute('aria-pressed', String(speed > 1)); });
+  setInterval(renderRoster, 1000);
+  renderDetail(); renderRoster();
+  if (reduce) { A.forEach((a) => (a.bubbleT = 99)); }
+  A.forEach((a) => { if (a.status === 'soon') { a.bubble = 'in development'; } });
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
