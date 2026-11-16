@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>LetsChina · Изменения и новая информация</title>
+<title>LetsChina · Changes and new information</title>
 <style>
   
   :root { --g:#274C72; --gd:#1D3550; --line:#DCE3D3; --bg:#F3F4F6; --ink:#1C1F1A; --mut:#5d6a55; }
@@ -68,7 +68,7 @@ window.REVIEW_CLIENT='letschina';
       var bar = document.createElement('div');
       bar.setAttribute('role', 'alert');
       bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
-      bar.textContent = 'Страница открыта только для просмотра. Чтобы сохранять решения и комментарии, откройте её по вашей персональной ссылке.';
+      bar.textContent = 'This page is open for viewing only. To save decisions and comments, open it with your personal link.';
       document.body.insertBefore(bar, document.body.firstChild);
     });
   }
@@ -76,52 +76,52 @@ window.REVIEW_CLIENT='letschina';
 </script>
 </head>
 <body>
-<header><h1>LetsChina · Изменения и новая информация</h1>
-<p style="margin:8px 0 0"><a data-home href="../" style="color:#fff;font-weight:700">← На главную</a> · <a data-home href="../review/" style="color:#fff;font-weight:700">✅ Проверка контента</a> · <a data-home href="../plan/" style="color:#fff;font-weight:700">📋 Контент-план</a> · <a data-home href="../ideas/" style="color:#fff;font-weight:700">💡 Идеи</a></p>
-<p>Изменилась цена, закончилась акция, появился новый продукт, сменился номер или что-то в наших материалах устарело — напишите здесь.
-Мы сразу перестанем использовать устаревшее во всех публикациях (и в уже запланированных) и дальше будем писать только по-новому.</p></header>
+<header><h1>LetsChina · Changes and new information</h1>
+<p style="margin:8px 0 0"><a data-home href="../" style="color:#fff;font-weight:700">← Home</a> · <a data-home href="../review/" style="color:#fff;font-weight:700">✅ Content review</a> · <a data-home href="../plan/" style="color:#fff;font-weight:700">📋 Content plan</a> · <a data-home href="../ideas/" style="color:#fff;font-weight:700">💡 Ideas</a></p>
+<p>A price has changed, an offer has ended, there is a new product, a number has changed or something in our materials is outdated — write it here.
+We will stop using the outdated information in all posts at once (including those already scheduled) and from then on write only the new way.</p></header>
 <main>
 <div class="grid">
   <form class="card" id="fUpd" autocomplete="off">
-    <h2>✏️ Что изменилось</h2>
-    <label for="uKind">Тип изменения</label>
+    <h2>✏️ What has changed</h2>
+    <label for="uKind">Type of change</label>
     <select id="uKind">
-      <option>Цена</option><option>Акция / предложение (началась, закончилась, изменилась)</option><option>Продукт: состав, применение, дозировка</option>
-      <option>Контакты, ссылки, адрес, доставка</option><option>Устарело — больше не говорить</option><option>Новая информация</option><option>Другое</option>
+      <option>Price</option><option>Offer / promotion (started, ended, changed)</option><option>Product: composition, use, dosage</option>
+      <option>Contacts, links, address, delivery</option><option>Outdated — do not say this any more</option><option>New information</option><option>Other</option>
     </select>
-    <label for="uOld">Было / что устарело <span style="font-weight:400;color:#5d6a55">(если есть)</span></label>
+    <label for="uOld">Before / what is outdated <span style="font-weight:400;color:#5d6a55">(if any)</span></label>
     <textarea id="uOld" placeholder=""></textarea>
-    <label for="uNew">Как правильно сейчас</label>
+    <label for="uNew">What is correct now</label>
     <textarea id="uNew" placeholder="" required></textarea>
-    <label for="uSince">С какого числа действует</label>
+    <label for="uSince">Effective from</label>
     <input type="date" id="uSince" style="width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px">
-    <label>Скриншот или фото (по желанию)</label>
+    <label>Screenshot or photo (optional)</label>
     <input type="file" id="uFile" accept="image/*" multiple>
-    <label>Голосовое пояснение (по желанию)</label>
-    <div class="row"><button type="button" class="btn sec" data-rec="u">🎙 Записать голосовое</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
-    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Сохранить изменение</button></div>
+    <label>Voice explanation (optional)</label>
+    <div class="row"><button type="button" class="btn sec" data-rec="u">🎙 Record a voice note</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
+    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Save the change</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
   <div class="card">
-    <h2>Что происходит после сохранения</h2>
-    <p class="hint" style="font-size:14.5px">1. В течение часа (08:00–23:00 по Almaty) мы находим все места, где используется старая информация: база знаний,
-      тексты, подписи, видео, контент-план и запланированные публикации.<br><br>
-      2. Старое сразу блокируется — оно больше не попадёт ни в один новый материал. Запланированные публикации со старой информацией
-      снимаем с расписания, пока не исправим.<br><br>
-      3. Исправляем то, что можно исправить сразу (текст, цена на карточке, подпись), и выкладываем новую версию на страницу проверки.<br><br>
-      4. Здесь, под вашим сообщением, появится статус: что учтено и что исправлено. Если что-то неясно — напишем вопрос здесь же.</p>
+    <h2>What happens after you save</h2>
+    <p class="hint" style="font-size:14.5px">1. Within an hour (08:00–23:00, Almaty time) we find every place where the old information is used: the knowledge base,
+      texts, captions, videos, the content plan and scheduled posts.<br><br>
+      2. The old information is blocked at once — it will not get into any new material. Scheduled posts with the old information
+      are taken off the schedule until we fix them.<br><br>
+      3. We fix what can be fixed right away (text, the price on a card, a caption) and put the new version on the review page.<br><br>
+      4. Here, under your message, a status will appear: what has been taken into account and what has been fixed. If something is unclear, we will ask right here.</p>
   </div>
 </div>
-<h3>Ваши сообщения об изменениях</h3>
-<div id="list"><div class="item">Загружаю…</div></div>
-<div class="ver">версия 16.11 18:57 UTC</div>
+<h3>Your messages about changes</h3>
+<div id="list"><div class="item">Loading…</div></div>
+<div class="ver">version 16.11 23:22 UTC</div>
 </main>
 <script>
 window.UPD_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=letschina"};
 document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
 (() => {
   const C = window.UPD_CONFIG, BUCKET = '0000-00';
-  const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   async function call(body) {
     let last;
@@ -140,12 +140,12 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   ls.set('review_uid', uid); if (name) ls.set('review_name', name);
   const ready = name ? Promise.resolve() : new Promise((done) => {
     const bar = document.createElement('div'); bar.className = 'namebar';
-    bar.innerHTML = '<form><label for="nm" style="margin:0">Как вас зовут?</label><input id="nm" placeholder="" required><button class="btn">Продолжить</button></form>';
+    bar.innerHTML = '<form><label for="nm" style="margin:0">What is your name?</label><input id="nm" placeholder="" required><button class="btn">Continue</button></form>';
     document.querySelector('header').after(bar);
     bar.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = bar.querySelector('input').value.trim(); if (!v) return; name = v; ls.set('review_name', v); bar.remove(); done(); });
   });
 
-  const now = new Date(Date.now() + -6 * 3600e3);
+  const now = new Date(Date.now() + -5 * 3600e3);
   document.getElementById('uSince').value = now.toISOString().slice(0, 10);
   const fmtDate = (d) => d ? d.slice(8, 10) + '.' + d.slice(5, 7) + '.' + d.slice(0, 4) : '';
 
@@ -157,7 +157,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     b.addEventListener('click', async () => {
       if (rec) { rec.stop(); return; }
       try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-      catch (e) { info.textContent = 'Микрофон недоступен — разрешите доступ в браузере или напишите текстом.'; return; }
+      catch (e) { info.textContent = 'The microphone is not available — allow access in the browser or write it as text.'; return; }
       const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
       rec = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 32000 } : undefined); chunks = [];
       try { const ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(); ac.createMediaStreamSource(stream).connect(an);
@@ -166,9 +166,9 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
       rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
       rec.onstop = () => { cancelAnimationFrame(raf); bar.style.width = '0'; stream.getTracks().forEach((t) => t.stop());
         const blob = new Blob(chunks, { type: (rec.mimeType || type || 'audio/mp4').split(';')[0] }); rec = null;
-        voice[b.dataset.rec] = blob; b.textContent = '🎙 Записать заново'; b.classList.remove('rec');
-        info.textContent = `Голосовое ${Math.round((Date.now() - t0) / 1000)} с — отправится вместе с формой`; };
-      rec.start(); t0 = Date.now(); b.textContent = '⏹ Остановить'; b.classList.add('rec'); info.textContent = 'Идёт запись…';
+        voice[b.dataset.rec] = blob; b.textContent = '🎙 Record again'; b.classList.remove('rec');
+        info.textContent = `Voice note ${Math.round((Date.now() - t0) / 1000)} s — it will be sent with the form`; };
+      rec.start(); t0 = Date.now(); b.textContent = '⏹ Stop'; b.classList.add('rec'); info.textContent = 'Recording…';
     });
   });
 
@@ -176,17 +176,17 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   async function upload(id, blobs) {
     const out = []; let n = 0;
     for (const f of blobs) {
-      if (f.size > 30e6) throw new Error(`Файл «${f.name || 'видео'}» больше 30 МБ — обрежьте запись или пришлите только ссылку.`);
+      if (f.size > 30e6) throw new Error(`The file “${f.name || 'video'}” is larger than 30 MB — trim the recording or send only the link.`);
       const mime = (f.type || 'application/octet-stream').split(';')[0], kind = mime.startsWith('image/') ? 'image' : 'audio';
       const fileId = (await call({ op: 'file', piece: id, kind, mime, num: ++n, who: name, data: await b64(f) })).fileId;
-      out.push({ fileId, mime, kind: mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'voice', name: f.name || `голосовое-${n}` });
+      out.push({ fileId, mime, kind: mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'voice', name: f.name || `voice-note-${n}` });
     }
     return out;
   }
   document.getElementById('fUpd').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target, msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]');
-    await ready; btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Сохраняю…';
+    await ready; btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Saving…';
     const id = 'update-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
     try {
       const all = [...document.getElementById('uFile').files]; if (voice.u) all.push(voice.u);
@@ -195,28 +195,28 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
         new: document.getElementById('uNew').value.trim(), since: document.getElementById('uSince').value, files: att, created: new Date().toISOString() };
       await call({ op: 'set', path: 'submissions/' + id, data: doc });
       msg.className = 'msg ok';
-      msg.textContent = `Сохранено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — в течение часа заблокируем старое и учтём новое. Статус появится ниже.`;
+      msg.textContent = `Saved ✓ ${new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} — within an hour we will block the old information and use the new. The status will appear below.`;
       form.reset(); voice.u = null; document.getElementById('uSince').value = now.toISOString().slice(0, 10);
-      form.querySelectorAll('.recinfo').forEach((x) => { x.textContent = ''; }); form.querySelectorAll('[data-rec]').forEach((x) => { x.textContent = '🎙 Записать голосовое'; });
+      form.querySelectorAll('.recinfo').forEach((x) => { x.textContent = ''; }); form.querySelectorAll('[data-rec]').forEach((x) => { x.textContent = '🎙 Record a voice note'; });
       load();
-    } catch (err) { msg.className = 'msg err'; msg.textContent = (err && err.message && err.message.length > 20 ? err.message : 'Не сохранилось — проверьте интернет и нажмите ещё раз. Текст не потерян.'); }
+    } catch (err) { msg.className = 'msg err'; msg.textContent = (err && err.message && err.message.length > 20 ? err.message : 'Not saved — check the internet connection and press again. Your text is not lost.'); }
     btn.disabled = false;
   });
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   async function load() {
     let docs = [];
-    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">Список не загрузился — обновите страницу.</div>'; return; }
+    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">The list did not load — refresh the page.</div>'; return; }
     const st = {}; docs.filter((d) => d.path.startsWith('submissions/updatestatus-')).forEach((d) => { st[d.data.id] = d.data; });
     const items = docs.filter((d) => d.path.startsWith('submissions/update-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
     document.getElementById('list').innerHTML = items.length ? items.map((it) => {
       const s = st[it.id];
-      return `<div class="item"><div class="top"><span>${esc(it.kind)}${it.since ? ' · с ' + esc(fmtDate(it.since)) : ''}</span>
+      return `<div class="item"><div class="top"><span>${esc(it.kind)}${it.since ? ' · from ' + esc(fmtDate(it.since)) : ''}</span>
         <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
-        ${it.old ? `<pre><b>Было:</b> ${esc(it.old)}</pre>` : ''}<pre><b>Сейчас:</b> ${esc(it.new)}</pre>
-        ${(it.files || []).length ? `<div class="files">Файлы: ${it.files.length}</div>` : ''}
-        <div class="st">${s ? esc(s.text) + (s.link ? ` · <a href="${esc(s.link)}">открыть</a>` : '') : '⏳ Принято — в течение часа заблокируем старое и учтём новое'}</div></div>`;
-    }).join('') : '<div class="item">Пока сообщений нет.</div>';
+        ${it.old ? `<pre><b>Before:</b> ${esc(it.old)}</pre>` : ''}<pre><b>Now:</b> ${esc(it.new)}</pre>
+        ${(it.files || []).length ? `<div class="files">Files: ${it.files.length}</div>` : ''}
+        <div class="st">${s ? esc(s.text) + (s.link ? ` · <a href="${esc(s.link)}">open</a>` : '') : '⏳ Received — within an hour we will block the old information and use the new'}</div></div>`;
+    }).join('') : '<div class="item">No messages yet.</div>';
   }
   load(); setInterval(load, 60000);
 })();
