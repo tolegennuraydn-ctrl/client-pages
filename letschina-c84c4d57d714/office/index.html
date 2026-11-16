@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-офис LetsChina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* One visual world: a bright office in LetsChina greens. Layout: header + KPI strip, office canvas left, agent roster right, pipeline below. */
+  :root {
+    --bg: #F3F4F6;
+    --ink: #1C1F1A;
+    --muted: #5E6A57;
+    --green: #274C72;
+    --green-deep: #1D3550;
+    --lime: #F2B84B;
+    --card: #FFFFFF;
+    --line: #DCE3D3;
+    --amber: #C98A1B;
+    --display: 'Montserrat', 'Segoe UI', sans-serif;
+    --body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); }
+  header { background: var(--green-deep); color: #fff; padding: 18px 24px 16px; }
+  .hwrap { max-width: 1440px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: 26px; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+  h1 .lime { color: var(--lime); }
+  .sub { font-size: 15px; opacity: .85; }
+  .kpis { max-width: 1440px; margin: 14px auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 0 24px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .kpi b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; color: var(--green); font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--muted); }
+  main { max-width: 1440px; margin: 14px auto; padding: 0 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; }
+  .stage { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px; position: relative; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; cursor: pointer; }
+  .controls { display: flex; gap: 8px; align-items: center; padding: 10px 4px 2px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  button { font: 600 13px var(--body); border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+  button:hover { border-color: var(--green); }
+  button:focus-visible, .agent:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  button.on { background: var(--green); color: #fff; border-color: var(--green); }
+  aside { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .panel h2 { font-family: var(--display); font-size: 15px; margin: 0 0 10px; }
+  .roster { display: flex; flex-direction: column; gap: 6px; max-height: 470px; overflow-y: auto; }
+  .agent { display: grid; grid-template-columns: 14px 1fr; gap: 10px; align-items: start; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; background: #F7F9F3; }
+  .agent:hover, .agent.sel { border-color: var(--green); background: #E8EEF5; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; }
+  .agent .n { font-weight: 600; font-size: 14px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .agent .t { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .chip { font: 600 10.5px var(--body); padding: 2px 7px; border-radius: 999px; background: #E3EFD4; color: var(--green); }
+  .chip.soon { background: #F6E7C9; color: #7A5410; }
+  .detail h3 { font-family: var(--display); margin: 0 0 4px; font-size: 18px; }
+  .detail p { margin: 6px 0; font-size: 14px; line-height: 1.5; }
+  .detail dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; margin: 10px 0 0; }
+  .detail dt { color: var(--muted); }
+  .detail dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .flow { max-width: 1440px; margin: 0 auto 30px; padding: 0 24px; }
+  .flow .panel { padding: 16px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13.5px; }
+  .step { background: #F7F9F3; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  .step b { font-family: var(--display); }
+  .arrow { color: var(--lime); font-weight: 800; }
+  .mode { font-weight: 600; color: var(--ink); background: #FFF6DF; border: 1px solid #EBCB7A; border-radius: 8px; padding: 5px 10px; }
+  .mode.replay { background: #E3EFD4; border-color: #B5C7DB; }
+  .ideasbtn { display: inline-block; background: #274C72; color: #fff; text-decoration: none; font-weight: 800; border-radius: 10px; padding: 9px 14px; font-size: 13.5px; margin-bottom: 10px; }
+  .ideas-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+  .idea { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.4; background: #fff; }
+  .idea .t { color: var(--muted); font-size: 12px; } .idea a { color: #1D3550; word-break: break-all; } .idea .s { font-weight: 700; margin-top: 4px; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  .flow h2, .board h2 { font-family: var(--display); font-size: 15px; margin: 0 0 10px; }
+  .muted { color: var(--muted); font-weight: 500; font-family: var(--body); font-size: 13px; }
+  .step.done { background: #E3EFD4; border-color: #B5C7DB; }
+  .step.work { background: #FFF6DF; border-color: #EBCB7A; }
+  .step.soon { opacity: .6; border-style: dashed; }
+  .step small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .board { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .legend i, .pc i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+  .pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; max-height: 360px; overflow-y: auto; }
+  .pc { border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px; font-size: 12.5px; background: #FBFCF9; }
+  .pc b { font-family: var(--display); margin-right: 4px; }
+  .pc .f { color: var(--muted); }
+  .pc .tt { display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .feed { list-style: none; margin: 0; padding: 0; max-height: 400px; overflow-y: auto; font-size: 13px; }
+  .feed li { display: grid; grid-template-columns: 112px 1fr; gap: 8px; padding: 5px 0; border-bottom: 1px solid #EEF1E8; }
+  .feed time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .feed .who { font-weight: 600; margin-right: 4px; }
+  .chip.done { background: #E3EFD4; color: var(--green); }
+  .chip.wait { background: #EEF1F4; color: #4A5560; }
+  @media (max-width: 1100px) { main { grid-template-columns: 1fr; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .board { grid-template-columns: 1fr; } .roster { max-height: none; } }
+  @media (max-width: 520px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } header, main, .kpis, .flow { padding-left: 16px; padding-right: 16px; } }
+</style>
+</head>
+<body><div style="background:#fff;border-bottom:1px solid #DCE3D3;padding:8px 20px;font:14px system-ui,-apple-system,sans-serif"><a id="officeHome" href="../" style="color:#1D3550;font-weight:700;text-decoration:none">← На главную</a></div><script>(function(){var a=document.getElementById('officeHome');if(location.search)a.href+=location.search;})();</script>
+<header>
+  <div class="hwrap">
+    <h1><span id="hclient"></span> · <span class="lime">AI-отдел маркетинга</span></h1>
+    <div class="sub" id="hsub"></div>
+  </div>
+</header>
+<section class="kpis" id="kpis" aria-label="Итоги месяца"></section>
+<main>
+  <div class="stage">
+    <canvas id="office" width="1280" height="780" aria-label="Анимированный офис: агенты работают за столами и передают работу друг другу"></canvas>
+    <div class="controls">
+      <button id="replay" class="on">▶ Показать, как прошёл месяц</button>
+      <button id="play" aria-pressed="false" hidden>Пауза</button>
+      <button id="speed" aria-pressed="false" hidden>Скорость ×1</button>
+      <span id="mode" class="mode"></span>
+      <span>Нажмите на агента, чтобы увидеть его результаты.</span>
+    </div>
+  </div>
+  <aside>
+    <div class="panel detail" id="detail" aria-live="polite"></div>
+    <div class="panel">
+      <h2>Команда</h2>
+      <div class="roster" id="roster"></div>
+    </div>
+  </aside>
+</main>
+<section class="flow">
+  <div class="panel">
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 10px">Как проходит месяц</h2>
+    <div class="steps" id="steps"></div>
+    <div class="note">Все цифры на этой странице считаются из реальных файлов месяца: план, готовые материалы, проверки, журнал расходов, отзывы клиента. Страница обновляется после каждого запуска. Каждый факт в контенте — только из базы знаний; ничего не публикуется без согласования.</div>
+  </div>
+</section>
+<section class="flow ideas">
+  <div class="panel">
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 6px">💡 Идеи и задания Asem <span class="muted">— референсы из Instagram в план следующего месяца · промпты для ИИ</span></h2>
+    <p class="note" style="margin:0 0 10px">Asem добавляет ссылку на Reels/пост и пишет, что повторить, — Скаут идей включает это в контент-план следующего месяца строго по этим словам.
+      Задание с пометкой «как можно скорее» берём в работу при ежедневной утренней проверке, готовый вариант появляется на странице проверки.</p>
+    <a class="ideasbtn" id="ideasForm" target="_blank" rel="noopener">Открыть форму «Идеи и задания» ↗</a>
+    <div class="ideas-list" id="ideasList"></div>
+  </div>
+</section>
+<section class="flow board">
+  <div class="panel">
+    <h2>Материалы месяца</h2>
+    <div class="legend" id="legend"></div>
+    <div class="pieces" id="pieces"></div>
+  </div>
+  <div class="panel">
+    <h2>Журнал работы <span class="muted">— реальные действия агентов</span></h2>
+    <ol class="feed" id="feed"></ol>
+  </div>
+</section>
+<script>
+(() => {
+  // ---------- agents: fixed roles/tools here; state, numbers, tasks and hand-offs come from DATA (engine/office/build_office.py) ----------
+  const DATA = {"client": "LetsChina", "month": "2026-11", "month_label": "ноябрь 2026", "months": [], "generated": "2026-11-16 18:57", "kpis": [["0", "публикаций в плане"], ["0/0", "готово (видео смонтировано, дизайн сверстан)"], ["0/0", "прошли проверку фактов (QA)"], ["0/0", "проверено клиентом · ✔ 0 · правки 0"], ["0", "правок по отзывам внесено"], ["$0.0", "из $30 бюджета на ИИ · на 16.11 (обновляется каждый день)"], ["59", "записей в базе знаний — других фактов нет"], ["0", "правил в плейбуке из отзывов"]], "board": ["0 публ.", "0 Reels", "QA 0/0", "$0.0/30"], "ideas": [], "ideas_form": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/ideas/", "agents": {"community": {"state": "soon", "stats": [["Отвечено", "0"], ["Направлено в WhatsApp / колл-центр", "0"], ["Передано человеку", "0"]], "tasks": ["Жду доступ к Instagram"]}, "researcher": {"state": "wait", "stats": [["Исследование к плану", "2026-12: 18 числа"], ["Треков в библиотеке музыки", "0"]], "tasks": ["Сезон, праздники, распродажи, тренды ниши — перед каждым планом", "Музыкальная библиотека: 0 треков"]}, "duty": {"state": "work", "stats": [["Последняя проверка", "—"], ["Состояние", "проблем: 0"], ["Предупреждений", "0"], ["Уроков → автоматических проверок", "0"], ["Одобрено и ждёт публикации", "—"]], "tasks": ["Проверка системы каждое утро", "0 прошлых ошибок под контролем"]}, "scout": {"state": "wait", "stats": [["Идей в банке", "0 новых · 0 использовано"], ["Замечаний Asem учтено", "0 из 0"], ["Референсы Asem", "0 (в план следующего месяца)"], ["Задания «как можно скорее»", "0 · в работе 0"], ["Ждут Нур ⛔", "0"]], "tasks": ["Смотрю референсы Asem и пишу промпты строго по комментариям", "Проверяю форму Asem раз в день"]}, "analyst": {"state": "soon", "stats": [["Отчёт", "каждый месяц 29 числа"], ["Данные", "после подключения Instagram API"]], "tasks": ["Жду доступ к Instagram API для статистики"]}, "strategist": {"state": "wait", "stats": [["План", "0 публикаций"], ["План на следующий месяц", "пишется 18 числа"], ["Форматы", ""]], "tasks": ["Контент-план 2026-11: 0 публикаций"]}, "writer": {"state": "done", "stats": [["Тексты готовы", "0/0"], ["Языки", ""]], "tasks": ["Тексты: 0 из 0"]}, "auditor": {"state": "done", "stats": [["QA", "0/0 PASS"], ["База знаний", "59 записей"], ["Изменения от Asem", "0 · в работе 0"], ["Правил плейбука", "0"]], "tasks": ["QA: 0/0 PASS", "Каждая цифра — из базы знаний"]}, "critic": {"state": "done", "stats": [["Проверено", "0/0"], ["Раунды", "до 2 доработок"]], "tasks": ["Прочитал 0 материалов", "Понятно ли зрителю?", "Есть ли «почему»?"]}, "designer": {"state": "done", "stats": [["Готово", "0/0 (карусели, посты, сторис)"], ["ИИ-фото и иллюстрации", "0"]], "tasks": ["Дизайн: 0 из 0"]}, "voice": {"state": "wait", "stats": [["Реплик озвучено", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду тексты"]}, "video": {"state": "wait", "stats": [["ИИ-клипов в Reels", "0"], ["Замена на кадр с движением", "0"], ["Кадров проверено", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду сценарии"]}, "presenter": {"state": "wait", "stats": [["Reels с ведущим", "0"], ["Реплик прошли проверку речи", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду сценарии"]}, "editor": {"state": "done", "stats": [["Reels смонтировано", "0/0"], ["Громкость", "—"], ["Техпроверка (нет застывших кадров и пауз)", "0/0"], ["Планов в монтаже", "0"], ["Пауза между фразами", "—"]], "tasks": ["Reels: 0 из 0"]}, "sound": {"state": "wait", "stats": [["Звуковых акцентов", "0"], ["Музыка", "в самом ролике, тише голоса на ~17 дБ"]], "tasks": ["0 звуковых акцентов в Reels — под то, что происходит в кадре", "Подбираю музыку под ролик и измеряю громкость (−14 LUFS, музыка тише голоса)"]}, "manager": {"state": "done", "stats": [["На странице проверки", "0"], ["Клиент проверил", "0 (✔ 0 · правки 0)"], ["Задачи из отзывов", "0 сделано · 0 в работе · 0 заблокировано"]], "tasks": ["Клиент проверил 0 из 0", "Исправлено задач: 0", "Все отзывы получены"]}, "publisher": {"state": "soon", "stats": [["Опубликовано", "0/0"], ["Правило", "только после согласования Нур и клиента"]], "tasks": ["Жду согласования"]}, "budget": {"state": "work", "stats": [["Потрачено", "$0.00 из $30"], ["Платных вызовов", "0"], ["Крупнейшие статьи", ""]], "tasks": ["Потрачено $0.00 из $30 (на 16.11)", "Остаток $30.00", "Стоп до превышения лимита"]}}, "flow": [], "stages": [{"name": "Аналитика и тренды", "state": "soon", "detail": "в разработке"}, {"name": "Контент-план", "state": "wait", "detail": "0 публикаций"}, {"name": "Тексты KZ/RU", "state": "done", "detail": "0/0"}, {"name": "Проверка фактов и критика", "state": "done", "detail": "0/0 PASS"}, {"name": "Дизайн, озвучка, видео, монтаж", "state": "done", "detail": "0/0 готово"}, {"name": "Согласование с клиентом", "state": "done", "detail": "0/0 проверено · 0 правок внесено"}, {"name": "Публикация", "state": "soon", "detail": "0/0"}, {"name": "Отзывы → правила плейбука", "state": "done", "detail": "0 правил"}], "feed": [], "pieces": [], "blocked": []};
+  const A = [
+    { id: 'analyst', name: 'Аналитик', color: '#3E7CB1', desk: [110, 150],
+      role: 'Считает результаты Instagram: 29 числа — подробный отчёт за месяц, каждое утро — страница «Сейчас». Его выводы обязательны для следующего контент-плана.',
+      tools: 'Статистика Instagram (официальный API) · отчёты на сайте' },
+    { id: 'researcher', name: 'Исследователь', color: '#5B8C5A', desk: [300, 150],
+      role: 'Перед каждым планом изучает сезон в нише клиента, праздники, распродажи и что сейчас работает в нише. Пополняет библиотеку музыки.',
+      tools: 'Веб-поиск с источниками · календарь · библиотека музыки' },
+    { id: 'strategist', name: 'Стратег', color: '#2F6A2B', desk: [490, 150],
+      role: 'Собирает бриф (цели, цифры прошлого месяца, все замечания и идеи Asem) и составляет контент-план: рубрики, форматы, даты, хуки. Каждый вывод из отчёта привязан к конкретным публикациям.',
+      tools: 'Бриф · автоматическая проверка плана' },
+    { id: 'writer', name: 'Копирайтер', color: '#7A4FB0', desk: [680, 150],
+      role: 'Пишет сценарии Reels, тексты каруселей и подписи на языке и в голосе бренда. Хуки не повторяются два месяца.',
+      tools: 'Claude · голос бренда · плейбук' },
+    { id: 'auditor', name: 'Аудитор фактов', color: '#B5452F', desk: [870, 150],
+      role: 'Сверяет каждую цифру и утверждение с базой знаний клиента. Ведёт изменения от Asem: устаревшее блокирует, новое вносит в базу, снимает с расписания публикации со старой информацией.',
+      tools: 'QA-чеклист · база знаний · форма «Изменения»' },
+    { id: 'critic', name: 'Критик', color: '#5A5A5A', desk: [1060, 150],
+      role: 'Независимо оценивает каждую публикацию глазами покупателя и сверяет её с каждым правилом плейбука и прошлыми замечаниями Asem. Ниже 8 баллов или нарушено правило — переделка.',
+      tools: 'Независимая проверка Claude · плейбук' },
+    { id: 'designer', name: 'Дизайнер', color: '#C2557A', desk: [110, 400],
+      role: 'Делает карусели, посты и сторис по фирменному стилю: фото или иллюстрация на каждом слайде, номер WhatsApp везде.',
+      tools: 'HTML/CSS-шаблоны · Montserrat · ИИ-иллюстрации' },
+    { id: 'voice', name: 'Голос', color: '#D27A2C', desk: [300, 400],
+      role: 'Озвучивает тексты голосом бренда на его языке; вопрос зрителя звучит другим голосом.',
+      tools: 'Gemini TTS' },
+    { id: 'video', name: 'AI-видео', color: '#1F8A8A', desk: [490, 400],
+      role: 'Генерирует короткие ИИ-клипы для сцен сценария. Проверяет каждый кадр.',
+      tools: 'Gemini Omni (видео) · проверка кадров' },
+    { id: 'presenter', name: 'AI-ведущий', color: '#3B8F4E', desk: [680, 400],
+      role: 'Ведущий-аватар говорит в кадре свои реплики. Система сверяет его речь со сценарием до последнего слова.',
+      tools: 'Gemini Omni · проверка речи' },
+    { id: 'editor', name: 'Монтажёр', color: '#4B5FC1', desk: [870, 400],
+      role: 'Собирает Reels: субтитры по реальному звуку, безопасные зоны Instagram, анимированная концовка с CTA.',
+      tools: 'Remotion · ffmpeg' },
+    { id: 'sound', name: 'Звукорежиссёр', color: '#8E5BC8', desk: [1060, 400],
+      role: 'Добавляет звуковые акценты и подбирает фоновую музыку под каждый ролик. Громкость измеряется: музыка примерно на 17 дБ тише голоса, один трек не чаще двух раз в месяц.',
+      tools: 'Библиотека музыки · измерение громкости' },
+    { id: 'manager', name: 'Менеджер согласований', color: '#2B6CB0', desk: [110, 640],
+      role: 'Ведёт согласование с командой клиента: план и готовые материалы на сайте проверки, каждое замечание Asem — отдельная задача, исправление в тот же день.',
+      tools: 'Сайт проверки · почта' },
+    { id: 'publisher', name: 'Публикатор', color: '#9A6B2F', desk: [300, 640],
+      role: 'Составляет расписание на неделю только из одобренных материалов (одна публикация в день, 20:30) для Instagram, TikTok и YouTube.',
+      tools: 'Страница публикаций · сервис планирования (подключается)' },
+    { id: 'budget', name: 'Контроль бюджета', color: '#6B7A2F', desk: [490, 640],
+      role: 'Учитывает каждый платный вызов ИИ и останавливает работу до превышения лимита месяца.',
+      tools: 'Журнал расходов' },
+    { id: 'scout', name: 'Скаут идей', color: '#C0841A', desk: [680, 640],
+      role: 'Ведёт банк идей: неиспользованные факты из базы знаний, вопросы подписчиков, продолжения лучших постов, находки из исследования и референсы Asem. У каждой публикации есть источник идеи.',
+      tools: 'Банк идей · библиотека форматов · форма «Идеи и задания»' },
+    { id: 'community', name: 'Оператор ответов', color: '#B0568C', desk: [1060, 640],
+      role: 'Отвечает на комментарии и сообщения в Instagram: только по базе знаний, в тоне прежних ответов аккаунта. Если ответа в базе нет — направляет в WhatsApp или колл-центр. Жалобы передаёт человеку.',
+      tools: 'Instagram API · база знаний · проверка каждого ответа' },
+    { id: 'duty', name: 'Дежурный', color: '#444B6E', desk: [870, 640],
+      role: 'Каждое утро проверяет всю систему: код, базу знаний, расписание, страницы сайта, бюджет, запас одобренных публикаций. Каждая прошлая ошибка превращена в автоматическую проверку.',
+      tools: 'Проверка здоровья · журнал уроков · сторож на GitHub' },
+  ];
+  const FLOW = DATA.flow;
+  for (const a of A) Object.assign(a, DATA.agents[a.id] || { state: 'wait', stats: [], tasks: ['—'] });
+  for (const a of A) { a.status = a.state; if (!a.tasks.length) a.tasks = ['—']; }
+  const byId = Object.fromEntries(A.map((a) => [a.id, a]));
+
+  // ---------- canvas ----------
+  const cv = document.getElementById('office'), g = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mode = 'idle', playing = true, speed = 1, selected = 'manager', t0 = performance.now(), simT = 0;
+
+  A.forEach((a, i) => {
+    a.x = a.desk[0]; a.y = a.desk[1] + 46; a.state = 'sit'; a.task = 0; a.taskT = 2 + (i % 5) * 0.7;
+    a.path = []; a.carry = null; a.bubble = a.tasks[0]; a.bubbleT = 3 + (i % 4); a.walkPh = 0;
+  });
+
+  // corridors between desk rows: y = 285 and 525; vertical moves on x of the desk
+  function route(a, tx, ty) {
+    const cy = Math.abs(a.y - ty) < 30 ? a.y : (a.y < 400 && ty < 400 ? 285 : a.y > 400 && ty > 400 ? 525 : null);
+    const pts = [];
+    if (cy !== null) { pts.push([a.x, cy], [tx, cy], [tx, ty]); }
+    else { const c1 = a.y < ty ? (a.y < 400 ? 285 : 525) : (a.y > 520 ? 525 : 285); const c2 = c1 === 285 ? 525 : 285;
+      pts.push([a.x, c1], [1230, c1], [1230, c2], [tx, c2], [tx, ty]); }
+    a.path = pts;
+  }
+  let flowI = 0, flowT = 1.5;
+  function nextHandoff() {
+    if (!FLOW.length) return;
+    let tries = 0, from, to, what;
+    if (byId[FLOW[flowI][0]].state !== 'work') return;  // wait until the sender is back at the desk — keeps the real order
+    [from, to, what] = FLOW[flowI]; flowI++; tries++;
+    updateMode();
+    const a = byId[from], b = byId[to];
+    if (a.state !== 'work' || a.status === 'soon') return;
+    a.state = 'go'; a.carry = what; a.target = to; a.bubble = `Несу: ${what} → ${b.name}`; a.bubbleT = 4;
+    route(a, b.desk[0] + 40, b.desk[1] + 56);
+  }
+
+  function step(dt) {
+    simT += dt;
+    flowT -= dt;
+    if (mode === 'replay') {
+      if (flowI < FLOW.length) { if (flowT <= 0) { nextHandoff(); flowT = 1.4; } }
+      else if (A.every((a) => a.state === 'work')) endReplay();
+    }
+    for (const a of A) {
+      a.bubbleT -= dt;
+      if (a.state === 'work' || a.state === 'sit') {
+        a.taskT -= dt;
+        if (a.taskT <= 0 && a.status !== 'soon') { a.task = (a.task + 1) % a.tasks.length; a.bubble = a.tasks[a.task]; a.bubbleT = 4.2; a.taskT = 5 + (a.desk[0] % 3); }
+      } else if (a.path.length) {
+        const [px, py] = a.path[0]; const dx = px - a.x, dy = py - a.y, d = Math.hypot(dx, dy), v = 120 * dt;
+        a.walkPh += dt * 10;
+        if (d <= v) { a.x = px; a.y = py; a.path.shift(); } else { a.x += dx / d * v; a.y += dy / d * v; }
+      } else if (a.state === 'go') {
+        const b = byId[a.target]; a.state = 'back'; a.bubble = `Готово: ${a.carry}`; a.bubbleT = 2.5; b.bubble = `Принял: ${a.carry}`; b.bubbleT = 3;
+        a.carry = null; route(a, a.desk[0], a.desk[1] + 46);
+      } else if (a.state === 'back') { a.state = 'work'; a.taskT = 2; }
+    }
+  }
+
+  // ---------- drawing ----------
+  function rr(x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, r); }
+  function drawRoom() {
+    g.fillStyle = '#E9EDE2'; g.fillRect(0, 0, W, H);
+    // floor planks
+    for (let y = 0; y < H; y += 26) { g.fillStyle = (y / 26) % 2 ? '#EEF1E8' : '#E8ECE1'; g.fillRect(0, y, W, 26); }
+    // zone rugs
+    const zones = [[40, 60, 1100, 210, 'Стратегия и тексты'], [40, 310, 1180, 210, 'Продакшн'], [40, 550, 1180, 210, 'Согласование · публикация · бюджет · идеи · контроль']];
+    for (const [x, y, w, h, label] of zones) { g.fillStyle = 'rgba(39,76,114,.06)'; rr(x, y, w, h, 18); g.fill(); g.fillStyle = '#5E6A57'; g.font = '600 13px "IBM Plex Sans"'; g.fillText(label.toUpperCase(), x + 14, y + 22); }
+    // wall board with live numbers
+    g.fillStyle = '#1D3550'; rr(1160, 70, 100, 190, 10); g.fill();
+    g.fillStyle = '#F2B84B'; g.font = '800 15px Montserrat'; g.fillText('ПЛАН', 1178, 96);
+    g.fillStyle = '#fff'; g.font = '600 12px "IBM Plex Sans"';
+    DATA.board.forEach((s, i) => g.fillText(s, 1176, 124 + i * 30));
+    // plants & coffee
+    for (const [x, y] of [[1240, 300], [20, 300], [1240, 560], [610, 770]]) { g.fillStyle = '#8B6B4A'; rr(x - 12, y - 4, 24, 20, 4); g.fill(); g.fillStyle = '#3F8A3A'; g.beginPath(); g.arc(x, y - 12, 16, 0, 7); g.fill(); g.fillStyle = '#99C339'; g.beginPath(); g.arc(x + 6, y - 18, 8, 0, 7); g.fill(); }
+    g.fillStyle = '#5A4636'; rr(1190, 690, 56, 60, 8); g.fill(); g.fillStyle = '#fff'; g.font = '600 11px "IBM Plex Sans"'; g.fillText('кофе', 1203, 726);
+  }
+  function drawDesk(a) {
+    g.globalAlpha = a.status === 'soon' ? 0.55 : 1; drawDesk0(a); g.globalAlpha = 1;
+  }
+  function drawDesk0(a) {
+    const [x, y] = a.desk;
+    g.fillStyle = '#C9A877'; rr(x - 70, y - 30, 140, 64, 10); g.fill();            // desk
+    g.fillStyle = '#2B2F2A'; rr(x - 34, y - 26, 68, 38, 5); g.fill();               // monitor
+    const glow = a.state === 'work' ? (0.55 + 0.45 * Math.abs(Math.sin(simT * 3 + x))) : 0.25;
+    g.fillStyle = `rgba(242,184,75,${glow})`; rr(x - 30, y - 22, 60, 30, 3); g.fill();
+    if (a.state === 'work') { g.fillStyle = 'rgba(29,53,80,.8)'; for (let i = 0; i < 3; i++) g.fillRect(x - 24, y - 16 + i * 8, 20 + ((simT * 40 + i * 13 + x) % 26), 3); }
+    g.fillStyle = '#3A3F38'; rr(x - 24, y + 16, 48, 10, 3); g.fill();              // keyboard
+    // name plate
+    g.fillStyle = '#fff'; rr(x - 80, y + 76, 160, 22, 6); g.fill(); g.fillStyle = a.color; g.fillRect(x - 80, y + 76, 6, 22);
+    g.fillStyle = '#1C1F1A'; g.font = '600 12.5px "IBM Plex Sans"'; g.textAlign = 'center'; g.fillText(a.name, x + 3, y + 91); g.textAlign = 'left';
+    if (a.status === 'soon') { g.fillStyle = '#F6E7C9'; rr(x + 30, y - 46, 70, 16, 8); g.fill(); g.fillStyle = '#7A5410'; g.font = '600 10px "IBM Plex Sans"'; g.fillText('в разработке', x + 36, y - 34); }
+  }
+  function drawAgent(a) {
+    g.globalAlpha = a.status === 'soon' ? 0.45 : 1; drawAgent0(a); g.globalAlpha = 1;
+  }
+  function drawAgent0(a) {
+    const walking = a.state === 'go' || a.state === 'back';
+    const bob = walking ? Math.sin(a.walkPh) * 3 : Math.sin(simT * 2 + a.desk[0]) * 0.8;
+    const x = a.x, y = a.y + bob;
+    g.fillStyle = 'rgba(0,0,0,.12)'; g.beginPath(); g.ellipse(x, a.y + 20, 16, 6, 0, 0, 7); g.fill();
+    g.fillStyle = a.color; rr(x - 13, y - 6, 26, 26, 10); g.fill();                  // body
+    g.fillStyle = '#F1C9A5'; g.beginPath(); g.arc(x, y - 16, 11, 0, 7); g.fill();     // head
+    g.fillStyle = '#3B2A20'; g.beginPath(); g.arc(x, y - 19, 11, Math.PI, 0); g.fill(); // hair
+    if (a.state === 'work') { g.fillStyle = '#F1C9A5'; const k = Math.sin(simT * 16 + a.desk[0]) > 0 ? 2 : -2; g.fillRect(x - 12, y + 2 + k, 6, 5); g.fillRect(x + 6, y + 2 - k, 6, 5); }
+    if (a.carry) { g.fillStyle = '#fff'; rr(x + 10, y - 4, 18, 22, 3); g.fill(); g.strokeStyle = a.color; g.lineWidth = 2; g.stroke(); g.fillStyle = a.color; g.fillRect(x + 13, y + 2, 12, 2); g.fillRect(x + 13, y + 7, 9, 2); }
+    if (selected === a.id) { g.strokeStyle = '#F2B84B'; g.lineWidth = 3; g.beginPath(); g.ellipse(x, a.y + 20, 22, 9, 0, 0, 7); g.stroke(); }
+  }
+  function drawBubble(a) {
+    if (a.bubbleT <= 0 && selected !== a.id) return;
+    const text = a.bubble; g.font = '600 12.5px "IBM Plex Sans"';
+    const w = Math.min(260, g.measureText(text).width + 20), x = Math.min(W - w - 6, Math.max(6, a.x - w / 2)), y = a.y - 66;
+    g.fillStyle = 'rgba(255,255,255,.96)'; rr(x, y, w, 26, 12); g.fill(); g.strokeStyle = a.color; g.lineWidth = 1.5; g.stroke();
+    g.beginPath(); g.moveTo(a.x - 6, y + 26); g.lineTo(a.x, y + 34); g.lineTo(a.x + 6, y + 26); g.fillStyle = 'rgba(255,255,255,.96)'; g.fill();
+    g.fillStyle = '#1C1F1A'; g.save(); g.beginPath(); g.rect(x + 8, y, w - 16, 26); g.clip(); g.fillText(text, x + 10, y + 17); g.restore();
+  }
+  function draw() {
+    drawRoom(); A.forEach(drawDesk);
+    [...A].sort((p, q) => p.y - q.y).forEach(drawAgent);
+    A.forEach(drawBubble);
+  }
+  function loop(now) {
+    const dt = Math.min(0.05, (now - t0) / 1000); t0 = now;
+    if (playing && !reduce) step(dt * speed);
+    draw(); requestAnimationFrame(loop);
+  }
+
+  // ---------- side panel ----------
+  const CHIP = { work: 'этап идёт', done: 'этап выполнен', wait: 'ждёт', soon: 'в разработке' };
+  const STAGE = { writing: ['Пишется', '#B9C3AE'], qa: ['Проверка', '#E0B84A'], production: ['Производство', '#E89A3C'], review: ['Ждёт отзыва клиента', '#7FA7D9'],
+    fixing: ['Правки по отзыву', '#D9734A'], fixed: ['Правки внесены', '#5FA05A'], approved: ['Одобрено клиентом', '#2F6A2B'], rejected: ['Отклонено', '#B5452F'], published: ['Опубликовано', '#1F4A1D'] };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  document.getElementById('hclient').textContent = DATA.client;
+  document.title = `AI-офис ${DATA.client} · ${DATA.month_label}`;
+  document.getElementById('hsub').textContent = `${A.length} агентов · ${DATA.month_label} · данные обновлены ${DATA.generated}`;
+  const kp = document.getElementById('kpis');
+  for (const [v, l] of DATA.kpis) { const d = el('div', 'kpi'); d.append(el('b', '', v), el('span', '', l)); kp.append(d); }
+  const st = document.getElementById('steps');
+  DATA.stages.forEach((s, i) => { if (i) st.append(el('span', 'arrow', '→')); const d = el('div', 'step ' + s.state); const b = el('b', '', String(i + 1)); d.append(b, ' ' + s.name, el('small', '', (s.state === 'done' ? '✓ ' : s.state === 'work' ? '● ' : '') + s.detail)); st.append(d); });
+  const counts = {}; DATA.pieces.forEach((p) => (counts[p.stage] = (counts[p.stage] || 0) + 1));
+  const lg = document.getElementById('legend');
+  for (const [k, [name, c]] of Object.entries(STAGE)) if (counts[k]) { const s = el('span'); const i = el('i'); i.style.background = c; s.append(i, `${name}: ${counts[k]}`); lg.append(s); }
+  { const f = document.getElementById('ideasForm'); f.href = DATA.ideas_form || '#';
+    const L = document.getElementById('ideasList'), esc = (x) => String(x || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    L.innerHTML = (DATA.ideas || []).length ? DATA.ideas.map((i) => `<div class="idea"><div class="t">${i.kind === 'reference' ? '📎 Референс' : '✨ Задание · ' + esc(i.format)} ·
+      ${i.when === 'asap' ? 'как можно скорее' : 'план ' + esc(i.for_month)} · ${esc(i.who)} · ${esc(i.created)}</div>
+      ${i.kind === 'reference' && i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.link)}</a>` : ''}<div>${esc(i.text)}</div>
+      <div class="s">${esc(i.status)}${i.result ? ` · <a href="${esc(i.result)}" target="_blank" rel="noopener">смотреть</a>` : ''}</div></div>`).join('')
+      : '<div class="note">Пока нет идей и заданий. Отправить можно по кнопке выше — ссылка для Asem.</div>'; }
+  const pc = document.getElementById('pieces');
+  for (const p of DATA.pieces) { const [name, c] = STAGE[p.stage] || [p.stage, '#999']; const d = el('div', 'pc'); d.title = name; const i = el('i'); i.style.background = c;
+    d.append(i, el('b', '', p.n ? '№' + p.n : ''), el('span', 'f', p.format), el('span', 'tt', p.title)); pc.append(d); }
+  const fd = document.getElementById('feed');
+  for (const e of DATA.feed) { const li = el('li'); const ag = byId[e.agent]; const tx = el('div'); const who = el('span', 'who', ag ? ag.name : e.agent); if (ag) who.style.color = ag.color; tx.append(who, e.text); li.append(el('time', '', e.ts), tx); fd.append(li); }
+  if (!DATA.feed.length) fd.append(el('li', '', 'Пока нет действий в этом месяце.'));
+  const roster = document.getElementById('roster'), detail = document.getElementById('detail');
+  function renderRoster() {
+    roster.innerHTML = '';
+    for (const a of A) {
+      const el = document.createElement('div'); el.className = 'agent' + (a.id === selected ? ' sel' : ''); el.tabIndex = 0; el.setAttribute('role', 'button');
+      el.innerHTML = `<span class="dot" style="background:${a.color}"></span><div><div class="n">${a.name}<span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></div><div class="t"></div></div>`;
+      el.querySelector('.t').textContent = a.state === 'sit' || a.state === 'work' ? a.tasks[a.task] : (a.carry ? `Несёт: ${a.carry}` : 'Возвращается к столу');
+      el.addEventListener('click', () => select(a.id));
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(a.id); } });
+      roster.appendChild(el);
+    }
+  }
+  function renderDetail() {
+    const a = byId[selected];
+    detail.innerHTML = `<h3 style="color:${a.color}">${a.name} <span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></h3><p></p><dl></dl><div class="note" style="margin-top:10px"></div>`;
+    detail.querySelector('.note').textContent = 'Сейчас: ' + a.tasks.join(' · ');
+    detail.querySelector('p').textContent = a.role;
+    const dl = detail.querySelector('dl');
+    for (const [k, v] of [['Инструменты', a.tools], ...a.stats]) { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); }
+  }
+  function select(id) { selected = id; byId[id].bubbleT = 4; renderDetail(); renderRoster(); }
+  cv.addEventListener('click', (e) => {
+    const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
+    let best = null, bd = 60;
+    for (const a of A) { const d = Math.min(Math.hypot(a.x - x, a.y - y), Math.hypot(a.desk[0] - x, a.desk[1] - y)); if (d < bd) { bd = d; best = a; } }
+    if (best) select(best.id);
+  });
+  const btnReplay = document.getElementById('replay'), btnPlay = document.getElementById('play'), btnSpeed = document.getElementById('speed'), modeEl = document.getElementById('mode');
+  function updateMode() {
+    if (mode === 'idle') { modeEl.className = 'mode'; modeEl.textContent = `Сейчас агенты не запущены · последний запуск ${DATA.generated}`; }
+    else { modeEl.className = 'mode replay'; modeEl.textContent = `Повтор месяца: передача ${Math.min(flowI, FLOW.length)} из ${FLOW.length}`; }
+  }
+  function startReplay() {
+    mode = 'replay'; flowI = 0; flowT = 0.3; playing = true;
+    A.forEach((a) => { if (a.state === 'sit') { a.state = 'work'; a.taskT = 1; } });
+    btnReplay.hidden = true; btnPlay.hidden = false; btnSpeed.hidden = false; btnPlay.textContent = 'Пауза'; btnPlay.classList.add('on'); updateMode();
+  }
+  function endReplay() {
+    mode = 'idle'; A.forEach((a) => { a.state = 'sit'; a.task = 0; a.bubble = a.tasks[0]; a.bubbleT = 4; });
+    btnReplay.hidden = false; btnPlay.hidden = true; btnSpeed.hidden = true; updateMode();
+  }
+  btnReplay.addEventListener('click', startReplay);
+  updateMode();
+  document.getElementById('play').addEventListener('click', (e) => { playing = !playing; e.target.textContent = playing ? 'Пауза' : 'Продолжить'; e.target.classList.toggle('on', playing); e.target.setAttribute('aria-pressed', String(playing)); });
+  document.getElementById('speed').addEventListener('click', (e) => { speed = speed === 1 ? 2 : speed === 2 ? 3 : 1; e.target.textContent = `Скорость ×${speed}`; e.target.setAttribute('aria-pressed', String(speed > 1)); });
+  setInterval(renderRoster, 1000);
+  renderDetail(); renderRoster();
+  if (reduce) { A.forEach((a) => (a.bubbleT = 99)); }
+  A.forEach((a) => { if (a.status === 'soon') { a.bubble = 'в разработке'; } });
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
