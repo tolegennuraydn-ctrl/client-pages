@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Diamond Beauty ATX · Ideas and briefs</title>
+<title>Diamond Beauty ATX · Идеи и задания</title>
 <style>
   
   :root { --g:#274C72; --gd:#1D3550; --line:#DCE3D3; --bg:#F3F4F6; --ink:#1C1F1A; --mut:#5d6a55; }
@@ -67,7 +67,7 @@ window.REVIEW_CLIENT='diamond-beauty-atx';
       var bar = document.createElement('div');
       bar.setAttribute('role', 'alert');
       bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
-      bar.textContent = 'This page is open for viewing only. To save decisions and comments, open it with your personal link.';
+      bar.textContent = 'Страница открыта только для просмотра. Чтобы сохранять решения и комментарии, откройте её по вашей персональной ссылке.';
       document.body.insertBefore(bar, document.body.firstChild);
     });
   }
@@ -75,62 +75,62 @@ window.REVIEW_CLIENT='diamond-beauty-atx';
 </script>
 </head>
 <body>
-<header><h1>Diamond Beauty ATX · Ideas and briefs for the AI team</h1>
-<p style="margin:8px 0 0"><a data-home href="../" style="color:#fff;font-weight:700">← Home</a> · <a data-home href="../review/" style="color:#fff;font-weight:700">✅ Content review</a> · <a data-home href="../plan/" style="color:#fff;font-weight:700">📋 Content plan</a> · <a data-home href="../updates/" style="color:#fff;font-weight:700">🔄 Changes</a></p>
-<p>On the left — Instagram links for next month’s content plan. On the right — a brief (prompt) for the AI: for next month’s plan or as soon as possible.</p></header>
+<header><h1>Diamond Beauty ATX · Идеи и задания для ИИ-отдела</h1>
+<p style="margin:8px 0 0"><a data-home href="../" style="color:#fff;font-weight:700">← На главную</a> · <a data-home href="../review/" style="color:#fff;font-weight:700">✅ Проверка контента</a> · <a data-home href="../plan/" style="color:#fff;font-weight:700">📋 Контент-план</a> · <a data-home href="../updates/" style="color:#fff;font-weight:700">🔄 Изменения</a></p>
+<p>Слева — ссылки на Instagram для контент-плана следующего месяца. Справа — задание (промпт) для ИИ: в план следующего месяца или как можно скорее.</p></header>
 <main>
 <div class="grid">
   <form class="card" id="fRef" autocomplete="off">
-    <h2>📎 References from Instagram</h2>
-    <p class="hint">Paste a link to a Reel or a post you like and write what exactly to repeat and what to change. We will make the same
-      for Diamond Beauty ATX — strictly as you describe — and include it in next month’s content plan. We do not use other people’s video or music: we shoot or generate our own.</p>
-    <label for="rLink">Instagram (or TikTok) link</label>
+    <h2>📎 Референсы из Instagram</h2>
+    <p class="hint">Вставьте ссылку на Reels или пост, который нравится, и напишите, что именно повторить и что изменить. Мы сделаем так же
+      для Diamond Beauty ATX — строго по вашим словам — и включим в контент-план следующего месяца. Чужие видео и музыку не используем: снимаем/генерируем своё.</p>
+    <label for="rLink">Ссылка на Instagram (или TikTok)</label>
     <input type="url" id="rLink" placeholder="https://www.instagram.com/reel/…" required>
-    <label for="rNote">What to repeat and how (what to change, what to keep)</label>
-    <textarea id="rNote" placeholder="For example: the same format — a question at the start, fast cuts, large text. Instead of their product — our Diamond Beauty ATX…" required></textarea>
-    <label>Screen recording or screenshot (optional, but it helps a lot: we see the video the way you do)</label>
+    <label for="rNote">Что повторить и как (что изменить, что оставить)</label>
+    <textarea id="rNote" placeholder="Например: такой же формат — вопрос в начале, быстрый монтаж, текст крупно. Вместо их продукта — наш Diamond Beauty ATX…" required></textarea>
+    <label>Запись экрана или скриншот (по желанию, но очень помогает: мы видим ролик так же, как вы)</label>
     <input type="file" id="rFile" accept="video/*,image/*" multiple>
-    <div class="files">Video up to 30 MB. On iPhone: Control Centre → Screen Recording, then choose the recording here.</div>
-    <label>Voice explanation (optional)</label>
-    <div class="row"><button type="button" class="btn sec" data-rec="r">🎙 Record a voice note</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
-    <label for="rMonth">For which month</label>
+    <div class="files">Видео до 30 МБ. На iPhone: Пункт управления → Запись экрана, затем выберите запись здесь.</div>
+    <label>Голосовое пояснение (по желанию)</label>
+    <div class="row"><button type="button" class="btn sec" data-rec="r">🎙 Записать голосовое</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
+    <label for="rMonth">Для какого месяца</label>
     <select id="rMonth"></select>
-    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Send reference</button></div>
+    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Отправить референс</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
 
   <form class="card" id="fPrompt" autocomplete="off">
-    <h2>✨ Brief for the AI (prompt)</h2>
-    <p class="hint">Paste or write a prompt for a video or a post. Facts, prices and promises are taken only from the Diamond Beauty ATX knowledge base —
-      if the brief contains a new fact, we will first confirm it with Nur.</p>
-    <label for="pText">Prompt / brief</label>
+    <h2>✨ Задание для ИИ (промпт)</h2>
+    <p class="hint">Вставьте или напишите промпт для видео или поста. Факты, цены и обещания берём только из базы знаний Diamond Beauty ATX —
+      если в задании есть новый факт, мы сначала уточним его у Nur.</p>
+    <label for="pText">Промпт / задание</label>
     <textarea id="pText" style="min-height:150px" placeholder="" required></textarea>
-    <label for="pFormat">Format</label>
-    <select id="pFormat"><option>Reels (video)</option><option>Post (image)</option><option>Carousel</option><option>Stories</option></select>
-    <label>Sample file (optional)</label>
+    <label for="pFormat">Формат</label>
+    <select id="pFormat"><option>Reels (видео)</option><option>Пост (картинка)</option><option>Карусель</option><option>Сторис</option></select>
+    <label>Файл-пример (по желанию)</label>
     <input type="file" id="pFile" accept="video/*,image/*" multiple>
-    <label>Voice explanation (optional)</label>
-    <div class="row"><button type="button" class="btn sec" data-rec="p">🎙 Record a voice note</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
-    <label>When to make it</label>
+    <label>Голосовое пояснение (по желанию)</label>
+    <div class="row"><button type="button" class="btn sec" data-rec="p">🎙 Записать голосовое</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
+    <label>Когда сделать</label>
     <div class="choice">
-      <label><input type="radio" name="when" value="next_month" checked><span>1 — In next month’s content plan<small>it will go into the plan for <b class="nm"></b></small></span></label>
-      <label><input type="radio" name="when" value="asap"><span>2 — As soon as possible<small>we start the same day (we check every morning); the finished version will appear on the content review page</small></span></label>
+      <label><input type="radio" name="when" value="next_month" checked><span>1 — В контент-план следующего месяца<small>войдёт в план <b class="nm"></b></small></span></label>
+      <label><input type="radio" name="when" value="asap"><span>2 — Как можно скорее<small>берём в работу в тот же день (проверяем каждое утро); готовый вариант появится на странице проверки контента</small></span></label>
     </div>
-    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Send brief</button></div>
+    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Отправить задание</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
 </div>
 
-<h3>Ideas and briefs you have sent</h3>
-<div id="list"><div class="item">Loading…</div></div>
-<div class="ver">version 15.11 18:24 UTC</div>
+<h3>Ваши отправленные идеи и задания</h3>
+<div id="list"><div class="item">Загружаю…</div></div>
+<div class="ver">версия 16.11 18:46 UTC</div>
 </main>
 <script>
 window.IDEAS_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=diamond-beauty-atx"};
 document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
 (() => {
   const C = window.IDEAS_CONFIG, BUCKET = '0000-00';
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
   const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   async function call(body) {
     let last;
@@ -149,7 +149,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   ls.set('review_uid', uid); if (name) ls.set('review_name', name);
   const ready = name ? Promise.resolve() : new Promise((done) => {
     const bar = document.createElement('div'); bar.className = 'namebar';
-    bar.innerHTML = '<form><label for="nm" style="margin:0">What is your name?</label><input id="nm" placeholder="For example: Olga" required><button class="btn">Continue</button></form>';
+    bar.innerHTML = '<form><label for="nm" style="margin:0">Как вас зовут?</label><input id="nm" placeholder="Например: Olga" required><button class="btn">Продолжить</button></form>';
     document.querySelector('header').after(bar);
     bar.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = bar.querySelector('input').value.trim(); if (!v) return; name = v; ls.set('review_name', v); bar.remove(); done(); });
   });
@@ -170,7 +170,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     b.addEventListener('click', async () => {
       if (rec) { rec.stop(); return; }
       try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-      catch (e) { info.textContent = 'The microphone is not available — allow access in the browser or write it as text.'; return; }
+      catch (e) { info.textContent = 'Микрофон недоступен — разрешите доступ в браузере или напишите текстом.'; return; }
       const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
       rec = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 32000 } : undefined); chunks = [];
       try { const ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(); ac.createMediaStreamSource(stream).connect(an);
@@ -179,9 +179,9 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
       rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
       rec.onstop = () => { cancelAnimationFrame(raf); bar.style.width = '0'; stream.getTracks().forEach((t) => t.stop());
         const blob = new Blob(chunks, { type: (rec.mimeType || type || 'audio/mp4').split(';')[0] }); rec = null;
-        voice[b.dataset.rec] = blob; b.textContent = '🎙 Record again'; b.classList.remove('rec');
-        info.textContent = `Voice note ${Math.round((Date.now() - t0) / 1000)} s — it will be sent with the form`; };
-      rec.start(); t0 = Date.now(); b.textContent = '⏹ Stop'; b.classList.add('rec'); info.textContent = 'Recording…';
+        voice[b.dataset.rec] = blob; b.textContent = '🎙 Записать заново'; b.classList.remove('rec');
+        info.textContent = `Голосовое ${Math.round((Date.now() - t0) / 1000)} с — отправится вместе с формой`; };
+      rec.start(); t0 = Date.now(); b.textContent = '⏹ Остановить'; b.classList.add('rec'); info.textContent = 'Идёт запись…';
     });
   });
 
@@ -189,16 +189,16 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   async function upload(id, blobs) {
     const out = []; let n = 0;
     for (const f of blobs) {
-      if (f.size > 30e6) throw new Error(`The file “${f.name || 'video'}” is larger than 30 MB — trim the recording or send only the link.`);
+      if (f.size > 30e6) throw new Error(`Файл «${f.name || 'видео'}» больше 30 МБ — обрежьте запись или пришлите только ссылку.`);
       const mime = (f.type || 'application/octet-stream').split(';')[0], kind = mime.startsWith('image/') ? 'image' : 'audio';
       const fileId = (await call({ op: 'file', piece: id, kind, mime, num: ++n, who: name, data: await b64(f) })).fileId;
-      out.push({ fileId, mime, kind: mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'voice', name: f.name || `voice-note-${n}` });
+      out.push({ fileId, mime, kind: mime.startsWith('image/') ? 'image' : mime.startsWith('video/') ? 'video' : 'voice', name: f.name || `голосовое-${n}` });
     }
     return out;
   }
   async function submit(form, data, files, vkey) {
     const msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]');
-    await ready; btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Sending…';
+    await ready; btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Отправляю…';
     const id = 'idea-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
     try {
       const all = [...files]; if (voice[vkey]) all.push(voice[vkey]);
@@ -206,12 +206,12 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
       const doc = { ...data, id, uid, who: name, files: att, created: new Date().toISOString() };
       await call({ op: 'set', path: 'submissions/' + id, data: doc });
       msg.className = 'msg ok';
-      msg.textContent = data.when === 'asap' ? `Sent ✓ ${new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} — we will start on it at the morning check; the finished version will appear on the review page.`
-        : `Sent ✓ ${new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} — it will go into the content plan (${lbl(data.for_month)}).`;
+      msg.textContent = data.when === 'asap' ? `Отправлено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — возьмём в работу при утренней проверке, готовый вариант появится на странице проверки.`
+        : `Отправлено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — войдёт в контент-план (${lbl(data.for_month)}).`;
       form.reset(); voice[vkey] = null; form.querySelectorAll('.recinfo').forEach((e) => { e.textContent = ''; });
-      form.querySelectorAll('[data-rec]').forEach((e) => { e.textContent = '🎙 Record a voice note'; });
+      form.querySelectorAll('[data-rec]').forEach((e) => { e.textContent = '🎙 Записать голосовое'; });
       load();
-    } catch (e) { msg.className = 'msg err'; msg.textContent = (e && e.message && e.message.length > 20 ? e.message : 'Not sent — check the internet connection and press again. Your text is not lost.'); }
+    } catch (e) { msg.className = 'msg err'; msg.textContent = (e && e.message && e.message.length > 20 ? e.message : 'Не отправилось — проверьте интернет и нажмите ещё раз. Текст не потерян.'); }
     btn.disabled = false;
   }
   document.getElementById('fRef').addEventListener('submit', (e) => { e.preventDefault();
@@ -226,18 +226,18 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   async function load() {
     let docs = [];
-    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">The list did not load — refresh the page.</div>'; return; }
+    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">Список не загрузился — обновите страницу.</div>'; return; }
     const st = {}; docs.filter((d) => d.path.startsWith('submissions/ideastatus-')).forEach((d) => { st[d.data.id] = d.data; });
     const items = docs.filter((d) => d.path.startsWith('submissions/idea-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
     document.getElementById('list').innerHTML = items.length ? items.map((it) => {
-      const s = st[it.id], when = it.when === 'asap' ? 'as soon as possible' : 'plan: ' + lbl(it.for_month || next[0]);
-      const status = s ? esc(s.text) + (s.link ? ` · <a href="${esc(s.link)}">open</a>` : '') : (it.when === 'asap' ? '⏳ Received — we will start on it at the morning check' : '⏳ Received');
-      return `<div class="item"><div class="top"><span>${it.kind === 'reference' ? '📎 Reference' : '✨ Brief · ' + esc(it.format)} · ${when}</span>
+      const s = st[it.id], when = it.when === 'asap' ? 'как можно скорее' : 'план: ' + lbl(it.for_month || next[0]);
+      const status = s ? esc(s.text) + (s.link ? ` · <a href="${esc(s.link)}">открыть</a>` : '') : (it.when === 'asap' ? '⏳ Принято — возьмём в работу при утренней проверке' : '⏳ Принято');
+      return `<div class="item"><div class="top"><span>${it.kind === 'reference' ? '📎 Референс' : '✨ Задание · ' + esc(it.format)} · ${when}</span>
         <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
         ${it.link ? `<a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.link)}</a>` : ''}
-        <pre>${esc(it.note || it.prompt)}</pre>${(it.files || []).length ? `<div class="files">Files: ${it.files.length}</div>` : ''}
+        <pre>${esc(it.note || it.prompt)}</pre>${(it.files || []).length ? `<div class="files">Файлы: ${it.files.length}</div>` : ''}
         <div class="st">${status}</div></div>`;
-    }).join('') : '<div class="item">Nothing has been sent yet.</div>';
+    }).join('') : '<div class="item">Пока ничего не отправлено.</div>';
   }
   load(); setInterval(load, 60000);
 })();

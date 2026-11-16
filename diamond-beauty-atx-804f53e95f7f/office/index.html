@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head><meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI office Diamond Beauty ATX</title>
+<title>AI-офис Diamond Beauty ATX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
@@ -94,119 +94,119 @@
   @media (max-width: 520px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } header, main, .kpis, .flow { padding-left: 16px; padding-right: 16px; } }
 </style>
 </head>
-<body><div style="background:#fff;border-bottom:1px solid #DCE3D3;padding:8px 20px;font:14px system-ui,-apple-system,sans-serif"><a id="officeHome" href="../" style="color:#1D3550;font-weight:700;text-decoration:none">← Home</a></div><script>(function(){var a=document.getElementById('officeHome');if(location.search)a.href+=location.search;})();</script>
+<body><div style="background:#fff;border-bottom:1px solid #DCE3D3;padding:8px 20px;font:14px system-ui,-apple-system,sans-serif"><a id="officeHome" href="../" style="color:#1D3550;font-weight:700;text-decoration:none">← На главную</a></div><script>(function(){var a=document.getElementById('officeHome');if(location.search)a.href+=location.search;})();</script>
 <header>
   <div class="hwrap">
-    <h1><span id="hclient"></span> · <span class="lime">AI marketing department</span></h1>
+    <h1><span id="hclient"></span> · <span class="lime">AI-отдел маркетинга</span></h1>
     <div class="sub" id="hsub"></div>
   </div>
 </header>
-<section class="kpis" id="kpis" aria-label="Month summary"></section>
+<section class="kpis" id="kpis" aria-label="Итоги месяца"></section>
 <main>
   <div class="stage">
-    <canvas id="office" width="1280" height="780" aria-label="Animated office: the agents work at their desks and hand work to each other"></canvas>
+    <canvas id="office" width="1280" height="780" aria-label="Анимированный офис: агенты работают за столами и передают работу друг другу"></canvas>
     <div class="controls">
-      <button id="replay" class="on">▶ Show how the month went</button>
-      <button id="play" aria-pressed="false" hidden>Pause</button>
-      <button id="speed" aria-pressed="false" hidden>Speed ×1</button>
+      <button id="replay" class="on">▶ Показать, как прошёл месяц</button>
+      <button id="play" aria-pressed="false" hidden>Пауза</button>
+      <button id="speed" aria-pressed="false" hidden>Скорость ×1</button>
       <span id="mode" class="mode"></span>
-      <span>Click an agent to see their results.</span>
+      <span>Нажмите на агента, чтобы увидеть его результаты.</span>
     </div>
   </div>
   <aside>
     <div class="panel detail" id="detail" aria-live="polite"></div>
     <div class="panel">
-      <h2>Team</h2>
+      <h2>Команда</h2>
       <div class="roster" id="roster"></div>
     </div>
   </aside>
 </main>
 <section class="flow">
   <div class="panel">
-    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 10px">How the month goes</h2>
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 10px">Как проходит месяц</h2>
     <div class="steps" id="steps"></div>
-    <div class="note">Every number on this page is counted from the month’s real files: the plan, finished pieces, checks, the spending log, the client’s feedback. The page is updated after every run. Every fact in the content comes only from the knowledge base; nothing is posted without approval.</div>
+    <div class="note">Все цифры на этой странице считаются из реальных файлов месяца: план, готовые материалы, проверки, журнал расходов, отзывы клиента. Страница обновляется после каждого запуска. Каждый факт в контенте — только из базы знаний; ничего не публикуется без согласования.</div>
   </div>
 </section>
 <section class="flow ideas">
   <div class="panel">
-    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 6px">💡 The client’s ideas and requests <span class="muted">— references from Instagram for next month’s plan · prompts for AI</span></h2>
-    <p class="note" style="margin:0 0 10px">The client adds a link to a Reel or post and writes what to repeat — the Idea scout puts it into next month’s content plan strictly in their words.
-      A request marked “as soon as possible” is taken up at the daily morning check, and the finished version appears on the review page.</p>
-    <a class="ideasbtn" id="ideasForm" target="_blank" rel="noopener">Open the “Ideas and requests” form ↗</a>
+    <h2 style="font-family:var(--display);font-size:15px;margin:0 0 6px">💡 Идеи и задания Olga <span class="muted">— референсы из Instagram в план следующего месяца · промпты для ИИ</span></h2>
+    <p class="note" style="margin:0 0 10px">Olga добавляет ссылку на Reels/пост и пишет, что повторить, — Скаут идей включает это в контент-план следующего месяца строго по этим словам.
+      Задание с пометкой «как можно скорее» берём в работу при ежедневной утренней проверке, готовый вариант появляется на странице проверки.</p>
+    <a class="ideasbtn" id="ideasForm" target="_blank" rel="noopener">Открыть форму «Идеи и задания» ↗</a>
     <div class="ideas-list" id="ideasList"></div>
   </div>
 </section>
 <section class="flow board">
   <div class="panel">
-    <h2>This month’s pieces</h2>
+    <h2>Материалы месяца</h2>
     <div class="legend" id="legend"></div>
     <div class="pieces" id="pieces"></div>
   </div>
   <div class="panel">
-    <h2>Work log <span class="muted">— what the agents really did</span></h2>
+    <h2>Журнал работы <span class="muted">— реальные действия агентов</span></h2>
     <ol class="feed" id="feed"></ol>
   </div>
 </section>
 <script>
 (() => {
   // ---------- agents: fixed roles/tools here; state, numbers, tasks and hand-offs come from DATA (engine/office/build_office.py) ----------
-  const DATA = {"client": "Diamond Beauty ATX", "month": "2026-11", "month_label": "November 2026", "months": [], "generated": "2026-11-16 14:40", "kpis": [["0", "posts in the plan"], ["0/0", "ready (video edited, design laid out)"], ["0/0", "passed the fact check (QA)"], ["0/0", "reviewed by the client · ✔ 0 · changes 0"], ["0", "changes made from feedback"], ["$0.0", "of the $30 AI budget · as of 16.11 (updated every day)"], ["157", "entries in the knowledge base — there are no other facts"], ["0", "playbook rules from feedback"]], "board": ["0 posts", "0 Reels", "QA 0/0", "$0.0/30"], "ideas": [], "ideas_form": "https://tolegennuraydn-ctrl.github.io/client-pages/diamond-beauty-atx-804f53e95f7f/ideas/?r=olga&name=Olga", "agents": {"community": {"state": "soon", "stats": [["Answered", "0"], ["Sent on to a person to contact", "0"], ["Passed to a person", "0"]], "tasks": ["Waiting for Instagram access"]}, "researcher": {"state": "wait", "stats": [["Research for the plan", "2026-12: on the 18th"], ["Tracks in the music library", "10"]], "tasks": ["Season, holidays, sales events, niche trends — before every plan", "Music library: 10 tracks"]}, "duty": {"state": "done", "stats": [["Latest check", "2026-11-16 08:40"], ["State", "all good"], ["Warnings", "1"], ["Lessons → automatic checks", "24"], ["Approved, waiting to be posted", "0"]], "tasks": ["System check every morning", "24 past mistakes under control", "stock: only 0 approved posts left to publish (one per day) — 0 pieces "]}, "scout": {"state": "wait", "stats": [["Ideas in the bank", "0 new · 0 used"], ["Client's notes applied", "0 of 0"], ["Client's references", "0 (for next month's plan)"], ["“As soon as possible” requests", "0 · in progress 0"], ["Waiting for the owner ⛔", "0"]], "tasks": ["I study the client's references and write prompts strictly from their comments", "I check the client's form once a day"]}, "analyst": {"state": "soon", "stats": [["Report", "every month on the 29th"], ["Data", "after the Instagram API is connected"]], "tasks": ["Waiting for Instagram API access for the statistics"]}, "strategist": {"state": "wait", "stats": [["Plan", "0 posts"], ["Next month's plan", "written on the 18th"], ["Formats", ""]], "tasks": ["Content plan 2026-11: 0 posts"]}, "writer": {"state": "done", "stats": [["Texts ready", "0/0"], ["Languages", ""]], "tasks": ["Texts: 0 of 0"]}, "auditor": {"state": "done", "stats": [["QA", "0/0 PASS"], ["Knowledge base", "157 entries"], ["Changes from the client", "0 · in progress 0"], ["Playbook rules", "0"]], "tasks": ["QA: 0/0 PASS", "Every number comes from the knowledge base"]}, "critic": {"state": "done", "stats": [["Checked", "0/0"], ["Rounds", "up to 2 revisions"]], "tasks": ["Read 0 pieces", "Is it clear to the customer?", "Is there a “why”?"]}, "designer": {"state": "done", "stats": [["Ready", "0/0 (carousels, posts, stories)"], ["AI photos and illustrations", "0"]], "tasks": ["Design: 0 of 0"]}, "voice": {"state": "wait", "stats": [["Lines voiced", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for texts"]}, "video": {"state": "wait", "stats": [["AI clips in Reels", "0"], ["Replaced by a moving still", "0"], ["Frames checked", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for scripts"]}, "presenter": {"state": "wait", "stats": [["Reels with the presenter", "0"], ["Lines that passed the speech check", "0"], ["Cost", "$0.00"]], "tasks": ["Waiting for scripts"]}, "editor": {"state": "done", "stats": [["Reels edited", "0/0"], ["Loudness", "—"], ["Technical check (no frozen frames or dead air)", "0/0"], ["Shots in the edit", "0"], ["Pause between lines", "—"]], "tasks": ["Reels: 0 of 0"]}, "sound": {"state": "wait", "stats": [["Sound accents", "0"], ["Music", "inside the video, about 17 dB under the voice"]], "tasks": ["0 sound accents in Reels — matched to what happens on screen", "I choose music for each video and measure loudness (−14 LUFS, music under the voice)"]}, "manager": {"state": "done", "stats": [["On the review page", "0"], ["Client reviewed", "0 (✔ 0 · changes 0)"], ["Tasks from feedback", "0 done · 0 in progress · 0 blocked"]], "tasks": ["Client reviewed 0 of 0", "Tasks fixed: 0", "All feedback received"]}, "publisher": {"state": "soon", "stats": [["Posted", "0/0"], ["Rule", "only after the owner and the client approve"]], "tasks": ["Waiting for approval"]}, "budget": {"state": "work", "stats": [["Spent", "$0.00 of $30"], ["Paid calls", "0"], ["Largest items", ""]], "tasks": ["Spent $0.00 of $30 (as of 16.11)", "Left $30.00", "Stops before the limit is passed"]}}, "flow": [], "stages": [{"name": "Analytics and trends", "state": "soon", "detail": "in development"}, {"name": "Content plan", "state": "wait", "detail": "0 posts"}, {"name": "Texts", "state": "done", "detail": "0/0"}, {"name": "Fact check and critique", "state": "done", "detail": "0/0 PASS"}, {"name": "Design, voice, video, editing", "state": "done", "detail": "0/0 ready"}, {"name": "Approval with the client", "state": "done", "detail": "0/0 reviewed · 0 changes made"}, {"name": "Posting", "state": "soon", "detail": "0/0"}, {"name": "Feedback → playbook rules", "state": "done", "detail": "0 rules"}], "feed": [], "pieces": [], "blocked": []};
+  const DATA = {"client": "Diamond Beauty ATX", "month": "2026-11", "month_label": "ноябрь 2026", "months": [], "generated": "2026-11-16 18:46", "kpis": [["0", "публикаций в плане"], ["0/0", "готово (видео смонтировано, дизайн сверстан)"], ["0/0", "прошли проверку фактов (QA)"], ["0/0", "проверено клиентом · ✔ 0 · правки 0"], ["0", "правок по отзывам внесено"], ["$0.0", "из $30 бюджета на ИИ · на 16.11 (обновляется каждый день)"], ["157", "записей в базе знаний — других фактов нет"], ["0", "правил в плейбуке из отзывов"]], "board": ["0 публ.", "0 Reels", "QA 0/0", "$0.0/30"], "ideas": [], "ideas_form": "https://tolegennuraydn-ctrl.github.io/client-pages/diamond-beauty-atx-804f53e95f7f/ideas/?r=olga&name=Olga", "agents": {"community": {"state": "soon", "stats": [["Отвечено", "0"], ["Направлено в WhatsApp / колл-центр", "0"], ["Передано человеку", "0"]], "tasks": ["Жду доступ к Instagram"]}, "researcher": {"state": "wait", "stats": [["Исследование к плану", "2026-12: 18 числа"], ["Треков в библиотеке музыки", "10"]], "tasks": ["Сезон, праздники, распродажи, тренды ниши — перед каждым планом", "Музыкальная библиотека: 10 треков"]}, "duty": {"state": "done", "stats": [["Последняя проверка", "2026-11-16 08:40"], ["Состояние", "всё в порядке"], ["Предупреждений", "1"], ["Уроков → автоматических проверок", "25"], ["Одобрено и ждёт публикации", "0"]], "tasks": ["Проверка системы каждое утро", "25 прошлых ошибок под контролем", "stock: only 0 approved posts left to publish (one per day) — 0 pieces "]}, "scout": {"state": "wait", "stats": [["Идей в банке", "0 новых · 0 использовано"], ["Замечаний Olga учтено", "0 из 0"], ["Референсы Olga", "0 (в план следующего месяца)"], ["Задания «как можно скорее»", "0 · в работе 0"], ["Ждут Нур ⛔", "0"]], "tasks": ["Смотрю референсы Olga и пишу промпты строго по комментариям", "Проверяю форму Olga раз в день"]}, "analyst": {"state": "soon", "stats": [["Отчёт", "каждый месяц 29 числа"], ["Данные", "после подключения Instagram API"]], "tasks": ["Жду доступ к Instagram API для статистики"]}, "strategist": {"state": "wait", "stats": [["План", "0 публикаций"], ["План на следующий месяц", "пишется 18 числа"], ["Форматы", ""]], "tasks": ["Контент-план 2026-11: 0 публикаций"]}, "writer": {"state": "done", "stats": [["Тексты готовы", "0/0"], ["Языки", ""]], "tasks": ["Тексты: 0 из 0"]}, "auditor": {"state": "done", "stats": [["QA", "0/0 PASS"], ["База знаний", "157 записей"], ["Изменения от Olga", "0 · в работе 0"], ["Правил плейбука", "0"]], "tasks": ["QA: 0/0 PASS", "Каждая цифра — из базы знаний"]}, "critic": {"state": "done", "stats": [["Проверено", "0/0"], ["Раунды", "до 2 доработок"]], "tasks": ["Прочитал 0 материалов", "Понятно ли зрителю?", "Есть ли «почему»?"]}, "designer": {"state": "done", "stats": [["Готово", "0/0 (карусели, посты, сторис)"], ["ИИ-фото и иллюстрации", "0"]], "tasks": ["Дизайн: 0 из 0"]}, "voice": {"state": "wait", "stats": [["Реплик озвучено", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду тексты"]}, "video": {"state": "wait", "stats": [["ИИ-клипов в Reels", "0"], ["Замена на кадр с движением", "0"], ["Кадров проверено", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду сценарии"]}, "presenter": {"state": "wait", "stats": [["Reels с ведущим", "0"], ["Реплик прошли проверку речи", "0"], ["Стоимость", "$0.00"]], "tasks": ["Жду сценарии"]}, "editor": {"state": "done", "stats": [["Reels смонтировано", "0/0"], ["Громкость", "—"], ["Техпроверка (нет застывших кадров и пауз)", "0/0"], ["Планов в монтаже", "0"], ["Пауза между фразами", "—"]], "tasks": ["Reels: 0 из 0"]}, "sound": {"state": "wait", "stats": [["Звуковых акцентов", "0"], ["Музыка", "в самом ролике, тише голоса на ~17 дБ"]], "tasks": ["0 звуковых акцентов в Reels — под то, что происходит в кадре", "Подбираю музыку под ролик и измеряю громкость (−14 LUFS, музыка тише голоса)"]}, "manager": {"state": "done", "stats": [["На странице проверки", "0"], ["Клиент проверил", "0 (✔ 0 · правки 0)"], ["Задачи из отзывов", "0 сделано · 0 в работе · 0 заблокировано"]], "tasks": ["Клиент проверил 0 из 0", "Исправлено задач: 0", "Все отзывы получены"]}, "publisher": {"state": "soon", "stats": [["Опубликовано", "0/0"], ["Правило", "только после согласования Нур и клиента"]], "tasks": ["Жду согласования"]}, "budget": {"state": "work", "stats": [["Потрачено", "$0.00 из $30"], ["Платных вызовов", "0"], ["Крупнейшие статьи", ""]], "tasks": ["Потрачено $0.00 из $30 (на 16.11)", "Остаток $30.00", "Стоп до превышения лимита"]}}, "flow": [], "stages": [{"name": "Аналитика и тренды", "state": "soon", "detail": "в разработке"}, {"name": "Контент-план", "state": "wait", "detail": "0 публикаций"}, {"name": "Тексты KZ/RU", "state": "done", "detail": "0/0"}, {"name": "Проверка фактов и критика", "state": "done", "detail": "0/0 PASS"}, {"name": "Дизайн, озвучка, видео, монтаж", "state": "done", "detail": "0/0 готово"}, {"name": "Согласование с клиентом", "state": "done", "detail": "0/0 проверено · 0 правок внесено"}, {"name": "Публикация", "state": "soon", "detail": "0/0"}, {"name": "Отзывы → правила плейбука", "state": "done", "detail": "0 правил"}], "feed": [], "pieces": [], "blocked": []};
   const A = [
-    { id: 'analyst', name: 'Analyst', color: '#3E7CB1', desk: [110, 150],
-      role: 'Counts the Instagram results: a detailed monthly report, and a “Now” page every morning. Its conclusions are binding for the next content plan.',
-      tools: 'Instagram statistics (official API) · reports on the site' },
-    { id: 'researcher', name: 'Researcher', color: '#5B8C5A', desk: [300, 150],
-      role: 'Before every plan studies the season in the client’s field, holidays, sales events and what works in the niche right now. Adds to the music library.',
-      tools: 'Web search with sources · calendar · music library' },
-    { id: 'strategist', name: 'Strategist', color: '#2F6A2B', desk: [490, 150],
-      role: 'Builds the brief (goals, last month’s numbers, all of the client’s notes and ideas) and writes the content plan: themes, formats, dates, hooks. Every conclusion of the report is tied to specific posts.',
-      tools: 'Brief · automatic plan check' },
-    { id: 'writer', name: 'Copywriter', color: '#7A4FB0', desk: [680, 150],
-      role: 'Writes Reel scripts, carousel texts and captions in the brand’s voice and languages. Hooks are not repeated for two months.',
-      tools: 'Claude · brand voice · playbook' },
-    { id: 'auditor', name: 'Fact auditor', color: '#B5452F', desk: [870, 150],
-      role: 'Checks every number and claim against the client’s knowledge base. Handles the client’s changes: blocks what is outdated, adds what is new, and takes posts with old information off the schedule.',
-      tools: 'QA checklist · knowledge base · “Changes” form' },
-    { id: 'critic', name: 'Critic', color: '#5A5A5A', desk: [1060, 150],
-      role: 'Judges every post independently through the customer’s eyes and checks it against every playbook rule and the client’s earlier notes. Below 8 points or a broken rule means a rewrite.',
-      tools: 'Independent Claude review · playbook' },
-    { id: 'designer', name: 'Designer', color: '#C2557A', desk: [110, 400],
-      role: 'Makes carousels, posts and stories in the brand style: a photo or illustration on every slide, the contact everywhere.',
-      tools: 'HTML/CSS templates · brand font · AI illustrations' },
-    { id: 'voice', name: 'Voice', color: '#D27A2C', desk: [300, 400],
-      role: 'Voices the texts in the brand’s voice and languages; a viewer’s question is spoken by a different voice.',
+    { id: 'analyst', name: 'Аналитик', color: '#3E7CB1', desk: [110, 150],
+      role: 'Считает результаты Instagram: 29 числа — подробный отчёт за месяц, каждое утро — страница «Сейчас». Его выводы обязательны для следующего контент-плана.',
+      tools: 'Статистика Instagram (официальный API) · отчёты на сайте' },
+    { id: 'researcher', name: 'Исследователь', color: '#5B8C5A', desk: [300, 150],
+      role: 'Перед каждым планом изучает сезон в нише клиента, праздники, распродажи и что сейчас работает в нише. Пополняет библиотеку музыки.',
+      tools: 'Веб-поиск с источниками · календарь · библиотека музыки' },
+    { id: 'strategist', name: 'Стратег', color: '#2F6A2B', desk: [490, 150],
+      role: 'Собирает бриф (цели, цифры прошлого месяца, все замечания и идеи Olga) и составляет контент-план: рубрики, форматы, даты, хуки. Каждый вывод из отчёта привязан к конкретным публикациям.',
+      tools: 'Бриф · автоматическая проверка плана' },
+    { id: 'writer', name: 'Копирайтер', color: '#7A4FB0', desk: [680, 150],
+      role: 'Пишет сценарии Reels, тексты каруселей и подписи на языке и в голосе бренда. Хуки не повторяются два месяца.',
+      tools: 'Claude · голос бренда · плейбук' },
+    { id: 'auditor', name: 'Аудитор фактов', color: '#B5452F', desk: [870, 150],
+      role: 'Сверяет каждую цифру и утверждение с базой знаний клиента. Ведёт изменения от Olga: устаревшее блокирует, новое вносит в базу, снимает с расписания публикации со старой информацией.',
+      tools: 'QA-чеклист · база знаний · форма «Изменения»' },
+    { id: 'critic', name: 'Критик', color: '#5A5A5A', desk: [1060, 150],
+      role: 'Независимо оценивает каждую публикацию глазами покупателя и сверяет её с каждым правилом плейбука и прошлыми замечаниями Olga. Ниже 8 баллов или нарушено правило — переделка.',
+      tools: 'Независимая проверка Claude · плейбук' },
+    { id: 'designer', name: 'Дизайнер', color: '#C2557A', desk: [110, 400],
+      role: 'Делает карусели, посты и сторис по фирменному стилю: фото или иллюстрация на каждом слайде, номер WhatsApp везде.',
+      tools: 'HTML/CSS-шаблоны · Montserrat · ИИ-иллюстрации' },
+    { id: 'voice', name: 'Голос', color: '#D27A2C', desk: [300, 400],
+      role: 'Озвучивает тексты голосом бренда на его языке; вопрос зрителя звучит другим голосом.',
       tools: 'Gemini TTS' },
-    { id: 'video', name: 'AI video', color: '#1F8A8A', desk: [490, 400],
-      role: 'Generates short AI clips for the scenes of each script. Checks every frame.',
-      tools: 'Gemini Omni (video) · frame check' },
-    { id: 'presenter', name: 'AI presenter', color: '#3B8F4E', desk: [680, 400],
-      role: 'The presenter avatar speaks their lines on camera. The system checks the speech against the script to the last word.',
-      tools: 'Gemini Omni · speech check' },
-    { id: 'editor', name: 'Editor', color: '#4B5FC1', desk: [870, 400],
-      role: 'Assembles the Reels: captions from the real audio, Instagram safe zones, an animated ending with the call to action.',
+    { id: 'video', name: 'AI-видео', color: '#1F8A8A', desk: [490, 400],
+      role: 'Генерирует короткие ИИ-клипы для сцен сценария. Проверяет каждый кадр.',
+      tools: 'Gemini Omni (видео) · проверка кадров' },
+    { id: 'presenter', name: 'AI-ведущий', color: '#3B8F4E', desk: [680, 400],
+      role: 'Ведущий-аватар говорит в кадре свои реплики. Система сверяет его речь со сценарием до последнего слова.',
+      tools: 'Gemini Omni · проверка речи' },
+    { id: 'editor', name: 'Монтажёр', color: '#4B5FC1', desk: [870, 400],
+      role: 'Собирает Reels: субтитры по реальному звуку, безопасные зоны Instagram, анимированная концовка с CTA.',
       tools: 'Remotion · ffmpeg' },
-    { id: 'sound', name: 'Sound designer', color: '#8E5BC8', desk: [1060, 400],
-      role: 'Adds sound accents and chooses background music for every video. Loudness is measured: the music is about 17 dB under the voice, and one track is used at most twice a month.',
-      tools: 'Music library · loudness measurement' },
-    { id: 'manager', name: 'Approval manager', color: '#2B6CB0', desk: [110, 640],
-      role: 'Runs approval with the client’s team: the plan and finished pieces are on the review site, each of the client’s notes is a separate task, fixed the same day.',
-      tools: 'Review site · e-mail' },
-    { id: 'publisher', name: 'Publisher', color: '#9A6B2F', desk: [300, 640],
-      role: 'Builds the week’s schedule only from approved pieces, for the client’s platforms.',
-      tools: 'Posting page · scheduling service (being connected)' },
-    { id: 'budget', name: 'Budget control', color: '#6B7A2F', desk: [490, 640],
-      role: 'Counts every paid AI call and stops work before the month’s limit is passed.',
-      tools: 'Spending log' },
-    { id: 'scout', name: 'Idea scout', color: '#C0841A', desk: [680, 640],
-      role: 'Keeps the idea bank: unused facts from the knowledge base, followers’ questions, sequels to the best posts, research finds and the client’s references. Every post has a source for its idea.',
-      tools: 'Idea bank · format library · “Ideas and requests” form' },
-    { id: 'community', name: 'Reply operator', color: '#B0568C', desk: [1060, 640],
-      role: 'Answers comments and messages on Instagram: only from the knowledge base, in the tone of the account’s earlier replies. If the answer is not in the knowledge base, sends the person to a contact. Passes complaints to a person.',
-      tools: 'Instagram API · knowledge base · every reply checked' },
-    { id: 'duty', name: 'Duty officer', color: '#444B6E', desk: [870, 640],
-      role: 'Checks the whole system every morning: code, knowledge base, schedule, site pages, budget, stock of approved posts. Every past mistake has become an automatic check.',
-      tools: 'Health check · lessons log · watchdog on GitHub' },
+    { id: 'sound', name: 'Звукорежиссёр', color: '#8E5BC8', desk: [1060, 400],
+      role: 'Добавляет звуковые акценты и подбирает фоновую музыку под каждый ролик. Громкость измеряется: музыка примерно на 17 дБ тише голоса, один трек не чаще двух раз в месяц.',
+      tools: 'Библиотека музыки · измерение громкости' },
+    { id: 'manager', name: 'Менеджер согласований', color: '#2B6CB0', desk: [110, 640],
+      role: 'Ведёт согласование с командой клиента: план и готовые материалы на сайте проверки, каждое замечание Olga — отдельная задача, исправление в тот же день.',
+      tools: 'Сайт проверки · почта' },
+    { id: 'publisher', name: 'Публикатор', color: '#9A6B2F', desk: [300, 640],
+      role: 'Составляет расписание на неделю только из одобренных материалов (одна публикация в день, 20:30) для Instagram, TikTok и YouTube.',
+      tools: 'Страница публикаций · сервис планирования (подключается)' },
+    { id: 'budget', name: 'Контроль бюджета', color: '#6B7A2F', desk: [490, 640],
+      role: 'Учитывает каждый платный вызов ИИ и останавливает работу до превышения лимита месяца.',
+      tools: 'Журнал расходов' },
+    { id: 'scout', name: 'Скаут идей', color: '#C0841A', desk: [680, 640],
+      role: 'Ведёт банк идей: неиспользованные факты из базы знаний, вопросы подписчиков, продолжения лучших постов, находки из исследования и референсы Olga. У каждой публикации есть источник идеи.',
+      tools: 'Банк идей · библиотека форматов · форма «Идеи и задания»' },
+    { id: 'community', name: 'Оператор ответов', color: '#B0568C', desk: [1060, 640],
+      role: 'Отвечает на комментарии и сообщения в Instagram: только по базе знаний, в тоне прежних ответов аккаунта. Если ответа в базе нет — направляет в WhatsApp или колл-центр. Жалобы передаёт человеку.',
+      tools: 'Instagram API · база знаний · проверка каждого ответа' },
+    { id: 'duty', name: 'Дежурный', color: '#444B6E', desk: [870, 640],
+      role: 'Каждое утро проверяет всю систему: код, базу знаний, расписание, страницы сайта, бюджет, запас одобренных публикаций. Каждая прошлая ошибка превращена в автоматическую проверку.',
+      tools: 'Проверка здоровья · журнал уроков · сторож на GitHub' },
   ];
   const FLOW = DATA.flow;
   for (const a of A) Object.assign(a, DATA.agents[a.id] || { state: 'wait', stats: [], tasks: ['—'] });
@@ -242,7 +242,7 @@
     updateMode();
     const a = byId[from], b = byId[to];
     if (a.state !== 'work' || a.status === 'soon') return;
-    a.state = 'go'; a.carry = what; a.target = to; a.bubble = `Carrying: ${what} → ${b.name}`; a.bubbleT = 4;
+    a.state = 'go'; a.carry = what; a.target = to; a.bubble = `Несу: ${what} → ${b.name}`; a.bubbleT = 4;
     route(a, b.desk[0] + 40, b.desk[1] + 56);
   }
 
@@ -263,7 +263,7 @@
         a.walkPh += dt * 10;
         if (d <= v) { a.x = px; a.y = py; a.path.shift(); } else { a.x += dx / d * v; a.y += dy / d * v; }
       } else if (a.state === 'go') {
-        const b = byId[a.target]; a.state = 'back'; a.bubble = `Done: ${a.carry}`; a.bubbleT = 2.5; b.bubble = `Received: ${a.carry}`; b.bubbleT = 3;
+        const b = byId[a.target]; a.state = 'back'; a.bubble = `Готово: ${a.carry}`; a.bubbleT = 2.5; b.bubble = `Принял: ${a.carry}`; b.bubbleT = 3;
         a.carry = null; route(a, a.desk[0], a.desk[1] + 46);
       } else if (a.state === 'back') { a.state = 'work'; a.taskT = 2; }
     }
@@ -276,16 +276,16 @@
     // floor planks
     for (let y = 0; y < H; y += 26) { g.fillStyle = (y / 26) % 2 ? '#EEF1E8' : '#E8ECE1'; g.fillRect(0, y, W, 26); }
     // zone rugs
-    const zones = [[40, 60, 1100, 210, 'Strategy and texts'], [40, 310, 1180, 210, 'Production'], [40, 550, 1180, 210, 'Approval · posting · budget · ideas · control']];
+    const zones = [[40, 60, 1100, 210, 'Стратегия и тексты'], [40, 310, 1180, 210, 'Продакшн'], [40, 550, 1180, 210, 'Согласование · публикация · бюджет · идеи · контроль']];
     for (const [x, y, w, h, label] of zones) { g.fillStyle = 'rgba(39,76,114,.06)'; rr(x, y, w, h, 18); g.fill(); g.fillStyle = '#5E6A57'; g.font = '600 13px "IBM Plex Sans"'; g.fillText(label.toUpperCase(), x + 14, y + 22); }
     // wall board with live numbers
     g.fillStyle = '#1D3550'; rr(1160, 70, 100, 190, 10); g.fill();
-    g.fillStyle = '#F2B84B'; g.font = '800 15px Montserrat'; g.fillText('PLAN', 1178, 96);
+    g.fillStyle = '#F2B84B'; g.font = '800 15px Montserrat'; g.fillText('ПЛАН', 1178, 96);
     g.fillStyle = '#fff'; g.font = '600 12px "IBM Plex Sans"';
     DATA.board.forEach((s, i) => g.fillText(s, 1176, 124 + i * 30));
     // plants & coffee
     for (const [x, y] of [[1240, 300], [20, 300], [1240, 560], [610, 770]]) { g.fillStyle = '#8B6B4A'; rr(x - 12, y - 4, 24, 20, 4); g.fill(); g.fillStyle = '#3F8A3A'; g.beginPath(); g.arc(x, y - 12, 16, 0, 7); g.fill(); g.fillStyle = '#99C339'; g.beginPath(); g.arc(x + 6, y - 18, 8, 0, 7); g.fill(); }
-    g.fillStyle = '#5A4636'; rr(1190, 690, 56, 60, 8); g.fill(); g.fillStyle = '#fff'; g.font = '600 11px "IBM Plex Sans"'; g.fillText('coffee', 1203, 726);
+    g.fillStyle = '#5A4636'; rr(1190, 690, 56, 60, 8); g.fill(); g.fillStyle = '#fff'; g.font = '600 11px "IBM Plex Sans"'; g.fillText('кофе', 1203, 726);
   }
   function drawDesk(a) {
     g.globalAlpha = a.status === 'soon' ? 0.55 : 1; drawDesk0(a); g.globalAlpha = 1;
@@ -301,7 +301,7 @@
     // name plate
     g.fillStyle = '#fff'; rr(x - 80, y + 76, 160, 22, 6); g.fill(); g.fillStyle = a.color; g.fillRect(x - 80, y + 76, 6, 22);
     g.fillStyle = '#1C1F1A'; g.font = '600 12.5px "IBM Plex Sans"'; g.textAlign = 'center'; g.fillText(a.name, x + 3, y + 91); g.textAlign = 'left';
-    if (a.status === 'soon') { g.fillStyle = '#F6E7C9'; rr(x + 30, y - 46, 70, 16, 8); g.fill(); g.fillStyle = '#7A5410'; g.font = '600 10px "IBM Plex Sans"'; g.fillText('in development', x + 36, y - 34); }
+    if (a.status === 'soon') { g.fillStyle = '#F6E7C9'; rr(x + 30, y - 46, 70, 16, 8); g.fill(); g.fillStyle = '#7A5410'; g.font = '600 10px "IBM Plex Sans"'; g.fillText('в разработке', x + 36, y - 34); }
   }
   function drawAgent(a) {
     g.globalAlpha = a.status === 'soon' ? 0.45 : 1; drawAgent0(a); g.globalAlpha = 1;
@@ -338,13 +338,13 @@
   }
 
   // ---------- side panel ----------
-  const CHIP = { work: 'stage in progress', done: 'stage done', wait: 'waiting', soon: 'in development' };
-  const STAGE = { writing: ['Being written', '#B9C3AE'], qa: ['Check', '#E0B84A'], production: ['Production', '#E89A3C'], review: ['Waiting for the client’s feedback', '#7FA7D9'],
-    fixing: ['Changes from feedback', '#D9734A'], fixed: ['Changes made', '#5FA05A'], approved: ['Approved by the client', '#2F6A2B'], rejected: ['Rejected', '#B5452F'], published: ['Posted', '#1F4A1D'] };
+  const CHIP = { work: 'этап идёт', done: 'этап выполнен', wait: 'ждёт', soon: 'в разработке' };
+  const STAGE = { writing: ['Пишется', '#B9C3AE'], qa: ['Проверка', '#E0B84A'], production: ['Производство', '#E89A3C'], review: ['Ждёт отзыва клиента', '#7FA7D9'],
+    fixing: ['Правки по отзыву', '#D9734A'], fixed: ['Правки внесены', '#5FA05A'], approved: ['Одобрено клиентом', '#2F6A2B'], rejected: ['Отклонено', '#B5452F'], published: ['Опубликовано', '#1F4A1D'] };
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
   document.getElementById('hclient').textContent = DATA.client;
-  document.title = `AI office ${DATA.client} · ${DATA.month_label}`;
-  document.getElementById('hsub').textContent = `${A.length} agents · ${DATA.month_label} · data updated ${DATA.generated}`;
+  document.title = `AI-офис ${DATA.client} · ${DATA.month_label}`;
+  document.getElementById('hsub').textContent = `${A.length} агентов · ${DATA.month_label} · данные обновлены ${DATA.generated}`;
   const kp = document.getElementById('kpis');
   for (const [v, l] of DATA.kpis) { const d = el('div', 'kpi'); d.append(el('b', '', v), el('span', '', l)); kp.append(d); }
   const st = document.getElementById('steps');
@@ -354,24 +354,24 @@
   for (const [k, [name, c]] of Object.entries(STAGE)) if (counts[k]) { const s = el('span'); const i = el('i'); i.style.background = c; s.append(i, `${name}: ${counts[k]}`); lg.append(s); }
   { const f = document.getElementById('ideasForm'); f.href = DATA.ideas_form || '#';
     const L = document.getElementById('ideasList'), esc = (x) => String(x || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    L.innerHTML = (DATA.ideas || []).length ? DATA.ideas.map((i) => `<div class="idea"><div class="t">${i.kind === 'reference' ? '📎 Reference' : '✨ Request · ' + esc(i.format)} ·
-      ${i.when === 'asap' ? 'as soon as possible' : 'plan ' + esc(i.for_month)} · ${esc(i.who)} · ${esc(i.created)}</div>
+    L.innerHTML = (DATA.ideas || []).length ? DATA.ideas.map((i) => `<div class="idea"><div class="t">${i.kind === 'reference' ? '📎 Референс' : '✨ Задание · ' + esc(i.format)} ·
+      ${i.when === 'asap' ? 'как можно скорее' : 'план ' + esc(i.for_month)} · ${esc(i.who)} · ${esc(i.created)}</div>
       ${i.kind === 'reference' && i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.link)}</a>` : ''}<div>${esc(i.text)}</div>
-      <div class="s">${esc(i.status)}${i.result ? ` · <a href="${esc(i.result)}" target="_blank" rel="noopener">view</a>` : ''}</div></div>`).join('')
-      : '<div class="note">No ideas or requests yet. They can be sent with the button above — the link is for the client.</div>'; }
+      <div class="s">${esc(i.status)}${i.result ? ` · <a href="${esc(i.result)}" target="_blank" rel="noopener">смотреть</a>` : ''}</div></div>`).join('')
+      : '<div class="note">Пока нет идей и заданий. Отправить можно по кнопке выше — ссылка для Olga.</div>'; }
   const pc = document.getElementById('pieces');
   for (const p of DATA.pieces) { const [name, c] = STAGE[p.stage] || [p.stage, '#999']; const d = el('div', 'pc'); d.title = name; const i = el('i'); i.style.background = c;
     d.append(i, el('b', '', p.n ? '№' + p.n : ''), el('span', 'f', p.format), el('span', 'tt', p.title)); pc.append(d); }
   const fd = document.getElementById('feed');
   for (const e of DATA.feed) { const li = el('li'); const ag = byId[e.agent]; const tx = el('div'); const who = el('span', 'who', ag ? ag.name : e.agent); if (ag) who.style.color = ag.color; tx.append(who, e.text); li.append(el('time', '', e.ts), tx); fd.append(li); }
-  if (!DATA.feed.length) fd.append(el('li', '', 'No actions this month yet.'));
+  if (!DATA.feed.length) fd.append(el('li', '', 'Пока нет действий в этом месяце.'));
   const roster = document.getElementById('roster'), detail = document.getElementById('detail');
   function renderRoster() {
     roster.innerHTML = '';
     for (const a of A) {
       const el = document.createElement('div'); el.className = 'agent' + (a.id === selected ? ' sel' : ''); el.tabIndex = 0; el.setAttribute('role', 'button');
       el.innerHTML = `<span class="dot" style="background:${a.color}"></span><div><div class="n">${a.name}<span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></div><div class="t"></div></div>`;
-      el.querySelector('.t').textContent = a.state === 'sit' || a.state === 'work' ? a.tasks[a.task] : (a.carry ? `Carrying: ${a.carry}` : 'Walking back to the desk');
+      el.querySelector('.t').textContent = a.state === 'sit' || a.state === 'work' ? a.tasks[a.task] : (a.carry ? `Несёт: ${a.carry}` : 'Возвращается к столу');
       el.addEventListener('click', () => select(a.id));
       el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(a.id); } });
       roster.appendChild(el);
@@ -380,10 +380,10 @@
   function renderDetail() {
     const a = byId[selected];
     detail.innerHTML = `<h3 style="color:${a.color}">${a.name} <span class="chip ${a.status}">${CHIP[a.status] || a.status}</span></h3><p></p><dl></dl><div class="note" style="margin-top:10px"></div>`;
-    detail.querySelector('.note').textContent = 'Now: ' + a.tasks.join(' · ');
+    detail.querySelector('.note').textContent = 'Сейчас: ' + a.tasks.join(' · ');
     detail.querySelector('p').textContent = a.role;
     const dl = detail.querySelector('dl');
-    for (const [k, v] of [['Tools', a.tools], ...a.stats]) { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); }
+    for (const [k, v] of [['Инструменты', a.tools], ...a.stats]) { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); }
   }
   function select(id) { selected = id; byId[id].bubbleT = 4; renderDetail(); renderRoster(); }
   cv.addEventListener('click', (e) => {
@@ -394,13 +394,13 @@
   });
   const btnReplay = document.getElementById('replay'), btnPlay = document.getElementById('play'), btnSpeed = document.getElementById('speed'), modeEl = document.getElementById('mode');
   function updateMode() {
-    if (mode === 'idle') { modeEl.className = 'mode'; modeEl.textContent = `The agents are not running now · last run ${DATA.generated}`; }
-    else { modeEl.className = 'mode replay'; modeEl.textContent = `Month replay: handover ${Math.min(flowI, FLOW.length)} of ${FLOW.length}`; }
+    if (mode === 'idle') { modeEl.className = 'mode'; modeEl.textContent = `Сейчас агенты не запущены · последний запуск ${DATA.generated}`; }
+    else { modeEl.className = 'mode replay'; modeEl.textContent = `Повтор месяца: передача ${Math.min(flowI, FLOW.length)} из ${FLOW.length}`; }
   }
   function startReplay() {
     mode = 'replay'; flowI = 0; flowT = 0.3; playing = true;
     A.forEach((a) => { if (a.state === 'sit') { a.state = 'work'; a.taskT = 1; } });
-    btnReplay.hidden = true; btnPlay.hidden = false; btnSpeed.hidden = false; btnPlay.textContent = 'Pause'; btnPlay.classList.add('on'); updateMode();
+    btnReplay.hidden = true; btnPlay.hidden = false; btnSpeed.hidden = false; btnPlay.textContent = 'Пауза'; btnPlay.classList.add('on'); updateMode();
   }
   function endReplay() {
     mode = 'idle'; A.forEach((a) => { a.state = 'sit'; a.task = 0; a.bubble = a.tasks[0]; a.bubbleT = 4; });
@@ -408,12 +408,12 @@
   }
   btnReplay.addEventListener('click', startReplay);
   updateMode();
-  document.getElementById('play').addEventListener('click', (e) => { playing = !playing; e.target.textContent = playing ? 'Pause' : 'Continue'; e.target.classList.toggle('on', playing); e.target.setAttribute('aria-pressed', String(playing)); });
-  document.getElementById('speed').addEventListener('click', (e) => { speed = speed === 1 ? 2 : speed === 2 ? 3 : 1; e.target.textContent = `Speed ×${speed}`; e.target.setAttribute('aria-pressed', String(speed > 1)); });
+  document.getElementById('play').addEventListener('click', (e) => { playing = !playing; e.target.textContent = playing ? 'Пауза' : 'Продолжить'; e.target.classList.toggle('on', playing); e.target.setAttribute('aria-pressed', String(playing)); });
+  document.getElementById('speed').addEventListener('click', (e) => { speed = speed === 1 ? 2 : speed === 2 ? 3 : 1; e.target.textContent = `Скорость ×${speed}`; e.target.setAttribute('aria-pressed', String(speed > 1)); });
   setInterval(renderRoster, 1000);
   renderDetail(); renderRoster();
   if (reduce) { A.forEach((a) => (a.bubbleT = 99)); }
-  A.forEach((a) => { if (a.status === 'soon') { a.bubble = 'in development'; } });
+  A.forEach((a) => { if (a.status === 'soon') { a.bubble = 'в разработке'; } });
   requestAnimationFrame(loop);
 })();
 </script>
