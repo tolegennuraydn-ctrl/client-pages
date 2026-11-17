@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>LetsChina · November 2026 · Content review</title>
+<style>
+  :root { --g:#2F5D8A; --gd:#274C72; --gdeep:#1D3550; --lime:#F2B84B; --ink:#1B1F24; --bg:#F4F6F1; --line:#DDE3D6;
+          --ok:#2E7D32; --rev:#8A5A00; --rej:#B3261E; }
+  :root { color-scheme: light only; }
+  * { box-sizing:border-box; }
+  button, textarea { color:var(--ink); -webkit-text-fill-color:currentColor; }
+  body { margin:0; font-family:system-ui, sans-serif; font-weight:500; color:var(--ink); background:var(--bg); }
+  header { position:sticky; top:0; z-index:10; background:var(--gdeep); color:#fff; padding:14px 20px; display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; }
+  header h1 { font-size:18px; font-weight:800; margin:0; letter-spacing:.01em; }
+  header .who { font-size:13px; opacity:.85; }
+  header .prog { margin-left:auto; font-size:13px; font-weight:600; }
+  .bar { height:6px; background:rgba(255,255,255,.2); border-radius:3px; width:160px; overflow:hidden; display:inline-block; vertical-align:middle; margin-left:8px; }
+  .bar i { display:block; height:100%; background:var(--lime); width:0; transition:width .3s; }
+  .filters { display:flex; gap:8px; flex-wrap:wrap; padding:14px 20px 0; max-width:1240px; margin:0 auto; }
+  .filters button { font:inherit; font-size:13px; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:7px 14px; cursor:pointer; }
+  .filters button.on { background:var(--g); color:#fff; border-color:var(--g); }
+  .intro { max-width:1240px; margin:12px auto 0; padding:0 20px; font-size:14px; line-height:1.5; color:#46503f; }
+  .intro.sheet { background:#E8EEF5; border-radius:10px; padding:10px 14px; }
+  .intro.sheet a { color:var(--gd); font-weight:700; }
+  .warn { max-width:1240px; margin:12px auto 0; padding:12px 16px; border-radius:10px; background:#FFF4D6; color:#6b4e00; font-size:14px; display:none; }
+  main { max-width:1240px; margin:0 auto; padding:16px 20px 120px; }
+  h2.group { font-size:15px; font-weight:800; color:var(--gd); margin:26px 0 10px; text-transform:uppercase; letter-spacing:.04em; }
+  .card { display:grid; grid-template-columns:minmax(260px, 360px) 1fr; gap:22px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; margin-bottom:16px; }
+  .card.s-approve { border-left:6px solid var(--ok); } .card.s-revise { border-left:6px solid var(--rev); } .card.s-reject { border-left:6px solid var(--rej); }
+  @media (max-width:760px) { .card { grid-template-columns:1fr; } }
+  .media { position:relative; background:#0f1a0e; border-radius:12px; overflow:hidden; }
+  .media video, .media img { display:block; width:100%; height:auto; }
+  .media.vid video { aspect-ratio:9/16; object-fit:cover; background:#0f1a0e; }
+  .playbtn { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:84px; height:84px; border-radius:50%; border:0;
+             background:rgba(242,184,75,.95); color:#1B1F24; font-size:34px; cursor:pointer; box-shadow:0 6px 24px rgba(0,0,0,.4); }
+  .vload { position:absolute; left:0; right:0; bottom:14px; text-align:center; color:#fff; font-size:14px; text-shadow:0 1px 4px #000; }
+  .slides { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+  .slides::-webkit-scrollbar { display:none; }
+  .slides img { flex:0 0 100%; scroll-snap-align:start; }
+  .nav { position:static; padding:8px 0; background:#0f1a0e; display:flex; justify-content:center; gap:8px; align-items:center; }
+  .nav button { font:inherit; border:0; background:rgba(0,0,0,.55); color:#fff; border-radius:999px; width:34px; height:34px; cursor:pointer; font-size:16px; }
+  .nav span { background:rgba(0,0,0,.55); color:#fff; border-radius:999px; padding:6px 10px; font-size:12px; }
+  .meta { font-size:12px; color:#5d6a55; display:flex; flex-wrap:wrap; gap:6px 12px; }
+  .meta b { color:var(--ink); }
+  .anote { display:inline-block; font-size:13px; font-weight:600; color:#274C72; background:#E8EEF5; border-radius:8px; padding:6px 10px; margin:-2px 0 8px; }
+  .snote { font-size:13px; font-weight:600; color:#1D3550; background:#E3EFD4; border:1px solid #B9D69A; border-radius:8px; padding:7px 10px; margin:0 0 8px; }
+  .tag { background:#E8EEF5; color:var(--gd); border-radius:6px; padding:2px 8px; font-weight:600; }
+  .card h3 { font-size:18px; font-weight:800; margin:8px 0 10px; line-height:1.3; }
+  details { margin:6px 0; font-size:13px; }
+  details summary { cursor:pointer; color:var(--gd); font-weight:600; }
+  details pre { white-space:pre-wrap; font-family:inherit; background:#F7F9F4; border-radius:8px; padding:10px 12px; margin:8px 0 0; line-height:1.5; }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 8px; }
+  .actions button { font:inherit; font-weight:600; font-size:14px; border:2px solid var(--line); background:#fff; color:var(--ink); border-radius:10px; padding:9px 16px; cursor:pointer; }
+  .actions button[data-d=approve].on { background:var(--ok); border-color:var(--ok); color:#fff; }
+  .actions button[data-d=revise].on { background:var(--rev); border-color:var(--rev); color:#fff; }
+  .actions button[data-d=reject].on { background:var(--rej); border-color:var(--rej); color:#fff; }
+  .actions button:disabled { opacity:.5; cursor:not-allowed; }
+  textarea { width:100%; min-height:70px; background:#fff; color:var(--ink); font:inherit; font-size:14px; border:1px solid var(--line); border-radius:10px; padding:10px 12px; resize:vertical; }
+  .att { margin-top:8px; }
+  .drop { border:2px dashed #B9C9A8; border-radius:12px; padding:10px 12px; font-size:13px; color:#46503f; background:#FAFCF7; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .drop.over { border-color:var(--g); background:#E8EEF5; }
+  .drop button, .drop label { font:inherit; font-weight:600; font-size:13px; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:7px 12px; cursor:pointer; }
+  .drop label input { display:none; }
+  .drop .hint { flex-basis:100%; font-size:12px; color:#5d6a55; }
+  .drop button.rec { background:#B5452F; border-color:#B5452F; color:#fff; }
+  .thumbs { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .thumb { position:relative; width:96px; height:96px; border-radius:10px; overflow:hidden; border:1px solid var(--line); background:#F7F9F4; cursor:zoom-in; }
+  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .num { position:absolute; left:4px; bottom:4px; background:var(--g); color:#fff; font-weight:800; font-size:12px; border-radius:6px; padding:2px 7px; }
+  .voice .vnum { font-weight:700; white-space:nowrap; }
+  .voice { display:flex; align-items:center; gap:8px; background:#F7F9F4; border:1px solid var(--line); border-radius:10px; padding:6px 8px; margin-top:8px; font-size:12px; }
+  .voice audio { height:36px; max-width:100%; flex:1; }
+  .x { position:absolute; top:4px; right:4px; width:24px; height:24px; border-radius:50%; border:0; background:rgba(0,0,0,.6); color:#fff; font-size:13px; cursor:pointer; }
+  .voice .x { position:static; flex:none; }
+  .by { font-size:11px; color:#5d6a55; }
+  .astatus { font-size:12px; color:#5d6a55; min-height:16px; margin-top:4px; }
+  .lb { position:fixed; inset:0; background:rgba(10,16,9,.88); display:none; align-items:center; justify-content:center; z-index:50; padding:20px; }
+  .lb.on { display:flex; }
+  .lb img { max-width:100%; max-height:100%; border-radius:8px; }
+  .lb button { position:absolute; top:14px; right:14px; font:inherit; font-weight:700; background:#fff; color:#111; border:0; border-radius:999px; padding:8px 14px; cursor:pointer; }
+  .hist { font-size:13px; background:#F4FAF1; border:1px solid #CFE3C4; border-radius:10px; padding:8px 12px; margin:0 0 8px; color:#46503f; }
+  .hist b { color:#1D3550; display:block; margin-bottom:3px; }
+  .hist div { white-space:pre-wrap; max-height:140px; overflow:auto; }
+  .hist .round { padding:6px 0; border-top:1px solid #CFE3C4; max-height:none; overflow:visible; }
+  .hist .round:first-of-type { border-top:0; padding-top:0; }
+  .hist .round .rtext { max-height:140px; overflow:auto; }
+  .hist .round .rfixed { white-space:normal; color:#5d6a55; margin-top:3px; max-height:none; }
+  .hist .round .rfiles { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:6px; white-space:normal; max-height:none; overflow:visible; }
+  .hist .round .rfiles:empty { display:none; }
+  .saverow { display:flex; align-items:center; gap:10px; margin-top:6px; flex-wrap:wrap; }
+  .savebtn { font:inherit; font-weight:700; font-size:14px; background:var(--g); color:#fff; border:0; border-radius:10px; padding:9px 16px; cursor:pointer; }
+  .savebtn:disabled { opacity:.6; cursor:default; }
+  .saved.ok { color:#274C72; font-weight:700; } .saved.err { color:#B5452F; font-weight:700; }
+  .saved { font-size:12px; color:#5d6a55; min-height:16px; margin-top:4px; }
+  .others { font-size:14px; }
+  .others .rv { padding:10px 12px; border-radius:10px; background:#FFFBF2; border:1px solid #EBDDBA; border-left:5px solid #C98A1B; margin:0 0 10px; }
+  .others .rv.d-approve-b { border-left-color:var(--ok); background:#F4FAF1; border-color:#CFE3C4; }
+  .others .rv.d-reject-b { border-left-color:var(--rej); }
+  .others .rvh { font-size:12.5px; color:#5d6a55; margin-bottom:4px; }
+  .others .rvh b { color:var(--ink); font-size:13.5px; }
+  .others .rvt { white-space:pre-wrap; line-height:1.5; }
+  .others .d-approve { color:var(--ok); font-weight:700; } .others .d-revise { color:var(--rev); font-weight:700; } .others .d-reject { color:var(--rej); font-weight:700; }
+  footer { position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line); padding:12px 20px; display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; z-index:10; }
+  footer button { font:inherit; font-weight:800; font-size:15px; background:var(--g); color:#fff; border:0; border-radius:12px; padding:12px 22px; cursor:pointer; }
+  /* phones (test 11 Nov, iPhone 13 size): sticky header 162 px + footer 128 px left too little room and covered «Save» */
+  html { scroll-padding-top:12px; scroll-padding-bottom:110px; }
+  @media (max-width:760px) {
+    header { position:static; padding:12px 16px; } header h1 { font-size:16px; }
+    footer { padding:8px 12px; gap:6px; } footer .ver, footer .fs { display:none; } footer button { padding:10px 18px; }
+    main { padding-bottom:90px; }
+  }
+  footer button:disabled { opacity:.5; cursor:not-allowed; }
+  footer .fs { font-size:13px; color:#46503f; }
+
+  .namebar { background:#FFF6DF; border-bottom:1px solid #EBCB7A; padding:14px 20px; }
+  .namebar form { max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:8px; font-size:15px; }
+  .namebar div { display:flex; gap:8px; flex-wrap:wrap; }
+  .namebar input { flex:1; min-width:180px; font:inherit; font-size:16px; padding:10px 12px; border:1px solid #DCE3D3; border-radius:10px; background:#fff; color:#1C1F1A; }
+  .namebar button { font:inherit; font-weight:800; background:#274C72; color:#fff; border:0; border-radius:10px; padding:10px 18px; cursor:pointer; }
+</style>
+<script>
+window.REVIEW_CLIENT='letschina';
+// Personal access for every client page (12 Nov 2026). The link a person gets carries their token once (…?t=<token>&r=<id>&name=<Name>).
+// It is kept on this device, taken out of the address bar (so it is not shared with a copied link or a screenshot) and sent with
+// every request as `t`. The web app decides who the writer is from the token alone. No token → the page is view-only.
+// The token arrives as …?t=<token> (personal link) or …#t=<token> (from the entry page where a client types their code — the part
+// after # is never sent to a server). It is kept per client (window.REVIEW_CLIENT), because several clients' sites can share one
+// web address and one browser: one client's login must never be offered to another client's pages.
+(function () {
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: token lives for this tab */ } } };
+  var KEY = window.REVIEW_CLIENT ? 'review_token:' + window.REVIEW_CLIENT : 'review_token';
+  var q = new URLSearchParams(location.search), t = q.get('t'), hash = location.hash || '';
+  var h = /(^#|&)t=([^&]*)/.exec(hash);
+  if (!t && h) { try { t = decodeURIComponent(h[2]); } catch (e) { t = ''; } }
+  if (h) hash = hash.replace(/(^#|&)t=[^&]*/, '$1').replace(/^#&/, '#').replace(/^#$/, '');
+  if (t) {
+    store.set(KEY, t);
+    q.delete('t');
+    var rest = q.toString();
+    try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + hash); } catch (e) { /* keep going */ }
+  }
+  // a client whose people logged in before logins were kept per client (window.REVIEW_LEGACY_TOKEN) keeps working without a new link
+  window.REVIEW_TOKEN = t || store.get(KEY) || (window.REVIEW_LEGACY_TOKEN && KEY !== 'review_token' ? store.get('review_token') : '') || '';
+  if (!window.REVIEW_TOKEN) {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.REVIEW_NO_BANNER) return;   // the review page shows its own view-only notice
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
+      bar.textContent = 'This page is open for viewing only. To save decisions and comments, open it with your personal link.';
+      document.body.insertBefore(bar, document.body.firstChild);
+    });
+  }
+})();
+</script>
+</head>
+<body>
+<header>
+  <h1>LetsChina · November 2026 · Content review</h1>
+  <span class="who" id="who"></span>
+  <span class="prog" id="prog">Loading…</span>
+</header>
+<nav class="mnav" style="background:#fff;border-bottom:1px solid #DCE3D3;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px">
+<a href="../review/" data-qs style="color:#1D3550;font-weight:700;margin-right:6px;text-decoration:none">← All months</a><span id="mnavList"></span><span style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap"><a href="../plan/" data-qs style="color:#1D3550;font-weight:700">📋 Content plan</a><a href="../ideas/" data-qs style="color:#1D3550;font-weight:700">💡 Ideas and briefs</a></span></nav>
+<script>(()=>{const qs=location.search, cur="2026-11";
+document.querySelectorAll('[data-qs]').forEach(a=>{a.href+=qs});
+fetch("../months.json"+'?t='+Date.now()).then(r=>r.json()).then(j=>{document.getElementById('mnavList').innerHTML=(j["review"]||[]).map(x=>
+x.m===cur?`<b style="background:#274C72;color:#fff;border-radius:999px;padding:5px 12px">${x.label}</b>`
+:`<a href="../${x.m}/${qs}" style="border:1px solid #B5C7DB;border-radius:999px;padding:5px 12px;color:#1D3550;text-decoration:none">${x.label}</a>`).join(' ')}).catch(()=>{});})();</script>
+
+<div class="warn" id="warn"></div>
+<p class="intro">For each post press <b>Approve</b>, <b>Revise</b> or <b>Reject</b> and, if needed, leave a comment — as text, a screenshot or a voice message. Everything is saved automatically and goes to Claude. Videos here are in reduced quality for viewing; the post will go out in full quality.</p>
+<div class="filters" id="filters"></div>
+<main id="list"></main>
+<div class="lb" id="lb" role="dialog" aria-label="Screenshot"><img alt=""><button type="button">Close ✕</button></div>
+<footer>
+  <span class="fs" style="opacity:.55">version 17.11 16:03 UTC</span>
+  <span class="fs" id="fs"></span>
+  <button id="done" disabled>Done — send decisions</button>
+</footer>
+<script>window.REVIEW_NO_BANNER = true; window.REVIEW_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=letschina", "month": "2026-11"}; window.REVIEW_VERSION = "17.11 16:03 UTC";</script>
+<script>
+// Own-site backend for the review page.
+// Gives the page the same small db/user interface it uses on Claude, backed by a Google Apps Script web app (apps_script/Code.gs):
+// decisions + notes → Google Sheet, screenshots + voice notes → Google Drive. No sign-in: the reviewer types their name once.
+// Config is injected by build_site.py: window.REVIEW_CONFIG = { url, month }. Access: the personal token from auth.js (window.REVIEW_TOKEN).
+window.REVIEW_BACKEND = async function () {
+  const C = window.REVIEW_CONFIG;
+  if (!C || !C.url) return { db: null, user: null, msg: 'For now this page is for viewing only: saving decisions is being connected. Soon you will be able to leave decisions, text, screenshots and voice notes here.' };
+  if (!window.REVIEW_TOKEN) return { db: null, user: null, msg: 'This page is open for viewing only. To save decisions, text, screenshots and voice notes, open it with your personal link.' };
+  const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } } };
+  async function call(body) {
+    let last;
+    for (let t = 0; t < 3; t++) {
+      try {
+        // text/plain keeps it a "simple" request (no CORS preflight), which Apps Script web apps accept
+        const payload = JSON.stringify({ ...body, t: window.REVIEW_TOKEN, month: C.month });
+        const r = await fetch(C.url, { method: 'POST', body: payload, keepalive: !!window.__reviewLeaving && payload.length < 60000 });
+        const j = await r.json();
+        if (!j.ok) throw new Error(j.error || 'error');
+        return j;
+      } catch (e) { last = e; await new Promise((ok) => setTimeout(ok, 800 * 2 ** t)); }
+    }
+    throw last;
+  }
+
+  // ---- who is reviewing: asked once, remembered on this device
+  const q = new URLSearchParams(location.search);
+  const rid = (q.get('r') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40), qname = (q.get('name') || '').slice(0, 60);
+  let name = ls.get('review_name'), uid = ls.get('review_uid');
+  if (rid && uid !== 'r_' + rid) { uid = 'r_' + rid; ls.set('review_uid', uid); if (qname) { name = qname; ls.set('review_name', name); } }   // personal link
+  if (!uid) { uid = 'r_' + Math.random().toString(36).slice(2, 10); ls.set('review_uid', uid); }
+  if (!name) name = await new Promise((done) => {
+    const bar = document.createElement('div'); bar.className = 'namebar';
+    bar.innerHTML = '<form><label for="rvname">What is your name? Nur and Claude will see it next to your decisions.</label>' +
+      '<div><input id="rvname" autocomplete="name" placeholder="" required><button>Continue</button></div></form>';
+    document.querySelector('header').after(bar);
+    bar.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault(); const v = bar.querySelector('input').value.trim(); if (!v) return;
+      ls.set('review_name', v); bar.remove(); done(v);
+    });
+  });
+
+  // ---- shared docs, refreshed every 20 s (and on return to the tab) so reviewers see each other's notes
+  let docs = {}; const subs = [];
+  const col = (path) => path.split('/')[0];
+  const snap = (c) => ({ docs: Object.entries(docs).filter(([p]) => col(p) === c).map(([p, v]) => ({ id: p.split('/')[1], data: () => v })) });
+  const notify = (c) => subs.forEach(([sc, cb]) => { if (!c || sc === c) cb(snap(sc)); });
+  const pending = new Set(), changedAt = {};   // path → time our own write/delete finished
+  async function refresh() {
+    const t0 = Date.now();
+    const j = await call({ op: 'list' });
+    const next = {}; for (const d of j.docs) next[d.path] = d.data;
+    // our own changes that are still in flight, or finished after this list was requested, win over the (older) server copy
+    for (const p of new Set([...pending, ...Object.keys(changedAt).filter((p) => changedAt[p] >= t0 - 2000)])) {
+      if (docs[p] !== undefined) next[p] = docs[p]; else delete next[p];
+    }
+    docs = next; notify();
+  }
+  setInterval(() => refresh().catch(() => {}), 20000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh().catch(() => {}); });
+
+  const db = {
+    doc(path) {
+      return {
+        async set(v) { const data = { ...v, who: name }; docs[path] = data; pending.add(path); notify(col(path));
+          try { await call({ op: 'set', path, data }); } finally { pending.delete(path); changedAt[path] = Date.now(); } },
+        async get() { return { id: path.split('/')[1], data: () => docs[path] }; },
+        async delete() { delete docs[path]; pending.add(path); notify(col(path));
+          try { await call({ op: 'delete', path }); } finally { pending.delete(path); changedAt[path] = Date.now(); } },
+      };
+    },
+    collection(c) { return { onSnapshot(cb, err) { subs.push([c, cb]); refresh().catch((e) => err && err(e)); return () => {}; } }; },
+    async putFile(o) { return (await call({ op: 'file', ...o, who: name })).fileId; },
+    async getFile(id, mime) {
+      const j = await call({ op: 'getfile', id });
+      const b = atob(j.data); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+      return new Blob([u], { type: j.mime || mime });
+    },
+    async deleteFile(id) { await call({ op: 'deletefile', id }); },
+  };
+  const user = {
+    async can() { return true; },
+    async id() { return uid; },
+    async me() { return { name }; },
+    async profiles(ids) { const out = {}; for (const v of Object.values(docs)) if (v && ids.includes(v.uid) && v.who) out[v.uid] = { name: v.who }; return out; },
+  };
+  // diagnostics: each step of this visit is written
+  // to submissions/diag-<uid>-<visit> so Claude can see exactly where it stops on a given phone. Best effort, never blocks the page.
+  const visit = Date.now().toString(36), steps = [];
+  window.__diag = (step, info) => {
+    steps.push({ t: new Date().toISOString().slice(11, 19), step, info: info == null ? '' : String(info).slice(0, 300) });
+    const data = { uid, who: name, at: new Date().toISOString(), ua: navigator.userAgent, url: location.href.slice(0, 200),
+      version: window.REVIEW_VERSION || '', mic: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia), rec: typeof MediaRecorder,
+      steps: steps.slice(-40) };
+    clearTimeout(window.__diagT);
+    window.__diagT = setTimeout(() => call({ op: 'set', path: `submissions/diag-${uid}-${visit}`, data }).catch(() => {}), 400);
+  };
+  window.__diag('loaded', 'backend ok');
+  return { db, user };
+};
+</script>
+<script>
+const D = (s, i) => { try { window.__diag && window.__diag(s, i); } catch (e) { /* diagnostics are optional */ } };
+const LABEL = { approve: 'Approve', revise: 'Revise', reject: 'Reject' };
+const DONE = { approve: 'Approved', revise: 'Revise', reject: 'Rejected' };
+// Every earlier comment of a reviewer on a piece, oldest first (written by engine/review/site/rounds.py when a fix is delivered):
+// rounds = [{n, date, decision, note, fixed}]. Nothing is ever removed from it.
+const roundsOf = (r) => (Array.isArray(r?.rounds) ? r.rounds.filter((x) => x && Number(x.n) > 0).slice().sort((a, b) => a.n - b.n) : []);
+function roundHead(x) {
+  let when = x.date || '';
+  const t = /^\d{4}-\d{2}-\d{2}/.test(when) ? new Date(when.slice(0, 10) + 'T12:00:00') : null;
+  if (t && !isNaN(t)) when = t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+  return 'Comment ' + Number(x.n) + (when ? ' · ' + when : '') + (DONE[x.decision] ? ' · ' + DONE[x.decision] : '');
+}
+let items = [], reviews = {}, me = null, db = null, user = null, filter = 'all';
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function warn(msg) { const w = $('#warn'); w.textContent = msg; w.style.display = msg ? 'block' : 'none'; }
+const seg = (x) => String(x).replace(/[^A-Za-z0-9_\-.~:@+]/g, '-');
+const key = (id, uid = me) => `${seg(id)}__${seg(uid)}`;
+function mine(id) { return me ? reviews[key(id)] : null; }
+
+function mediaHtml(it) {
+  const v = it.files.find((f) => f.type === 'video');
+  // iPhone/iPad Safari plays a file only if the server answers byte-range requests; this host doesn't, so the video is
+  // downloaded on tap and played from a blob: URL (allowed by the page's policy) instead of streaming its URL.
+  if (v) return `<div class="media vid"><video playsinline preload="none" poster="${v.poster || ''}" data-src="${v.src}"></video>
+    <button class="playbtn" aria-label="Play">▶</button><span class="vload"></span></div>`;
+  const imgs = it.files.filter((f) => f.type === 'image');
+  if (imgs.length === 1) return `<div class="media"><img src="${imgs[0].src}" loading="lazy" alt=""></div>`;
+  return `<div class="media"><div class="slides">${imgs.map((f) => `<img src="${f.src}" loading="lazy" alt="">`).join('')}</div>
+    <div class="nav"><button data-nav="-1" aria-label="Back">‹</button><span>1 / ${imgs.length}</span><button data-nav="1" aria-label="Next">›</button></div></div>`;
+}
+
+function render() {
+  const list = $('#list');
+  list.innerHTML = '';
+  let group = null;
+  for (const it of items) {
+    const r = mine(it.id);
+    const st = r?.decision || 'none';
+    if (filter !== 'all' && !(filter === 'none' ? st === 'none' : st === filter)) continue;
+    if (it.group !== group) { group = it.group; list.insertAdjacentHTML('beforeend', `<h2 class="group">${esc(group)}</h2>`); }
+    const card = document.createElement('section');
+    card.className = `card s-${st}`;
+    card.id = `p-${it.id}`;
+    card.innerHTML = `${mediaHtml(it)}
+      <div>
+        <div class="meta">${it.item ? `<span class="tag"># ${esc(it.item)}</span>` : ''}${it.when ? `<span><b>${esc(it.when)}</b> (Almaty)</span>` : ''}
+          <span>${esc(it.format)}</span><span>${esc(it.lang)}</span><span>${esc(it.segment)}</span></div>
+        <h3>${esc(it.title)}</h3>
+        ${it.audio_note ? `<div class="anote">${esc(it.audio_note)}</div>` : ''}
+        ${it.status_note ? `<div class="snote">${esc(it.status_note)}</div>` : ''}
+        <div class="others"></div>
+        ${it.caption ? `<details><summary>Post text (caption)</summary><pre>${esc(it.caption)}</pre></details>` : ''}
+        ${it.notes ? `<details><summary>How to post</summary><pre>${esc(it.notes)}</pre></details>` : ''}
+        <div class="actions">${Object.keys(LABEL).map((d) => `<button data-d="${d}" class="${st === d ? 'on' : ''}" ${db ? '' : 'disabled'}>${LABEL[d]}</button>`).join('')}</div>
+        ${roundsOf(r).length ? `<div class="hist"><b>Your earlier comments — this version was made from them:</b>${roundsOf(r).map((x) => `<div class="round"><b>${esc(roundHead(x))}</b>${x.note ? `<div class="rtext">${esc(x.note)}</div>` : ''}${x.fixed ? `<div class="rfixed">What we changed: ${esc(x.fixed)}</div>` : ''}<div class="rfiles" data-round="${Number(x.n)}"></div></div>`).join('')}</div>`
+          : r?.history ? `<div class="hist"><b>Your previous comment${r.history_date ? ' (' + esc(r.history_date) + ')' : ''} — this new version was made from it:</b><div>${esc(r.history)}</div></div>` : ''}
+        <textarea placeholder="${r?.history || roundsOf(r).length ? 'New comment on this version (this version was made from the old one). You can refer to: “screenshot 1: …”' : 'Comment: what to change, what you like… You can refer to: “screenshot 1: …”'}" ${db ? '' : 'disabled'}>${esc(r?.note || '')}</textarea>
+        <div class="saverow" ${db && me ? '' : 'hidden'}><button type="button" class="savebtn">💾 Save</button><span class="saved"></span></div>
+        <div class="att">
+          <div class="drop" ${db && me ? '' : 'hidden'}>
+            <label>📎 Screenshot<input type="file" accept="image/*" multiple data-kind="image"></label>
+            ${MIC_IN_PAGE ? '<button type="button" class="micbtn">🎙 Record a voice note</button>' : '<label class="micbtn">🎙 Record a voice note<input type="file" accept="audio/*" capture data-kind="audio"></label>'}
+            <label>🎧 Upload a voice note<input type="file" accept="audio/*,.ogg,.opus,.m4a,.mp3,.wav,.aac,.amr,.webm" data-kind="audio"></label>
+            <span class="hint">Drag a screenshot or a voice note here, or paste a screenshot (Ctrl+V) into the comment field. Screenshots are numbered 1, 2, 3… — in the text write “screenshot 2: …”.</span>
+          </div>
+          <div class="astatus"></div>
+          <div class="thumbs"></div>
+          <div class="voices"></div>
+        </div>
+      </div>`;
+    list.appendChild(card);
+    wire(card, it);
+  }
+  renderOthers();
+  progress();
+}
+
+function wireVideo(card) {
+  const box = $('.vid', card);
+  if (!box) return;
+  const v = $('video', box), btn = $('.playbtn', box), lab = $('.vload', box);
+  btn.addEventListener('click', async () => {
+    btn.disabled = true; lab.textContent = 'Loading the video…';
+    try {
+      if (!v.src) {
+        const r = await fetch(v.dataset.src);
+        if (!r.ok) throw new Error(r.status);
+        v.src = URL.createObjectURL(await r.blob());
+      }
+      v.controls = true; btn.remove(); lab.textContent = '';
+      try { await v.play(); } catch (e) { /* iOS may need a second tap on the player's own ▶ */ }
+    } catch (e) { lab.textContent = 'Did not load — press again'; btn.disabled = false; }
+  });
+}
+
+function wire(card, it) {
+  wireVideo(card);
+  wireAttach(card, it);
+  card.querySelectorAll('.actions button').forEach((b) => b.addEventListener('click', () => save(it.id, { decision: b.dataset.d }, card)));
+  const ta = $('textarea', card);
+  let t = null;
+  const sv = $('.saved', card), btn = $('.savebtn', card);
+  ta.addEventListener('input', () => { clearTimeout(t); dirty.add(it.id); sv.className = 'saved'; sv.textContent = 'Not saved — press “Save”'; t = setTimeout(() => save(it.id, { note: ta.value }, card), 4000); });
+  btn?.addEventListener('click', () => { clearTimeout(t); save(it.id, { note: ta.value }, card); });
+  const slides = $('.slides', card);
+  if (slides) {
+    const n = slides.children.length, lab = $('.nav span', card);
+    const at = () => Math.round(slides.scrollLeft / slides.clientWidth);
+    slides.addEventListener('scroll', () => { lab.textContent = `${at() + 1} / ${n}`; }, { passive: true });
+    card.querySelectorAll('[data-nav]').forEach((b) => b.addEventListener('click', () =>
+      slides.scrollTo({ left: Math.max(0, Math.min(n - 1, at() + Number(b.dataset.nav))) * slides.clientWidth, behavior: 'smooth' })));
+  }
+}
+
+let writing = Promise.resolve(); const dirty = new Set(), failed = new Set(); let pendingCount = 0;
+// leaving with unsaved or still-saving comments: the browser asks first
+function flushUnsaved() { window.__reviewLeaving = true; setTimeout(() => { window.__reviewLeaving = false; }, 3000); document.querySelectorAll('.card').forEach((card) => { const id = card.id.slice(2), ta = $('textarea', card);
+  const stored = (mine(id) || {}).note || '';
+  if (ta && dirty.has(id) && db && me) { if (ta.value !== stored) save(id, { note: ta.value }, card); else dirty.delete(id); } }); }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushUnsaved(); });
+window.addEventListener('pagehide', flushUnsaved);
+window.addEventListener('beforeunload', (e) => { if (pendingCount > 0 || dirty.size) { e.preventDefault(); e.returnValue = ''; } });
+function save(id, patch, card) {
+  if (!db || !me) return;
+  const k = key(id);
+  const cur = reviews[k] || { piece: id, uid: me, decision: null, note: '' };
+  const next = { ...cur, ...patch, piece: id, uid: me, updated: new Date().toISOString() };
+  reviews[k] = next;
+  if (patch.decision) {
+    card.className = `card s-${next.decision}`;
+    card.querySelectorAll('.actions button').forEach((b) => b.classList.toggle('on', b.dataset.d === next.decision));
+    progress();
+  }
+  const s = $('.saved', card), btn = $('.savebtn', card);
+  dirty.add(id); pendingCount++; s.className = 'saved'; s.textContent = 'Saving…'; if (btn) btn.disabled = true;
+  writing = writing.then(() => db.doc(`reviews/${k}`).set(next))
+    .then(() => { failed.delete(id); const ta0 = $('textarea', card); if (!ta0 || ta0.value === (next.note || '')) dirty.delete(id);
+      s.className = 'saved ok'; s.textContent = `✅ Saved at ${new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`; })
+    .catch((e) => { D('note save FAILED', id + ' ' + (e && e.message)); failed.add(id); s.className = 'saved err';
+      s.textContent = window.REVIEW_BACKEND ? '❌ Not saved — check the internet connection and press “Save” again' : '❌ Not saved — check that you are signed in to Claude and press “Save” again'; })
+    .finally(() => { pendingCount--; if (btn) btn.disabled = false; });
+}
+
+async function renderOthers() {
+  const byPiece = {};
+  for (const r of Object.values(reviews)) if (r.uid !== me && (r.decision || r.note || r.history || roundsOf(r).length)) (byPiece[r.piece] = byPiece[r.piece] || []).push(r);
+  const ids = [...new Set(Object.values(byPiece).flat().map((r) => r.uid))];
+  let ps = {};
+  try { ps = ids.length && user ? await user.profiles(ids) : {}; } catch (e) { ps = {}; }
+  for (const [piece, rs] of Object.entries(byPiece)) {
+    const box = $(`#p-${CSS.escape(piece)} .others`);
+    if (!box) continue;
+    box.innerHTML = '';
+    for (const r of rs) {
+      const d = document.createElement('div'); d.className = 'rv' + (r.decision ? ` d-${r.decision}-b` : '');
+      const h = document.createElement('div'); h.className = 'rvh';
+      const who = document.createElement('b'); who.textContent = 'Comment: ' + (ps[r.uid]?.name || r.who || 'another reviewer');
+      h.appendChild(who);
+      if (r.decision) { const x = document.createElement('span'); x.className = `d-${r.decision}`; x.textContent = ' · ' + DONE[r.decision]; h.appendChild(x); }
+      if (r.updated) { const t = new Date(r.updated); if (!isNaN(t)) h.appendChild(document.createTextNode(' · ' + t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }))); }
+      d.appendChild(h);
+      if (r.note) { const n = document.createElement('div'); n.className = 'rvt'; n.textContent = r.note; d.appendChild(n); }
+      for (const x of roundsOf(r)) { const hh = document.createElement('div'); hh.className = 'rvt'; hh.style.cssText = 'margin-top:6px;color:#5d6a55;font-size:13px'; hh.textContent = roundHead(x) + (x.note ? ': ' + x.note : ''); d.appendChild(hh); }
+      if (r.history && !roundsOf(r).length) { const hh = document.createElement('div'); hh.className = 'rvt'; hh.style.cssText = 'margin-top:6px;color:#5d6a55;font-size:13px'; hh.textContent = `Previous comment (${r.history_date || 'earlier'}, the new version was made from it): ` + r.history; d.appendChild(hh); }
+      box.appendChild(d);
+    }
+  }
+}
+
+function progress() {
+  const n = items.length, done = items.filter((it) => mine(it.id)?.decision).length;
+  $('#prog').innerHTML = `Decided ${done} of ${n} <span class="bar"><i style="width:${n ? (100 * done / n) : 0}%"></i></span>`;
+  const c = { approve: 0, revise: 0, reject: 0 };
+  items.forEach((it) => { const d = mine(it.id)?.decision; if (d) c[d]++; });
+  $('#fs').textContent = `Approved ${c.approve} · Revise ${c.revise} · Rejected ${c.reject}`;
+  $('#done').disabled = !db || !me || done === 0;
+  renderFilters(c, n - done);
+}
+
+function renderFilters(c, open) {
+  const f = $('#filters');
+  const opts = [['all', `All (${items.length})`], ['none', `No decision (${open})`], ['approve', `Approved (${c.approve})`], ['revise', `Revise (${c.revise})`], ['reject', `Rejected (${c.reject})`]];
+  f.innerHTML = opts.map(([k, l]) => `<button data-f="${k}" class="${filter === k ? 'on' : ''}">${l}</button>`).join('');
+  f.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.f; render(); }));
+}
+
+$('#done').addEventListener('click', async () => {
+  const b = $('#done');
+  b.disabled = true; b.textContent = 'Saving all comments…';
+  try {
+    document.querySelectorAll('.card').forEach((card) => { const id = card.id.slice(2), ta = $('textarea', card);
+      if (ta && dirty.has(id) && ta.value !== ((mine(id) || {}).note || '')) save(id, { note: ta.value }, card); else dirty.delete(id); });
+    await writing;
+    if (failed.size) { const n = items.filter((it) => failed.has(it.id)).map((it) => '#' + (it.item || it.id)).join(', ');
+      b.textContent = `Not saved: ${n} — press “Save” on these cards and then “Done” again`; b.disabled = false; return; }
+    const mineAll = items.map((it) => ({ piece: it.id, ...(mine(it.id) || {}) }));
+    await db.doc(`submissions/${seg(me)}`).set({ uid: me, at: new Date().toISOString(), decided: mineAll.filter((r) => r.decision).length, total: items.length });
+    const notes = mineAll.filter((r) => (r.note || '').trim()).length, dec = mineAll.filter((r) => r.decision).length;
+    const pl = (n, f) => n + ' ' + f[n === 1 ? 0 : 1];
+    b.textContent = `✅ Sent: ${pl(dec, ['decision', 'decisions'])}, ${pl(notes, ['comment', 'comments'])} — everything is saved`;
+  } catch (e) { b.textContent = 'Not sent — try again'; b.disabled = false; }
+});
+
+// ---------- attachments: screenshots and voice notes, stored in the page db in chunks ----------
+// attachments/<id> = {piece, uid, kind, name, mime, size, chunks, created}; attachment_chunks/<id>__<i> = {att, i, data(base64)}
+const MIC_POLICY = document.permissionsPolicy || document.featurePolicy;
+const MIC_IN_PAGE = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder) && (!MIC_POLICY || MIC_POLICY.allowsFeature('microphone'));
+const CHUNK = 120000, MAX_AUDIO = 8 * 1024 * 1024, MAX_IMG_SIDE = 1600;
+let atts = {}; const blobs = {}; const maxNum = {};
+function b64(buf) { let s = ''; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+function unb64(s) { const b = atob(s); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+async function shrinkImage(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, bad) => { const i = new Image(); i.onload = () => ok(i); i.onerror = bad; i.src = url; });
+    const k = Math.min(1, MAX_IMG_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas'); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    // WebP is ~30–50% smaller for screenshots; Safari can't encode it and returns PNG, so fall back to JPEG there
+    const webp = await new Promise((ok) => c.toBlob((b) => ok(b), 'image/webp', 0.82));
+    if (webp && webp.type === 'image/webp') return webp;
+    return await new Promise((ok) => c.toBlob((b) => ok(b), 'image/jpeg', 0.8));
+  } finally { URL.revokeObjectURL(url); }
+}
+async function addAttachment(it, card, blob, kind, name) {
+  const st0 = $('.astatus', card), pre = () => card.dataset.q || '';
+  const st = { set textContent(t) { st0.textContent = pre() + t; } };
+  if (!db || !me) { D('upload blocked', 'no db/me'); st0.textContent = window.REVIEW_BACKEND ? 'First enter your name at the top of the page.' : 'To attach a file, sign in to Claude.'; return; }
+  try {
+    if (kind === 'image') { st.textContent = 'Preparing the screenshot…'; blob = await shrinkImage(blob); }
+    else if (blob.size > MAX_AUDIO) { st.textContent = 'The voice note is too large (over 8 MB). Record a shorter one or split it into parts.'; return; }
+    D('upload start', kind + ' ' + blob.type + ' ' + blob.size + ' bytes, piece ' + it.id);
+    const data = b64(await blob.arrayBuffer());
+    const id = `${seg(it.id)}__${seg(me)}__${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+    let n = Math.ceil(data.length / CHUNK) || 1, fileId = null;
+    if (db.putFile) {  // own-site backend: the whole file goes to Google Drive in one request
+      st.textContent = `Uploading ${kind === 'image' ? 'screenshot' : 'voice note'}…`;
+      const k = `${it.id}|${kind}`; const pre = Math.max(0, ...Object.values(atts).filter((m) => m.piece === it.id && m.kind === kind).map((m) => m.num || 0), maxNum[k] || 0) + 1;
+      maxNum[k] = pre;
+      fileId = await db.putFile({ piece: it.id, kind, num: pre, mime: blob.type, data }); n = 0;
+    }
+    for (let i = 0; i < n; i++) {
+      st.textContent = `Uploading ${kind === 'image' ? 'screenshot' : 'voice note'}… ${Math.round(100 * i / n)}%`;
+      const part = { att: id, i, data: data.slice(i * CHUNK, (i + 1) * CHUNK) };
+      for (let t = 0; ; t++) {  // retry a busy/limited write with backoff: 1 s, 2 s, 4 s
+        try { await db.doc(`attachment_chunks/${id}__${i}`).set(part); break; }
+        catch (e) { if (t >= 3) throw e; await new Promise((r) => setTimeout(r, 1000 * 2 ** t)); }
+      }
+    }
+    const num = fileId ? maxNum[`${it.id}|${kind}`] : Math.max(0, ...Object.values(atts).filter((m) => m.piece === it.id && m.kind === kind).map((m) => m.num || 0), maxNum[`${it.id}|${kind}`] || 0) + 1;
+    maxNum[`${it.id}|${kind}`] = num;
+    const meta = { id, num, piece: it.id, uid: me, kind, name: name || (kind === 'image' ? 'screenshot' : 'voice'), mime: blob.type || (kind === 'image' ? 'image/jpeg' : 'audio/mpeg'), size: blob.size, chunks: n, created: new Date().toISOString(), ...(fileId ? { fileId } : {}) };
+    await db.doc(`attachments/${id}`).set(meta);
+    blobs[id] = URL.createObjectURL(blob);
+    atts[id] = meta; renderAttachments(it.id);
+    D('upload ok', kind + ' #' + num);
+    st.textContent = kind === 'image' ? `Screenshot ${num} saved ✓ — in the comment you can write “screenshot ${num}: …”`
+      : `Voice note ${num} saved ✓` + (card.dataset.quiet === '1' ? ' — ⚠️ but the voice is barely audible: check the microphone and record again' : '');
+    if (kind !== 'image') card.dataset.quiet = '';
+  } catch (e) {
+    D('upload FAILED', (e && (e.name + ': ' + (e.message || e.code))) || String(e));
+    st.textContent = /full|quota|limit|exhaust|too many/i.test(String(e && (e.message || e.code)))
+      ? 'The storage of this page is full — write to Nur and we will free some space (text comments still work).'
+      : (window.REVIEW_BACKEND ? '❌ Not saved — check the internet connection and try again.' : '❌ Not saved — check the internet connection and that you are signed in to Claude, then try again.')
+        + ` (${String((e && (e.name + ': ' + (e.message || e.code))) || e).slice(0, 120)})`;
+    throw e;
+  }
+}
+// any number of files at once: one upload at a time, in the order picked, so numbers follow that order and writes aren't throttled
+const queues = {};
+function enqueue(it, card, files) {
+  const q = queues[it.id] = queues[it.id] || { chain: Promise.resolve(), total: 0, done: 0 };
+  q.total += files.length;
+  for (const [f, k] of files) q.chain = q.chain.then(async () => {
+    card.dataset.q = q.total > 1 ? `${q.done + 1} of ${q.total} · ` : '';
+    try { await addAttachment(it, card, f, k, f.name); } catch (e) { q.failed = (q.failed || 0) + 1; }
+    q.done++;
+    if (q.done === q.total) {
+      if (q.total > 1) $('.astatus', card).textContent = q.failed ? `Uploaded ${q.total - q.failed} of ${q.total}; ${q.failed} were not saved — add them again.` : `Uploaded ${q.total} files ✓ — the numbers are on the previews`;
+      q.total = q.done = q.failed = 0; card.dataset.q = '';
+    }
+  });
+}
+async function loadBlob(id, meta) {
+  if (blobs[id]) return blobs[id];
+  if (meta.fileId && db.getFile) return (blobs[id] = URL.createObjectURL(await db.getFile(meta.fileId, meta.mime)));
+  const parts = [];
+  for (let i = 0; i < meta.chunks; i++) {
+    const d = await db.doc(`attachment_chunks/${id}__${i}`).get();
+    const x = d && (typeof d.data === 'function' ? d.data() : d);
+    if (!x || typeof x.data !== 'string') throw new Error('missing chunk');
+    parts.push(unb64(x.data));
+  }
+  return (blobs[id] = URL.createObjectURL(new Blob(parts, { type: meta.mime })));
+}
+async function removeAttachment(id, piece) {
+  const meta = atts[id]; if (!meta || meta.uid !== me) return;
+  delete atts[id]; renderAttachments(piece);
+  try { await db.doc(`attachments/${id}`).delete(); if (meta.fileId && db.deleteFile) await db.deleteFile(meta.fileId); for (let i = 0; i < meta.chunks; i++) await db.doc(`attachment_chunks/${id}__${i}`).delete(); } catch (e) { /* the meta row is what readers see */ }
+}
+let names = {};
+async function renderAttachments(piece) {
+  const card = document.getElementById(`p-${piece}`); if (!card) return;
+  const th = $('.thumbs', card), vo = $('.voices', card); th.innerHTML = ''; vo.innerHTML = '';
+  for (const b of card.querySelectorAll('.rfiles')) b.innerHTML = '';
+  // a file that belongs to an earlier comment (m.round) is shown with that comment and can no longer be deleted
+  const past = (m) => (m.round && m.uid === me ? $(`.rfiles[data-round="${Number(m.round)}"]`, card) : null);
+  const list = Object.entries(atts).filter(([, m]) => m.piece === piece).sort((a, b) => a[1].created.localeCompare(b[1].created));
+  const seen = { image: 0, audio: 0 };
+  for (const [, m] of list) { seen[m.kind] = Math.max(seen[m.kind] + 1, m.num || 0); if (!m.num) m.num = seen[m.kind]; }
+  for (const [id, m] of list) {
+    const who = m.uid === me ? 'You' : (names[m.uid] || 'Reviewer');
+    const del = m.uid === me && !m.round ? `<button class="x" type="button" title="Delete" aria-label="Delete">✕</button>` : '';
+    if (m.kind === 'image') {
+      const el = document.createElement('div'); el.className = 'thumb'; el.title = `Screenshot ${m.num} · ${who}`; el.innerHTML = `<img alt="Screenshot ${m.num}"><span class="num">${m.num}</span>${del}`; (past(m) || th).appendChild(el);
+      $('.x', el)?.addEventListener('click', () => removeAttachment(id, piece));
+      loadBlob(id, m).then((u) => { $('img', el).src = u; }).catch(() => { el.textContent = '…'; });
+      el.addEventListener('click', (e) => { if (e.target.closest('.x')) return; const u = $('img', el).src; if (u) { $('#lb img').src = u; $('#lb button').textContent = `Screenshot ${m.num} · Close ✕`; $('#lb').classList.add('on'); } });
+    } else {
+      const el = document.createElement('div'); el.className = 'voice'; el.innerHTML = `<span class="vnum">🎙 ${m.num}</span><audio controls preload="none"></audio><span class="by">${esc(who)}</span>${del}`; (past(m) || vo).appendChild(el);
+      $('.x', el)?.addEventListener('click', () => removeAttachment(id, piece));
+      loadBlob(id, m).then((u) => { const au = $('audio', el); au.preload = 'metadata';
+        // browser recordings (webm) carry no length, so the player shows ∞ — seek to the end once to let it measure, then back
+        au.addEventListener('loadedmetadata', () => { if (au.duration === Infinity) { au.currentTime = 1e7; au.addEventListener('timeupdate', () => { au.currentTime = 0; }, { once: true }); } }, { once: true });
+        au.src = u; }).catch(() => { $('.by', el).textContent = 'did not load'; });
+    }
+  }
+}
+let recorder = null;
+async function toggleRecord(it, card, btn) {
+  const st = $('.astatus', card);
+  if (recorder) { D('rec stop tap', it.id); recorder.stop(); return; }
+  D('rec start tap', it.id + ' MIC_IN_PAGE=' + MIC_IN_PAGE);
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch (e) { D('getUserMedia failed', (e && e.name) + ' ' + (e && e.message));  // blocked after all (e.g. iPhone): switch this button to the phone recorder and open it
+    const lab = document.createElement('label'); lab.className = 'micbtn'; lab.innerHTML = '🎙 Record a voice note<input type="file" accept="audio/*" capture data-kind="audio">';
+    btn.replaceWith(lab); const inp = $('input', lab); inp.addEventListener('change', () => { const f = [...inp.files]; inp.value = ''; if (f.length) enqueue(it, card, f.map((x) => [x, 'audio'])); });
+    try { inp.click(); } catch (_) { /* the user taps it again */ }
+    st.textContent = 'Opening the recorder on the phone. If it did not open — press “🎙 Record a voice note” again.'; return;
+  }
+  const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+  const parts = []; const t0 = Date.now(); D('recording', 'mime=' + type);
+  let peak = 0, level = 0, ac = null;
+  try {  // microphone level: shows that the phone actually hears her, warns on silence
+    ac = new (window.AudioContext || window.webkitAudioContext)(); const an = ac.createAnalyser(); an.fftSize = 1024;
+    ac.createMediaStreamSource(stream).connect(an); const buf = new Float32Array(an.fftSize);
+    const meter = () => { if (!recorder) return; an.getFloatTimeDomainData(buf); let sum = 0; for (const v of buf) sum += v * v;
+      level = Math.sqrt(sum / buf.length); peak = Math.max(peak, level); requestAnimationFrame(meter); };
+    if (ac.state === 'suspended') ac.resume(); requestAnimationFrame(meter);
+  } catch (e) { ac = null; }
+  recorder = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 32000 } : undefined);
+  recorder.ondataavailable = (e) => e.data.size && parts.push(e.data);
+  // speech → text while she records (the browser's own recognition): the words land in the comment box, where she can correct them.
+  // Best effort: a browser without it, or one that refuses, changes nothing — the recording itself is kept and sent as before.
+  let speech = null, heard = '';
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) { try { speech = new SR(); speech.lang = 'en-US'; speech.continuous = true; speech.interimResults = false;
+      speech.onresult = (e) => { for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) heard += e.results[i][0].transcript.trim() + ' '; };
+      speech.onerror = (e) => D('speech error', e.error);
+      speech.onend = () => { if (recorder && speech) { try { speech.start(); } catch (_) { /* already running */ } } };
+    } catch (e) { speech = null; D('speech unavailable', e && e.message); } }
+  const speechDone = () => { const sp = speech; speech = null; if (!sp) return; try { sp.stop(); } catch (_) { /* not started */ }
+    setTimeout(() => { const text = heard.trim(); D('speech text', text.length + ' chars'); if (!text) return;
+      const ta = $('textarea', card); if (!ta || ta.disabled) return;
+      ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' : '') + '🎙 ' + text;
+      ta.dispatchEvent(new Event('input', { bubbles: true })); st.textContent = '🎙 The words of the voice note were added to the comment — check and correct them if needed. The recording is kept too.'; }, 900); };
+  const tick = setInterval(() => { const s = Math.round((Date.now() - t0) / 1000); btn.textContent = `⏹ Stop ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} ${ac ? '▮'.repeat(Math.min(5, Math.round(level * 60))).padEnd(5, '▯') : ''}`; if (s >= 300) recorder.stop(); }, 500);
+  recorder.onerror = (ev) => { st.textContent = '❌ The recording failed: ' + String(ev.error && (ev.error.name + ' ' + ev.error.message) || 'error'); };
+  recorder.onstop = () => { try { ac && ac.close(); } catch (e) { /* ignore */ } speechDone();
+    card.dataset.quiet = (ac && peak < 0.02) ? '1' : '';
+    D('recorded peak', peak.toFixed(3)); D('recorded', parts.length + ' parts, ' + parts.reduce((n, p) => n + p.size, 0) + ' bytes');
+    if (!parts.length || !parts.reduce((n, p) => n + p.size, 0)) { clearInterval(tick); stream.getTracks().forEach((t) => t.stop()); recorder = null; btn.classList.remove('rec'); btn.textContent = '🎙 Record a voice note';
+      st.textContent = '❌ The recording is empty — the browser did not record any sound. Try again or use “🎧 Upload a voice note”.'; return; } clearInterval(tick); stream.getTracks().forEach((t) => t.stop()); recorder = null; btn.classList.remove('rec'); btn.textContent = '🎙 Record a voice note';
+    enqueue(it, card, [[new Blob(parts, { type: type.split(';')[0] || 'audio/webm' }), 'audio']]); };
+  recorder.start();   /* one blob at stop (iOS Safari mp4 fragments from time-slicing are unreliable) */
+  if (speech) { try { speech.start(); D('speech on', speech.lang); } catch (e) { D('speech not started', e && e.message); speech = null; } } btn.classList.add('rec'); btn.textContent = '⏹ Stop 0:00';
+}
+function wireAttach(card, it) {
+  const drop = $('.drop', card); if (!drop) return;
+  const take = (files) => {
+    const ok = [];
+    for (const f of files) { const k = f.type.startsWith('image/') ? 'image' : (f.type.startsWith('audio/') || /\.(ogg|opus|m4a|mp3|wav|aac|amr|webm)$/i.test(f.name)) ? 'audio' : null;
+      if (k) ok.push([f, k]); else $('.astatus', card).textContent = 'Only an image or an audio file can be attached.'; }
+    if (ok.length) enqueue(it, card, ok);
+  };
+  drop.querySelectorAll('input[type=file]').forEach((inp) => inp.addEventListener('change', () => { D('file picked', [...inp.files].map((f) => f.name + ' ' + f.type + ' ' + f.size).join('; ')); take([...inp.files]); inp.value = ''; }));
+  const mic = $('button.micbtn', card); if (mic) mic.addEventListener('click', (e) => toggleRecord(it, card, e.currentTarget));
+  for (const ev of ['dragenter', 'dragover']) card.addEventListener(ev, (e) => { if (e.dataTransfer?.types?.includes('Files')) { e.preventDefault(); drop.classList.add('over'); } });
+  card.addEventListener('dragleave', (e) => { if (!card.contains(e.relatedTarget)) drop.classList.remove('over'); });
+  card.addEventListener('drop', (e) => { if (!e.dataTransfer?.files?.length) return; e.preventDefault(); drop.classList.remove('over'); take([...e.dataTransfer.files]); });
+  $('textarea', card).addEventListener('paste', (e) => { const fs = [...(e.clipboardData?.files || [])].filter((f) => f.type.startsWith('image/')); if (fs.length) { e.preventDefault(); take(fs); } });
+  renderAttachments(it.id);
+}
+$('#lb').addEventListener('click', () => $('#lb').classList.remove('on'));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('#lb').classList.remove('on'); });
+
+async function boot() {
+  try { items = (await (await fetch('items.json')).json()).items; }
+  catch (e) { warn('The list of posts could not be loaded.'); return; }
+  render();
+  const timer = setTimeout(() => warn('The decisions are not loading. Sign in to Claude (claude.ai) with the address the link was sent to and refresh the page.'), 10000);
+  if (window.REVIEW_BACKEND) { clearTimeout(timer); const be = await window.REVIEW_BACKEND(); db = be.db; user = be.user; if (be.msg) { warn(be.msg); render(); return; } }
+  else { db = window.claude ? await claude.use('db') : null; user = window.claude ? await claude.use('user') : null; }
+  if (!db || !user) { clearTimeout(timer); warn('To save decisions, sign in to Claude (claude.ai) with the address the link was sent to and open the page again. You can view it without signing in.'); render(); return; }
+  try {
+    if ((await user.can('data.write')) === false) {
+      warn('You have view-only access, so the buttons here do not save. Please write your decisions in the Google Sheet linked below (or reply to the e-mail).');
+      db = null; render(); return;
+    }
+    me = await user.id();
+    const p = await user.me();
+    $('#who').textContent = p?.name ? `Reviewer: ${p.name}` : '';
+  } catch (e) { me = null; }
+  let first = true;
+  db.collection('reviews').onSnapshot((snap) => {
+    clearTimeout(timer); warn('');
+    const next = {};
+    (snap.docs || snap).forEach((d) => { const x = d.data ? d.data() : d; if (x?.piece && x?.uid) next[key(x.piece, x.uid)] = x; });
+    // keep my own unsaved local edits
+    for (const [k, v] of Object.entries(reviews)) if (v.uid === me && !next[k]) next[k] = v;
+    reviews = next;
+    if (first) { first = false; render(); } else { renderOthers(); progress(); }
+  }, () => { clearTimeout(timer); warn('The decisions could not be loaded. Refresh the page.'); });
+  db.collection('attachments').onSnapshot(async (snap) => {
+    const next = {};
+    (snap.docs || snap).forEach((d) => { const x = d.data ? d.data() : d; const id = x?.id || d.id; if (x?.piece && x?.uid && id) next[id] = x; });
+    const pieces = new Set([...Object.values(atts), ...Object.values(next)].map((m) => m.piece));
+    atts = next;
+    const uids = [...new Set(Object.values(next).map((m) => m.uid))].filter((u) => u !== me && !names[u]);
+    if (uids.length && user) { try { const ps = await user.profiles(uids); for (const u of uids) names[u] = ps[u]?.name || names[u]; } catch (e) { /* names are optional */ } }
+    pieces.forEach(renderAttachments);
+  }, () => { /* attachments are optional; text notes still work */ });
+}
+boot();
+</script>
+</body>
+</html>
