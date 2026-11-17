@@ -163,8 +163,8 @@
    "caption": "Just landed in China — where's your hotel address? Many people end up scrolling old emails to find it. And the hotel's name is not its address in Chinese. So make a hotel card: Chinese name, address and phone. Save it on your phone, and print a copy too. There's a free airport-to-hotel example on our site that helps you make one.\n\nWe're LetsChina. We help first-timers get ready for China. Do you have yours yet? Tell us in the comments 👇\n#chinatravel #firsttimeinchina #chinatips #travelhack #hotel",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-21-a.mp4",
    "ai": true,
-   "status": "scheduled",
-   "buffer_id": "6afc9b677ab2c2731e0911a8"
+   "status": "planned",
+   "buffer_id": null
   },
   {
    "id": "2026-11-21-a",
@@ -185,8 +185,8 @@
    "caption": "Going to China for the food? Your phone might not have internet when you land, and many of your usual sites and apps may not open. So save your food list offline before you fly. Info as of Nov 16, 2026 — check official sources before you go.\n\nWe're LetsChina. We help first-timers get ready for China. Save this for your food trip 🍜\n#chinatravel #chinesefood #foodtravel #firsttimeinchina #chinatips",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-21-c.mp4",
    "ai": true,
-   "status": "scheduled",
-   "buffer_id": "6afc9b675689ca43c10e9efd"
+   "status": "planned",
+   "buffer_id": null
   },
   {
    "id": "2026-11-21-b",
@@ -229,8 +229,8 @@
    "caption": "Sending your dad to China? He'll want to show the driver his hotel address in Chinese. If his phone dies, the screenshot goes with it. So give him both: saved on his phone, and printed on paper. Make the text big, so it's easy to read.\n\nWe're LetsChina. We help first-timers get ready for China. Which one does your dad have now? Tell us below 👇\n#chinatravel #travelwithparents #firsttimeinchina #chinatips #seniortravel",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-22-a.mp4",
    "ai": true,
-   "status": "scheduled",
-   "buffer_id": "6afc9b69d4c8ef4106f511c1"
+   "status": "planned",
+   "buffer_id": null
   },
   {
    "id": "2026-11-22-b",
@@ -251,30 +251,30 @@
    "caption": "Parents going to China without a tour? Many think parents can only see China on a tour. Without one, nobody fills in the forms for them — but the arrival card can be filled in online before they fly. Do it together, and confirm on the official site. Entry info as of Nov 16, 2026. Not visa or legal advice.\n\nWe're LetsChina. We help first-timers get ready for China. Save this for your parents' trip.\n#chinatravel #travelwithparents #firsttimeinchina #chinatips #seniortravel",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-22-b.mp4",
    "ai": true,
-   "status": "scheduled",
-   "buffer_id": "6afc9b6a1521a8d02293db30"
+   "status": "planned",
+   "buffer_id": null
   },
   {
    "id": "2026-11-23-a",
-   "due_utc": "2026-11-23T17:00:00Z",
+   "due_utc": "2026-11-17T21:30:00Z",
    "platform": "tiktok",
    "channel_id": "6afbeb0fece6dfde5ff26625",
    "caption": "Your phone dies in China — what still works? If everything's on your phone, that's one weak spot: one dead battery, and you can't show where you're staying. So keep paper backups. First, a printed hotel card (hotel name, address and phone in Chinese). Second, your travel papers together in one folder.\n\nWe're LetsChina. We help first-timers get ready for China. Save this for your winter trip.\n#chinatravel #firsttimeinchina #wintertravel #chinatips #travelchecklist",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-23-a.mp4",
    "ai": true,
-   "status": "planned",
-   "buffer_id": null
+   "status": "scheduled",
+   "buffer_id": "6afcbc7eb3721c6a00c86305"
   },
   {
    "id": "2026-11-23-a",
-   "due_utc": "2026-11-23T17:00:00Z",
+   "due_utc": "2026-11-17T21:30:00Z",
    "platform": "instagram",
    "channel_id": "6afbeac8ece6dfde5ff264ac",
    "caption": "Your phone dies in China — what still works? If everything's on your phone, that's one weak spot: one dead battery, and you can't show where you're staying. So keep paper backups. First, a printed hotel card (hotel name, address and phone in Chinese). Second, your travel papers together in one folder.\n\nWe're LetsChina. We help first-timers get ready for China. Save this for your winter trip.\n#chinatravel #firsttimeinchina #wintertravel #chinatips #travelchecklist",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-23-a.mp4",
    "ai": true,
-   "status": "planned",
-   "buffer_id": null
+   "status": "scheduled",
+   "buffer_id": "6afcbc7eea84dfa925451e53"
   },
   {
    "id": "2026-11-23-c",
@@ -289,25 +289,25 @@
   },
   {
    "id": "2026-11-23-b",
-   "due_utc": "2026-11-24T00:00:00Z",
+   "due_utc": "2026-11-18T00:00:00Z",
    "platform": "tiktok",
    "channel_id": "6afbeb0fece6dfde5ff26625",
    "caption": "Your parents are in China, texting you at night: what do we show the driver? And you're typing the hotel address again, half asleep. Fix it before they fly: the hotel address in Chinese, saved on their phone. Then they can show it to the driver themselves.\n\nWe're LetsChina. We help first-timers get ready for China. Follow for more China prep for your parents.\n#chinatravel #travelwithparents #firsttimeinchina #chinatips #familytravel",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-23-b.mp4",
    "ai": true,
-   "status": "planned",
-   "buffer_id": null
+   "status": "scheduled",
+   "buffer_id": "6afcbc7f7acfe506d927ca6a"
   },
   {
    "id": "2026-11-23-b",
-   "due_utc": "2026-11-24T00:00:00Z",
+   "due_utc": "2026-11-18T00:00:00Z",
    "platform": "instagram",
    "channel_id": "6afbeac8ece6dfde5ff264ac",
    "caption": "Your parents are in China, texting you at night: what do we show the driver? And you're typing the hotel address again, half asleep. Fix it before they fly: the hotel address in Chinese, saved on their phone. Then they can show it to the driver themselves.\n\nWe're LetsChina. We help first-timers get ready for China. Follow for more China prep for your parents.\n#chinatravel #travelwithparents #firsttimeinchina #chinatips #familytravel",
    "video_url": "https://tolegennuraydn-ctrl.github.io/client-pages/letschina-c84c4d57d714/posting/2026-11-18/2026-11-23-b.mp4",
    "ai": true,
-   "status": "planned",
-   "buffer_id": null
+   "status": "scheduled",
+   "buffer_id": "6afcbc8033c71271f8ca20c1"
   }
  ]
 }
