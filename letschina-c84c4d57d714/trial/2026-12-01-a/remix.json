@@ -1,0 +1,45 @@
+{
+ "source": "clients/letschina/months/2026-12/produced/2026-12-01-a.mp4",
+ "duration": 25.0,
+ "versions": [
+  {
+   "n": 1,
+   "kind": "hook_first",
+   "a": 6.94,
+   "b": 10.1,
+   "name": "B-problem-first",
+   "file": "v01-hook_first.mp4",
+   "problems": [],
+   "made": true
+  },
+  {
+   "n": 2,
+   "kind": "trim",
+   "a": 2.74,
+   "b": 25.01,
+   "name": "C-starts-on-the-fact",
+   "file": "v02-trim.mp4",
+   "problems": [],
+   "made": true
+  },
+  {
+   "n": 3,
+   "kind": "framed",
+   "bg": "blur",
+   "name": "D-framed",
+   "file": "v03-framed.mp4",
+   "problems": [],
+   "made": true
+  },
+  {
+   "n": 4,
+   "kind": "framed",
+   "bg": "#E63946",
+   "name": "E-red-frame",
+   "file": "v04-framed.mp4",
+   "problems": [],
+   "made": true
+  }
+ ],
+ "ok": true
+}
