@@ -25,6 +25,11 @@
   .item { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; font-size:14px; line-height:1.45; }
   .item .top { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; color:var(--mut); font-size:13px; }
   .item b.t { font-size:15px; } .item pre { white-space:pre-wrap; font:inherit; margin:6px 0 0; } .item .st { margin-top:6px; font-weight:700; color:var(--g); }
+  .same { display:flex; gap:10px; align-items:flex-start; font-weight:600; border:1px solid var(--line); border-radius:10px; padding:10px 12px; cursor:pointer; margin-top:16px; }
+  .same input { width:20px; height:20px; margin:0; flex:none; }
+  .item .pics { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; } .item .pics img { width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid var(--line); }
+  .item .pics span { width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:8px; border:1px solid var(--line); font-size:12px; color:var(--mut); text-align:center; }
+  .item .st.warn { color:#B5452F; } .del { font:inherit; font-size:13px; font-weight:700; border:1px solid #E3B9AE; background:#fff; color:#B5452F; border-radius:8px; padding:6px 12px; cursor:pointer; margin-top:8px; }
   .ver { font-size:11px; color:var(--mut); text-align:right; margin-top:20px; }
 </style><script>
 window.REVIEW_CLIENT='goldberry';
@@ -85,12 +90,13 @@ window.REVIEW_CLIENT='goldberry';
     <input type="text" id="price" inputmode="numeric" placeholder="например, 1 250 000" required>
     <label for="desc">Описание</label>
     <textarea id="desc" placeholder="Металл, проба, камни, караты, размер, артикул — всё, что важно знать об украшении" required></textarea>
+    <label class="same"><input type="checkbox" id="same"> На всех фото и видео — одно и то же украшение</label>
     <div class="row" style="margin-top:16px"><button class="btn" type="submit">Сохранить украшение</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
   <h3>Загруженные украшения</h3>
   <div id="list"><div class="item">Загружаю список…</div></div>
-  <div class="ver">Версия 21.11 16:42 UTC</div>
+  <div class="ver">Версия 21.11 16:46 UTC</div>
 </main>
 <script>
 window.CATALOG_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=goldberry"};
@@ -126,6 +132,19 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     document.getElementById('fileinfo').textContent = !fs.length ? '' : fs.length > MAX ? `Выбрано ${fs.length} — можно не больше ${MAX}. Выберите заново` :
       `Выбрано: ${fs.length} из ${MAX}` + (vids.length ? ` (видео: ${vids.map((f) => f.name).join(', ')})` : '') + (big.length ? ` · слишком большие (больше 30 МБ): ${big.map((f) => f.name).join(', ')}` : '');
   });
+  async function thumb(f) {   // small picture made on the device (photo, or a frame of the video) — kept with the record
+    const W = 160, draw = (src, w, h) => { const c = document.createElement('canvas'), k = Math.min(1, W / Math.max(w, h));
+      c.width = Math.round(w * k); c.height = Math.round(h * k); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); return c.toDataURL('image/jpeg', 0.6); };
+    try {
+      if (f.type.startsWith('image/')) { const b = await createImageBitmap(f); return draw(b, b.width, b.height); }
+      if (f.type.startsWith('video/')) return await new Promise((ok) => { const v = document.createElement('video'), u = URL.createObjectURL(f);
+        v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = u; const done = (x) => { URL.revokeObjectURL(u); ok(x); };
+        v.onloadeddata = () => { v.currentTime = Math.min(0.5, (v.duration || 1) / 2); };
+        v.onseeked = () => { try { done(draw(v, v.videoWidth, v.videoHeight)); } catch (e) { done(''); } };
+        v.onerror = () => done(''); setTimeout(() => done(''), 8000); });
+    } catch (e) { /* a format this browser cannot draw (e.g. HEIC on a computer): no picture, the file itself is saved */ }
+    return '';
+  }
   const b64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(blob); });
   const slug = { 'Кольцо': 'ring', 'Серьги': 'earrings', 'Подвеска': 'pendant', 'Колье': 'necklace', 'Браслет': 'bracelet', 'Цепь': 'chain', 'Запонки': 'cufflinks', 'Драгоценный камень (без оправы)': 'gemstone', 'Другое': 'other' };
   document.getElementById('f').addEventListener('submit', async (e) => {
@@ -135,6 +154,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     if (!files.length) { msg.className = 'msg err'; msg.textContent = 'Добавьте хотя бы одно фото или видео'; return; }
     if (files.length > MAX) { msg.className = 'msg err'; msg.textContent = `Можно не больше ${MAX} файлов на одно украшение`; return; }
     if (files.some((f) => !/^(image|video)\//.test(f.type || 'image/'))) { msg.className = 'msg err'; msg.textContent = 'Подходят только фото и видео'; return; }
+    if (!document.getElementById('same').checked) { msg.className = 'msg err'; msg.textContent = 'Отметьте, что на всех файлах одно и то же украшение. Разные украшения загружайте отдельно'; return; }
     if (files.some((f) => f.size > 30e6)) { msg.className = 'msg err'; msg.textContent = 'Файл больше 30 МБ — уменьшите его или снимите короче'; return; }
     await ready; btn.disabled = true; msg.className = 'msg';
     const id = 'item-' + (slug[type] || 'other') + '-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
@@ -144,12 +164,12 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
         msg.textContent = `Загружаю файл ${n + 1} из ${files.length}…`;
         const mime = (f.type || 'image/jpeg').split(';')[0];
         const fileId = (await call({ op: 'file', piece: id, kind: 'image', mime, num: ++n, who: name, data: await b64(f) })).fileId;
-        att.push({ fileId, mime, name: f.name || `photo-${n}` });
+        att.push({ fileId, mime, name: f.name || `photo-${n}`, thumb: await thumb(f) });
       }
       msg.textContent = 'Сохраняю описание…';
-      await call({ op: 'set', path: 'submissions/catalog-' + id, data: { id, type, price, description: desc, files: att, uid, who: name, created: new Date().toISOString() } });
+      await call({ op: 'set', path: 'submissions/catalog-' + id, data: { id, type, price, description: desc, files: att, same_piece: true, uid, who: name, created: new Date().toISOString() } });
       msg.className = 'msg ok'; msg.textContent = `Сохранено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — можно добавлять следующее украшение`;
-      form.reset(); document.getElementById('thumbs').innerHTML = ''; document.getElementById('fileinfo').textContent = '';
+      form.reset(); document.getElementById('same').checked = false; document.getElementById('thumbs').innerHTML = ''; document.getElementById('fileinfo').textContent = '';
       load();
     } catch (err) { msg.className = 'msg err'; msg.textContent = 'Не сохранилось — проверьте интернет и нажмите «Сохранить украшение» ещё раз'; }
     btn.disabled = false;
@@ -160,11 +180,26 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">Список не загрузился — обновите страницу</div>'; return; }
     const st = {}; docs.filter((d) => d.path.startsWith('submissions/catalogstatus-')).forEach((d) => { st[d.data.id] = d.data; });
     const items = docs.filter((d) => d.path.startsWith('submissions/catalog-item-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
-    document.getElementById('list').innerHTML = items.length ? items.map((it) => `<div class="item"><div class="top"><span><b class="t">${esc(it.type)}</b> · ${esc(it.price)} ₸</span>
+    const pic = (f) => f.thumb && /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(f.thumb) ? `<img src="${f.thumb}" alt="">` : `<span>${/^video/.test(f.mime) ? '🎬 видео' : '📷 фото'}</span>`;
+    document.getElementById('list').innerHTML = items.length ? items.map((it) => `<div class="item" data-id="${esc(it.id)}"><div class="top"><span><b class="t">${esc(it.type)}</b> · ${esc(it.price)} ₸</span>
       <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
-      <pre>${esc(it.description)}</pre><div class="files">Файлов: ${(it.files || []).length} (${(it.files || []).filter((f) => /^video/.test(f.mime)).length} видео)</div>
-      <div class="st">${st[it.id] ? esc(st[it.id].text) : 'Сохранено на Google Диске'}</div></div>`).join('') : '<div class="item">Пока ничего не загружено</div>';
+      <div class="pics">${(it.files || []).map(pic).join('')}</div>
+      <pre>${esc(it.description)}</pre>
+      <div class="st${st[it.id] && st[it.id].warn ? ' warn' : ''}">${st[it.id] ? esc(st[it.id].text) : 'Сохранено на Google Диске'}</div>
+      ${it.uid === uid ? '<button type="button" class="del">🗑 Удалить</button>' : ''}</div>`).join('') : '<div class="item">Пока ничего не загружено</div>';
+    window.__items = items;
   }
+  document.getElementById('list').addEventListener('click', async (e) => {   // delete one of your own pieces (photos + record)
+    const b = e.target.closest('.del'); if (!b) return;
+    const box = b.closest('.item'), it = (window.__items || []).find((x) => x.id === box.dataset.id); if (!it) return;
+    if (!confirm(`Удалить украшение «${it.type} · ${it.price} ₸» вместе с его фото и видео?`)) return;
+    b.disabled = true; b.textContent = 'Удаляю…';
+    try {
+      for (const f of it.files || []) { try { await call({ op: 'deletefile', id: f.fileId }); } catch (err) { /* already gone */ } }
+      await call({ op: 'delete', path: 'submissions/catalog-' + it.id });
+      load();
+    } catch (err) { b.disabled = false; b.textContent = '🗑 Удалить'; alert('Не удалилось — попробуйте ещё раз'); }
+  });
   load();
 })();
 </script>
