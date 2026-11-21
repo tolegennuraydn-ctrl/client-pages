@@ -75,8 +75,8 @@ window.REVIEW_CLIENT='goldberry';
 <main>
   <form class="card" id="f" autocomplete="off">
     <h2>Новое украшение</h2>
-    <p class="hint">Одно украшение — одна отправка: до 3 фото или видео этого украшения (каждый файл до 30 МБ).</p>
-    <label>Фото и видео украшения (до 3)</label>
+    <p class="hint">Одно украшение — одна отправка: до 7 фото или видео этого украшения (каждый файл до 30 МБ).</p>
+    <label>Фото и видео украшения (до 7)</label>
     <input type="file" id="photos" accept="image/*,video/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
     <label for="photos" class="btn" style="display:inline-block;margin:0;background:#F1F5FA;color:var(--gd);border:1px solid #B5C7DB">📷 Выбрать фото или видео</label>
     <div class="thumbs" id="thumbs"></div><div class="files" id="fileinfo"></div>
@@ -89,20 +89,20 @@ window.REVIEW_CLIENT='goldberry';
     <label for="price">Цена, ₸</label>
     <input type="text" id="price" inputmode="numeric" placeholder="например, 1 250 000" required>
     <label for="desc">Описание</label>
-    <textarea id="desc" placeholder="Металл, проба, камни, караты, размер, артикул — всё, что важно знать об украшении" required></textarea>
+    <textarea id="desc" maxlength="3000" placeholder="Металл, проба, камни, караты, размер, артикул — всё, что важно знать об украшении" required></textarea>
     <label class="same"><input type="checkbox" id="same"> На всех фото и видео — одно и то же украшение</label>
     <div class="row" style="margin-top:16px"><button class="btn" type="submit">Сохранить украшение</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
   <h3>Загруженные украшения</h3>
   <div id="list"><div class="item">Загружаю список…</div></div>
-  <div class="ver">Версия 21.11 16:46 UTC</div>
+  <div class="ver">Версия 21.11 16:49 UTC</div>
 </main>
 <script>
 window.CATALOG_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=goldberry"};
 document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
 (() => {
-  const C = window.CATALOG_CONFIG, BUCKET = '0001-01', MAX = 3;
+  const C = window.CATALOG_CONFIG, BUCKET = '0001-01', MAX = 7;
   const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   async function call(body) {
     let last;
@@ -133,8 +133,8 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
       `Выбрано: ${fs.length} из ${MAX}` + (vids.length ? ` (видео: ${vids.map((f) => f.name).join(', ')})` : '') + (big.length ? ` · слишком большие (больше 30 МБ): ${big.map((f) => f.name).join(', ')}` : '');
   });
   async function thumb(f) {   // small picture made on the device (photo, or a frame of the video) — kept with the record
-    const W = 160, draw = (src, w, h) => { const c = document.createElement('canvas'), k = Math.min(1, W / Math.max(w, h));
-      c.width = Math.round(w * k); c.height = Math.round(h * k); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); return c.toDataURL('image/jpeg', 0.6); };
+    const W = 96, draw = (src, w, h) => { const c = document.createElement('canvas'), k = Math.min(1, W / Math.max(w, h));
+      c.width = Math.round(w * k); c.height = Math.round(h * k); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); return c.toDataURL('image/jpeg', 0.5); };
     try {
       if (f.type.startsWith('image/')) { const b = await createImageBitmap(f); return draw(b, b.width, b.height); }
       if (f.type.startsWith('video/')) return await new Promise((ok) => { const v = document.createElement('video'), u = URL.createObjectURL(f);
@@ -145,6 +145,8 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     } catch (e) { /* a format this browser cannot draw (e.g. HEIC on a computer): no picture, the file itself is saved */ }
     return '';
   }
+  let busy = false;
+  window.addEventListener('beforeunload', (e) => { if (busy) { e.preventDefault(); e.returnValue = ''; } });   // closing the page mid-upload
   const b64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(blob); });
   const slug = { 'Кольцо': 'ring', 'Серьги': 'earrings', 'Подвеска': 'pendant', 'Колье': 'necklace', 'Браслет': 'bracelet', 'Цепь': 'chain', 'Запонки': 'cufflinks', 'Драгоценный камень (без оправы)': 'gemstone', 'Другое': 'other' };
   document.getElementById('f').addEventListener('submit', async (e) => {
@@ -158,20 +160,37 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     if (files.some((f) => f.size > 30e6)) { msg.className = 'msg err'; msg.textContent = 'Файл больше 30 МБ — уменьшите его или снимите короче'; return; }
     await ready; btn.disabled = true; msg.className = 'msg';
     const id = 'item-' + (slug[type] || 'other') + '-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
+    // A piece is saved whole or not at all (Nur, 21 Nov 2026: «make sure it never gets lost or mixed»): every file goes into this piece's
+    // own folder (its unique id); the record lists exactly these files; it is read back before «Сохранено»; on any failure the files
+    // already sent are removed again and the form stays filled, so pressing the button again repeats the whole piece.
+    const att = []; let n = 0; busy = true;
     try {
-      const att = []; let n = 0;
       for (const f of files) {
         msg.textContent = `Загружаю файл ${n + 1} из ${files.length}…`;
         const mime = (f.type || 'image/jpeg').split(';')[0];
         const fileId = (await call({ op: 'file', piece: id, kind: 'image', mime, num: ++n, who: name, data: await b64(f) })).fileId;
-        att.push({ fileId, mime, name: f.name || `photo-${n}`, thumb: await thumb(f) });
+        if (!fileId) throw new Error('no file id');
+        att.push({ fileId, mime, size: f.size, name: f.name || `file-${n}`, thumb: await thumb(f) });
       }
       msg.textContent = 'Сохраняю описание…';
-      await call({ op: 'set', path: 'submissions/catalog-' + id, data: { id, type, price, description: desc, files: att, same_piece: true, uid, who: name, created: new Date().toISOString() } });
+      const doc = { id, type, price, description: desc, files: att, count: att.length, same_piece: true, uid, who: name, created: new Date().toISOString() };
+      for (let k = att.length - 1; JSON.stringify(doc).length > 40000 && k >= 0; k--) att[k].thumb = '';   // the record must fit one cell
+      await call({ op: 'set', path: 'submissions/catalog-' + id, data: doc });
+      msg.textContent = 'Проверяю, что всё сохранилось…';
+      const back = (await call({ op: 'list' })).docs.find((d) => d.path === 'submissions/catalog-' + id);
+      const ids = back && (back.data.files || []).map((x) => x.fileId).join(',');
+      if (!back || ids !== att.map((x) => x.fileId).join(',')) throw new Error('read-back');
+      busy = false;
       msg.className = 'msg ok'; msg.textContent = `Сохранено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — можно добавлять следующее украшение`;
       form.reset(); document.getElementById('same').checked = false; document.getElementById('thumbs').innerHTML = ''; document.getElementById('fileinfo').textContent = '';
       load();
-    } catch (err) { msg.className = 'msg err'; msg.textContent = 'Не сохранилось — проверьте интернет и нажмите «Сохранить украшение» ещё раз'; }
+    } catch (err) {
+      msg.textContent = 'Не сохранилось — убираю то, что успело загрузиться…';
+      for (const a of att) { try { await call({ op: 'deletefile', id: a.fileId }); } catch (e) { /* already gone */ } }
+      try { await call({ op: 'delete', path: 'submissions/catalog-' + id }); } catch (e) { /* the record was never written */ }
+      busy = false;
+      msg.className = 'msg err'; msg.textContent = 'Не сохранилось — ничего не потеряно, всё осталось в форме. Проверьте интернет и нажмите «Сохранить украшение» ещё раз';
+    }
     btn.disabled = false;
   });
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
