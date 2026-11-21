@@ -98,32 +98,11 @@ window.REVIEW_CLIENT='diamond-beauty-atx';
     <div class="row" style="margin-top:14px"><button class="btn" type="submit">Отправить референс</button></div>
     <div class="msg" aria-live="polite"></div>
   </form>
-
-  <form class="card" id="fPrompt" autocomplete="off">
-    <h2>✨ Задание для ИИ (промпт)</h2>
-    <p class="hint">Вставьте или напишите промпт для видео или поста. Факты, цены и обещания берём только из базы знаний Diamond Beauty ATX —
-      если в задании есть новый факт, мы сначала уточним его у Nur.</p>
-    <label for="pText">Промпт / задание</label>
-    <textarea id="pText" style="min-height:150px" placeholder="" required></textarea>
-    <label for="pFormat">Формат</label>
-    <select id="pFormat"><option>Reels (видео)</option><option>Пост (картинка)</option><option>Карусель</option><option>Сторис</option></select>
-    <label>Файл-пример (по желанию)</label>
-    <input type="file" id="pFile" accept="video/*,image/*" multiple>
-    <label>Голосовое пояснение (по желанию)</label>
-    <div class="row"><button type="button" class="btn sec" data-rec="p">🎙 Записать голосовое</button><span class="meter"><i></i></span><span class="recinfo"></span></div>
-    <label>Когда сделать</label>
-    <div class="choice">
-      <label><input type="radio" name="when" value="next_month" checked><span>1 — В контент-план следующего месяца<small>войдёт в план <b class="nm"></b></small></span></label>
-      <label><input type="radio" name="when" value="asap"><span>2 — Как можно скорее<small>берём в работу в тот же день (проверяем каждое утро); готовый вариант появится на странице проверки контента</small></span></label>
-    </div>
-    <div class="row" style="margin-top:14px"><button class="btn" type="submit">Отправить задание</button></div>
-    <div class="msg" aria-live="polite"></div>
-  </form>
 </div>
 
 <h3>Ваши отправленные идеи и задания</h3>
 <div id="list"><div class="item">Загружаю…</div></div>
-<div class="ver">версия 16.11 18:46 UTC</div>
+<div class="ver">версия 21.11 17:09 UTC</div>
 </main>
 <script>
 window.IDEAS_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=diamond-beauty-atx"};
@@ -217,7 +196,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   document.getElementById('fRef').addEventListener('submit', (e) => { e.preventDefault();
     submit(e.target, { kind: 'reference', link: document.getElementById('rLink').value.trim(), note: document.getElementById('rNote').value.trim(),
       when: 'next_month', for_month: document.getElementById('rMonth').value }, document.getElementById('rFile').files, 'r'); });
-  document.getElementById('fPrompt').addEventListener('submit', (e) => { e.preventDefault();
+  document.getElementById('fPrompt')?.addEventListener('submit', (e) => { e.preventDefault();
     const when = e.target.querySelector('input[name=when]:checked').value;
     submit(e.target, { kind: 'prompt', prompt: document.getElementById('pText').value.trim(), format: document.getElementById('pFormat').value,
       when, for_month: when === 'asap' ? ym(now) : next[0] }, document.getElementById('pFile').files, 'p'); });
