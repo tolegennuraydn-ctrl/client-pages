@@ -70,8 +70,8 @@ window.REVIEW_CLIENT='goldberry';
 <main>
   <form class="card" id="f" autocomplete="off">
     <h2>Новое украшение</h2>
-    <p class="hint">Одно украшение — одна отправка. Можно несколько фото и видео одного украшения.</p>
-    <label>Фото и видео украшения</label>
+    <p class="hint">Одно украшение — одна отправка: до 3 фото или видео этого украшения (каждый файл до 30 МБ).</p>
+    <label>Фото и видео украшения (до 3)</label>
     <input type="file" id="photos" accept="image/*,video/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
     <label for="photos" class="btn" style="display:inline-block;margin:0;background:#F1F5FA;color:var(--gd);border:1px solid #B5C7DB">📷 Выбрать фото или видео</label>
     <div class="thumbs" id="thumbs"></div><div class="files" id="fileinfo"></div>
@@ -90,13 +90,13 @@ window.REVIEW_CLIENT='goldberry';
   </form>
   <h3>Загруженные украшения</h3>
   <div id="list"><div class="item">Загружаю список…</div></div>
-  <div class="ver">Версия 21.11 16:32 UTC</div>
+  <div class="ver">Версия 21.11 16:42 UTC</div>
 </main>
 <script>
 window.CATALOG_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=goldberry"};
 document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
 (() => {
-  const C = window.CATALOG_CONFIG, BUCKET = '0001-01';
+  const C = window.CATALOG_CONFIG, BUCKET = '0001-01', MAX = 3;
   const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   async function call(body) {
     let last;
@@ -121,8 +121,10 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
   photos.addEventListener('change', () => {
     const fs = [...photos.files]; document.getElementById('thumbs').innerHTML = '';
     fs.filter((f) => f.type.startsWith('image/')).forEach((f) => { const i = document.createElement('img'); i.src = URL.createObjectURL(f); i.alt = ''; document.getElementById('thumbs').appendChild(i); });
-    const big = fs.filter((f) => f.size > 30e6);
-    document.getElementById('fileinfo').textContent = fs.length ? `Выбрано файлов: ${fs.length}` + (big.length ? ` · слишком большие (больше 30 МБ): ${big.map((f) => f.name).join(', ')}` : '') : '';
+    const big = fs.filter((f) => f.size > 30e6), vids = fs.filter((f) => f.type.startsWith('video/'));
+    document.getElementById('fileinfo').className = 'files' + (fs.length > MAX || big.length ? ' err' : '');
+    document.getElementById('fileinfo').textContent = !fs.length ? '' : fs.length > MAX ? `Выбрано ${fs.length} — можно не больше ${MAX}. Выберите заново` :
+      `Выбрано: ${fs.length} из ${MAX}` + (vids.length ? ` (видео: ${vids.map((f) => f.name).join(', ')})` : '') + (big.length ? ` · слишком большие (больше 30 МБ): ${big.map((f) => f.name).join(', ')}` : '');
   });
   const b64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(blob); });
   const slug = { 'Кольцо': 'ring', 'Серьги': 'earrings', 'Подвеска': 'pendant', 'Колье': 'necklace', 'Браслет': 'bracelet', 'Цепь': 'chain', 'Запонки': 'cufflinks', 'Драгоценный камень (без оправы)': 'gemstone', 'Другое': 'other' };
@@ -130,14 +132,16 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     e.preventDefault();
     const form = e.target, msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]');
     const files = [...photos.files], type = document.getElementById('type').value, price = document.getElementById('price').value.trim(), desc = document.getElementById('desc').value.trim();
-    if (!files.length) { msg.className = 'msg err'; msg.textContent = 'Добавьте хотя бы одно фото'; return; }
+    if (!files.length) { msg.className = 'msg err'; msg.textContent = 'Добавьте хотя бы одно фото или видео'; return; }
+    if (files.length > MAX) { msg.className = 'msg err'; msg.textContent = `Можно не больше ${MAX} файлов на одно украшение`; return; }
+    if (files.some((f) => !/^(image|video)\//.test(f.type || 'image/'))) { msg.className = 'msg err'; msg.textContent = 'Подходят только фото и видео'; return; }
     if (files.some((f) => f.size > 30e6)) { msg.className = 'msg err'; msg.textContent = 'Файл больше 30 МБ — уменьшите его или снимите короче'; return; }
     await ready; btn.disabled = true; msg.className = 'msg';
     const id = 'item-' + (slug[type] || 'other') + '-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
     try {
       const att = []; let n = 0;
       for (const f of files) {
-        msg.textContent = `Загружаю фото ${n + 1} из ${files.length}…`;
+        msg.textContent = `Загружаю файл ${n + 1} из ${files.length}…`;
         const mime = (f.type || 'image/jpeg').split(';')[0];
         const fileId = (await call({ op: 'file', piece: id, kind: 'image', mime, num: ++n, who: name, data: await b64(f) })).fileId;
         att.push({ fileId, mime, name: f.name || `photo-${n}` });
@@ -158,7 +162,7 @@ document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.sea
     const items = docs.filter((d) => d.path.startsWith('submissions/catalog-item-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
     document.getElementById('list').innerHTML = items.length ? items.map((it) => `<div class="item"><div class="top"><span><b class="t">${esc(it.type)}</b> · ${esc(it.price)} ₸</span>
       <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
-      <pre>${esc(it.description)}</pre><div class="files">Фото и видео: ${(it.files || []).length}</div>
+      <pre>${esc(it.description)}</pre><div class="files">Файлов: ${(it.files || []).length} (${(it.files || []).filter((f) => /^video/.test(f.mime)).length} видео)</div>
       <div class="st">${st[it.id] ? esc(st[it.id].text) : 'Сохранено на Google Диске'}</div></div>`).join('') : '<div class="item">Пока ничего не загружено</div>';
   }
   load();
