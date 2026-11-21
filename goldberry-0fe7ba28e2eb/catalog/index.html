@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Goldberry · Каталог украшений</title>
+<style>
+  :root { --g:#274C72; --gd:#1D3550; --line:#DCE3D3; --bg:#F3F4F6; --ink:#1C1F1A; --mut:#5d6a55; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); margin:0; }
+  header { background:var(--gd); color:#fff; padding:18px 20px; }
+  header h1 { margin:0; font-size:21px; } header p { margin:6px 0 0; font-size:14px; opacity:.9; line-height:1.45; }
+  header a { color:#fff; font-weight:700; }
+  main { max-width:820px; margin:0 auto; padding:16px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .card h2 { margin:0 0 4px; font-size:18px; } .hint { font-size:13px; color:var(--mut); line-height:1.45; margin:0 0 6px; }
+  label { display:block; font-weight:700; font-size:14px; margin:14px 0 5px; }
+  input[type=text], textarea, select { width:100%; font:inherit; font-size:16px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); }
+  textarea { min-height:110px; resize:vertical; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .btn { font:inherit; font-weight:800; border:0; border-radius:10px; padding:12px 20px; cursor:pointer; background:var(--g); color:#fff; }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .thumbs { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; } .thumbs img { width:84px; height:84px; object-fit:cover; border-radius:8px; border:1px solid var(--line); }
+  .files { font-size:13px; color:var(--mut); margin-top:6px; }
+  .msg { font-size:14px; font-weight:700; margin-top:10px; min-height:20px; } .ok { color:var(--g); } .err { color:#B5452F; }
+  h3 { font-size:17px; margin:22px 0 8px; }
+  .item { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; font-size:14px; line-height:1.45; }
+  .item .top { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; color:var(--mut); font-size:13px; }
+  .item b.t { font-size:15px; } .item pre { white-space:pre-wrap; font:inherit; margin:6px 0 0; } .item .st { margin-top:6px; font-weight:700; color:var(--g); }
+  .ver { font-size:11px; color:var(--mut); text-align:right; margin-top:20px; }
+</style><script>
+window.REVIEW_CLIENT='goldberry';
+// Personal access for every client page (12 Nov 2026). The link a person gets carries their token once (…?t=<token>&r=<id>&name=<Name>).
+// It is kept on this device, taken out of the address bar (so it is not shared with a copied link or a screenshot) and sent with
+// every request as `t`. The web app decides who the writer is from the token alone. No token → the page is view-only.
+// The token arrives as …?t=<token> (personal link) or …#t=<token> (from the entry page where a client types their code — the part
+// after # is never sent to a server). It is kept per client (window.REVIEW_CLIENT), because several clients' sites can share one
+// web address and one browser: one client's login must never be offered to another client's pages.
+(function () {
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: token lives for this tab */ } } };
+  var KEY = window.REVIEW_CLIENT ? 'review_token:' + window.REVIEW_CLIENT : 'review_token';
+  var q = new URLSearchParams(location.search), t = q.get('t'), hash = location.hash || '';
+  var h = /(^#|&)t=([^&]*)/.exec(hash);
+  if (!t && h) { try { t = decodeURIComponent(h[2]); } catch (e) { t = ''; } }
+  if (h) hash = hash.replace(/(^#|&)t=[^&]*/, '$1').replace(/^#&/, '#').replace(/^#$/, '');
+  if (t) {
+    store.set(KEY, t);
+    q.delete('t');
+    var rest = q.toString();
+    try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + hash); } catch (e) { /* keep going */ }
+  }
+  // a client whose people logged in before logins were kept per client (window.REVIEW_LEGACY_TOKEN) keeps working without a new link
+  window.REVIEW_TOKEN = t || store.get(KEY) || (window.REVIEW_LEGACY_TOKEN && KEY !== 'review_token' ? store.get('review_token') : '') || '';
+  if (!window.REVIEW_TOKEN) {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.REVIEW_NO_BANNER) return;   // the review page shows its own view-only notice
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'alert');
+      bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:12px 20px;font:15px system-ui,-apple-system,sans-serif;color:#1C1F1A;text-align:center';
+      bar.textContent = 'Страница открыта только для просмотра. Чтобы сохранять решения и комментарии, откройте её по вашей персональной ссылке.';
+      document.body.insertBefore(bar, document.body.firstChild);
+    });
+  }
+})();
+</script>
+</head>
+<body>
+<header><h1>Goldberry · Каталог украшений</h1>
+<p style="margin:8px 0 0"><a data-home href="../">← На главную</a></p>
+<p>Загрузите фото каждого украшения и укажите тип, цену и описание. Всё сохраняется в папку Goldberry на Google Диске, и мы берём эти данные для публикаций.</p></header>
+<main>
+  <form class="card" id="f" autocomplete="off">
+    <h2>Новое украшение</h2>
+    <p class="hint">Одно украшение — одна отправка. Можно несколько фото и видео одного украшения.</p>
+    <label>Фото и видео украшения</label>
+    <input type="file" id="photos" accept="image/*,video/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+    <label for="photos" class="btn" style="display:inline-block;margin:0;background:#F1F5FA;color:var(--gd);border:1px solid #B5C7DB">📷 Выбрать фото или видео</label>
+    <div class="thumbs" id="thumbs"></div><div class="files" id="fileinfo"></div>
+    <label for="type">Тип украшения</label>
+    <select id="type" required>
+      <option value="" disabled selected>Выберите тип</option>
+      <option>Кольцо</option><option>Серьги</option><option>Подвеска</option><option>Колье</option><option>Браслет</option>
+      <option>Цепь</option><option>Запонки</option><option>Драгоценный камень (без оправы)</option><option>Другое</option>
+    </select>
+    <label for="price">Цена, ₸</label>
+    <input type="text" id="price" inputmode="numeric" placeholder="например, 1 250 000" required>
+    <label for="desc">Описание</label>
+    <textarea id="desc" placeholder="Металл, проба, камни, караты, размер, артикул — всё, что важно знать об украшении" required></textarea>
+    <div class="row" style="margin-top:16px"><button class="btn" type="submit">Сохранить украшение</button></div>
+    <div class="msg" aria-live="polite"></div>
+  </form>
+  <h3>Загруженные украшения</h3>
+  <div id="list"><div class="item">Загружаю список…</div></div>
+  <div class="ver">Версия 21.11 16:32 UTC</div>
+</main>
+<script>
+window.CATALOG_CONFIG = {"url": "https://script.google.com/macros/s/AKfycbyUzqrtHF-O41OPEWDBCD0tivAHQx0eLGtKRWso9kH1TVCG4l80oTvKMBk2AfqdJi73_Q/exec?client=goldberry"};
+document.querySelectorAll('[data-home]').forEach((a) => { a.href += location.search; });
+(() => {
+  const C = window.CATALOG_CONFIG, BUCKET = '0001-01';
+  const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  async function call(body) {
+    let last;
+    for (let t = 0; t < 3; t++) {
+      try { const r = await fetch(C.url, { method: 'POST', body: JSON.stringify({ ...body, t: window.REVIEW_TOKEN, month: BUCKET }) });
+        const j = await r.json(); if (!j.ok) throw new Error(j.error || 'error'); return j; }
+      catch (e) { last = e; await new Promise((ok) => setTimeout(ok, 800 * 2 ** t)); }
+    }
+    throw last;
+  }
+  const q = new URLSearchParams(location.search);
+  const rid = (q.get('r') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
+  let name = q.get('name') || ls.get('review_name'), uid = rid ? 'r_' + rid : (ls.get('review_uid') || 'r_' + Math.random().toString(36).slice(2, 10));
+  ls.set('review_uid', uid); if (name) ls.set('review_name', name);
+  const ready = name ? Promise.resolve() : new Promise((done) => {
+    const bar = document.createElement('div'); bar.style.cssText = 'background:#FFF6DF;border-bottom:1px solid #EBCB7A;padding:14px 20px';
+    bar.innerHTML = '<form style="max-width:720px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label for="nm" style="margin:0">Как вас зовут?</label><input id="nm" style="flex:1;min-width:180px;font-size:16px;padding:10px 12px;border:1px solid #DCE3D3;border-radius:10px" required><button class="btn">Продолжить</button></form>';
+    document.querySelector('header').after(bar);
+    bar.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = bar.querySelector('input').value.trim(); if (!v) return; name = v; ls.set('review_name', v); bar.remove(); done(); });
+  });
+  const photos = document.getElementById('photos');
+  photos.addEventListener('change', () => {
+    const fs = [...photos.files]; document.getElementById('thumbs').innerHTML = '';
+    fs.filter((f) => f.type.startsWith('image/')).forEach((f) => { const i = document.createElement('img'); i.src = URL.createObjectURL(f); i.alt = ''; document.getElementById('thumbs').appendChild(i); });
+    const big = fs.filter((f) => f.size > 30e6);
+    document.getElementById('fileinfo').textContent = fs.length ? `Выбрано файлов: ${fs.length}` + (big.length ? ` · слишком большие (больше 30 МБ): ${big.map((f) => f.name).join(', ')}` : '') : '';
+  });
+  const b64 = (blob) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(blob); });
+  const slug = { 'Кольцо': 'ring', 'Серьги': 'earrings', 'Подвеска': 'pendant', 'Колье': 'necklace', 'Браслет': 'bracelet', 'Цепь': 'chain', 'Запонки': 'cufflinks', 'Драгоценный камень (без оправы)': 'gemstone', 'Другое': 'other' };
+  document.getElementById('f').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target, msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]');
+    const files = [...photos.files], type = document.getElementById('type').value, price = document.getElementById('price').value.trim(), desc = document.getElementById('desc').value.trim();
+    if (!files.length) { msg.className = 'msg err'; msg.textContent = 'Добавьте хотя бы одно фото'; return; }
+    if (files.some((f) => f.size > 30e6)) { msg.className = 'msg err'; msg.textContent = 'Файл больше 30 МБ — уменьшите его или снимите короче'; return; }
+    await ready; btn.disabled = true; msg.className = 'msg';
+    const id = 'item-' + (slug[type] || 'other') + '-' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
+    try {
+      const att = []; let n = 0;
+      for (const f of files) {
+        msg.textContent = `Загружаю фото ${n + 1} из ${files.length}…`;
+        const mime = (f.type || 'image/jpeg').split(';')[0];
+        const fileId = (await call({ op: 'file', piece: id, kind: 'image', mime, num: ++n, who: name, data: await b64(f) })).fileId;
+        att.push({ fileId, mime, name: f.name || `photo-${n}` });
+      }
+      msg.textContent = 'Сохраняю описание…';
+      await call({ op: 'set', path: 'submissions/catalog-' + id, data: { id, type, price, description: desc, files: att, uid, who: name, created: new Date().toISOString() } });
+      msg.className = 'msg ok'; msg.textContent = `Сохранено ✓ ${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} — можно добавлять следующее украшение`;
+      form.reset(); document.getElementById('thumbs').innerHTML = ''; document.getElementById('fileinfo').textContent = '';
+      load();
+    } catch (err) { msg.className = 'msg err'; msg.textContent = 'Не сохранилось — проверьте интернет и нажмите «Сохранить украшение» ещё раз'; }
+    btn.disabled = false;
+  });
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  async function load() {
+    let docs = [];
+    try { docs = (await call({ op: 'list' })).docs; } catch (e) { document.getElementById('list').innerHTML = '<div class="item">Список не загрузился — обновите страницу</div>'; return; }
+    const st = {}; docs.filter((d) => d.path.startsWith('submissions/catalogstatus-')).forEach((d) => { st[d.data.id] = d.data; });
+    const items = docs.filter((d) => d.path.startsWith('submissions/catalog-item-')).map((d) => d.data).sort((a, b) => (b.created || '').localeCompare(a.created || ''));
+    document.getElementById('list').innerHTML = items.length ? items.map((it) => `<div class="item"><div class="top"><span><b class="t">${esc(it.type)}</b> · ${esc(it.price)} ₸</span>
+      <span>${esc(it.who)} · ${esc((it.created || '').slice(0, 16).replace('T', ' '))}</span></div>
+      <pre>${esc(it.description)}</pre><div class="files">Фото и видео: ${(it.files || []).length}</div>
+      <div class="st">${st[it.id] ? esc(st[it.id].text) : 'Сохранено на Google Диске'}</div></div>`).join('') : '<div class="item">Пока ничего не загружено</div>';
+  }
+  load();
+})();
+</script>
+</body></html>
